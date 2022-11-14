@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:05:25 by ekadiri           #+#    #+#             */
-/*   Updated: 2022/11/07 13:54:45 by ekadiri          ###   ########.fr       */
+/*   Updated: 2022/11/09 15:43:30 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ char	*ft_strdup(const char *s1)
 	char	*c;
 
 	c = malloc(ft_strlen(s1) + 1);
-	if (c == NULL)
+	if (!c)
 		return (NULL);
-	ft_strlcpy(c, s1, ft_strlen(s1));
+	ft_strlcpy(c, s1, ft_strlen(s1) + 1);
 	return (c);
 }
