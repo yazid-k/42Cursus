@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/06 17:17:03 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/02/06 17:47:49 by ekadiri          ###   ########.fr       */
+/*   Created: 2023/02/06 17:39:08 by ekadiri           #+#    #+#             */
+/*   Updated: 2023/02/06 17:48:14 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <sys/time.h>
-# include <pthread.h>
-# include <string.h>
+#include "philo.h"
 
-int	parse(int ac, char **av);
-
-#endif
+int	main(int ac, char **av)
+{
+	if (!parse(ac, av))
+		return (0);
+	return (0);
+}
