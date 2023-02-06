@@ -1,5 +1,6 @@
 # 42Cursus
-42 Paris Projects
+42 Paris Projects\
+[![ekadiri's 42 stats](https://badge42.vercel.app/api/v2/clagntgqi00540gjyw2m1qo3y/stats?cursusId=21&coalitionId=48)](https://github.com/JaeSeoKim/badge42)
 
 # Rank 00 :
 
