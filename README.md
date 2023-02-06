@@ -19,5 +19,5 @@ fract-ol : [![ekadiri's 42 fract-ol Score](https://badge42.vercel.app/api/v2/cla
 
 # Rank 03 :
 
-minishell : [![ekadiri's 42 minishell Score](https://badge42.vercel.app/api/v2/clagntgqi00540gjyw2m1qo3y/project/2965188)](https://github.com/JaeSeoKim/badge42)
+minishell : [![ekadiri's 42 minishell Score](https://badge42.vercel.app/api/v2/clagntgqi00540gjyw2m1qo3y/project/2965188)](https://github.com/JaeSeoKim/badge42)\
 philosophers : [![ekadiri's 42 Philosophers Score](https://badge42.vercel.app/api/v2/clagntgqi00540gjyw2m1qo3y/project/2965190)](https://github.com/JaeSeoKim/badge42)
