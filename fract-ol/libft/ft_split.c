@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:05:55 by ekadiri           #+#    #+#             */
-/*   Updated: 2022/11/13 19:33:26 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/02/04 17:56:42 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	get_word(char const *s, char c, char **tab)
 
 	i = 0;
 	j = 0;
-	while (s[i])
+	while (j < word_count(s, c))
 	{
 		while (s[i] == c && s[i])
 			i++;

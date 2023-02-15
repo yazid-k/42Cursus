@@ -6,7 +6,8 @@ SRCS= ft_atoi.c ft_strdup.c ft_bzero.c ft_putendl_fd.c ft_isalnum.c ft_strnstr.c
 		ft_putchar_fd.c ft_strrchr.c ft_strlcpy.c ft_calloc.c\
 		ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c\
 		ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c get_next_line.c\
-		ft_put_addr_fd.c ft_put_base_fd.c ft_printf.c
+		ft_put_addr_fd.c ft_put_base_fd.c ft_printf.c ft_atof.c
+
 
 OBJS=${SRCS:.c=.o}
 
