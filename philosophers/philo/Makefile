@@ -1,4 +1,4 @@
-SRCS=main.c parsing.c
+SRCS=main.c parsing.c utils_1.c utils_2.c actions.c
 CC=cc
 FLAGS=-Wall -Werror -Wextra
 NAME=philo

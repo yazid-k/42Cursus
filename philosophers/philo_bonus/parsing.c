@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:26:22 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/02/06 17:48:45 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/02/13 18:53:11 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	parse(int ac, char **av)
 	if (!is_number(av[1]) || !is_number(av[2])
 		|| !is_number(av[3]) || !is_number(av[4]))
 		return (printf("Numeric arguments needed\n"), 0);
+	if (ft_atoi(av[1]) >= 1024)
+		return (printf("Maximum number of philosophers reached\n"), 0);
 	if (ac == 6)
 	{
 		if (!is_number(av[5]))

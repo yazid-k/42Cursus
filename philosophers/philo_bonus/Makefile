@@ -1,7 +1,7 @@
-SRCS=main.c parsing.c
+SRCS=main.c parsing.c utils.c
 CC=cc
 FLAGS=-Wall -Werror -Wextra
-NAME=philo_bonus
+NAME=philo
 ${NAME} : ${SRCS}
 	${CC} ${FLAGS} -o ${NAME} ${SRCS}
 
