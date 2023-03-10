@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:17:03 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/02/19 20:49:07 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/03/09 01:20:39 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,6 @@ void	free_all(t_rules *rules);
 void	update_fork(t_fork *fork, t_philo *philo);
 
 //Actions
-void	*take_fork(void *arg);
-int		die(t_philo *philo);
-void	eat(t_philo *philo);
-void	*philo_sleep(void *arg);
 void	start(t_rules *rules);
 
 #endif

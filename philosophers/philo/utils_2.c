@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:08:42 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/02/19 20:48:58 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/03/09 03:01:57 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,17 @@ void	free_all(t_rules *rules)
 	i = -1;
 	while (++i < rules->n)
 	{
+
+		if (pthread_join(rules->philo[i].thread, NULL))
+		{
+			printf("Error in thread join\n");
+			return ;
+		}
+		if (!rules->fork[i].available)
+			pthread_mutex_unlock(&rules->fork[i].mutex);
 		pthread_mutex_destroy(&rules->fork[i].mutex);
 		pthread_detach(rules->philo[i].thread);
 	}
 	pthread_mutex_destroy(&rules->print);
 	free(rules);
-}
-
-void	update_fork(t_fork *fork, t_philo *philo)
-{
-	pthread_mutex_lock(&fork->mutex);
-	fork->available = 0;
-	philo->forks++;
-	print_action(*philo, FORK);
-	pthread_mutex_unlock(&fork->mutex);
 }
