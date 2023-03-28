@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   parsing_3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 11:05:25 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/11 16:44:22 by ekadiri          ###   ########.fr       */
+/*   Created: 2023/03/14 18:26:21 by ekadiri           #+#    #+#             */
+/*   Updated: 2023/03/25 15:17:56 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-char	*ft_strdup(const char *s1)
+int	parse(t_cmd *cmd)
 {
-	char	*c;
-
-	if (!s1)
-		return (ft_strdup("(null)"));
-	c = malloc(ft_strlen(s1) + 1);
-	if (!c)
-		return (NULL);
-	ft_strlcpy(c, s1, ft_strlen(s1) + 1);
-	return (c);
+	if (!parse_pipes(cmd))
+		return (0);
+	if (!parse_redirections(cmd))
+		return (0);
+	return (1);
 }

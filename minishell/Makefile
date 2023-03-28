@@ -1,6 +1,7 @@
 LIBFT=libft/libft.a
-SRCS=main.c Parsing/parsing.c Parsing/token_func_1.c Parsing/token_func_2.c Parsing/token_func_3.c Parsing/token_func_4.c \
-		Parsing/cmd_func_1.c Parsing/cmd_func_2.c Parsing/cmd_func_3.c
+SRCS=main.c Parsing/tokenization/token_func_1.c Parsing/tokenization/token_func_2.c Parsing/tokenization/token_func_3.c Parsing/tokenization/token_func_4.c \
+	Parsing/tokenization/cmd_func_1.c Parsing/tokenization/cmd_func_2.c Parsing/tokenization/cmd_func_3.c Parsing/parsing_1.c Parsing/parsing_2.c Parsing/parsing_3.c\
+	Parsing/string_modif.c Parsing/expand/expand_1.c Parsing/expand/init_env.c
 CC=cc
 FLAGS=-Wall -Werror -Wextra
 NAME=minishell
@@ -9,7 +10,7 @@ NAME=minishell
 	${CC} ${FLAGS} $< -o $@
 
 ${NAME} : ${LIBFT} ${SRCS}
-	${CC} ${FLAGS} -o ${NAME} ${SRCS} ${LIBFT}
+	${CC} ${FLAGS} -lreadline  -o ${NAME} ${SRCS} ${LIBFT}
 
 all : ${NAME}
 

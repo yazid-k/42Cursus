@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_func_1.c                                       :+:      :+:    :+:   */
+/*   token_func_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 16:49:46 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/02 17:28:03 by ekadiri          ###   ########.fr       */
+/*   Created: 2023/02/24 14:35:43 by ekadiri           #+#    #+#             */
+/*   Updated: 2023/03/11 14:17:42 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-void	cmdadd_back(t_cmd **lst, t_cmd *new)
+void	tokenadd_back(t_token **lst, t_token *new)
 {
-	t_cmd	*l;
+	t_token	*l;
 
 	if (*lst)
 	{
-		l = cmdlast(*lst);
+		l = tokenlast(*lst);
 		if (l)
 		{
 			l->next = new;
@@ -27,16 +27,16 @@ void	cmdadd_back(t_cmd **lst, t_cmd *new)
 	}
 }
 
-void	cmdadd_front(t_cmd **lst, t_cmd *new)
+void	tokenadd_front(t_token **lst, t_token *new)
 {
 	new->next = *lst;
 	*lst = new;
 }
 
-int	cmdsize(t_cmd *lst)
+int	tokensize(t_token *lst)
 {
 	int		i;
-	t_cmd	*l;
+	t_token	*l;
 
 	i = 0;
 	l = lst;
@@ -48,30 +48,30 @@ int	cmdsize(t_cmd *lst)
 	return (i);
 }
 
-t_cmd	*cmdnew(char *content, t_token *token)
+t_token	*tokennew(char *content, t_type type)
 {
-	t_cmd	*list;
+	t_token	*list;
 
-	list = malloc(sizeof(t_cmd));
+	list = malloc(sizeof(t_token));
 	if (!list)
 		return (NULL);
-	list->cmd = content;
+	list->content = content;
+	list->type = type;
 	list->next = NULL;
 	list->prev = NULL;
-	list->token = token;
 	return (list);
 }
 
-void	cmdclear(t_cmd *lst)
+void	tokenclear(t_token *lst)
 {
-	t_cmd	*tmp;
+	t_token	*tmp;
 
-	lst = cmdfirst(lst);
+	lst = tokenfirst(lst);
 	while (lst)
 	{
 		tmp = lst->next;
-		free(lst->cmd);
-		tokenclear(lst->token);
+		if (lst->content)
+			free(lst->content);
 		free(lst);
 		lst = tmp;
 	}

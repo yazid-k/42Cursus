@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parsing_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:21:41 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/02/26 16:49:59 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/03/25 17:37:23 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,31 +76,13 @@ int	closed_quotes(char *s)
 			c = s[i];
 			closed = 0;
 			i++;
-			while (s[i] != c && s[i])
+			while (s[i] && s[i] != c)
 				i++;
 			if (s[i] == c)
 				closed = 1;
+			else if (!s[i])
+				return (closed);
 		}
-		else
-			i++;
 	}
 	return (closed);
-}
-
-int	count_pipe(char *s)
-{
-	int		i;
-	int		count;
-
-	count = 0;
-	i = -1;
-	while (s[i] == 32 || (s[i] >= 9 && s[i] <= 13))
-		i++;
-	while (s[++i])
-	{
-		skip_quotes(s, &i);
-		if (s[i] == '|')
-			count++;
-	}
-	return (count);
 }

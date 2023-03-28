@@ -6,11 +6,11 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:11:32 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/08 19:22:15 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/03/26 15:06:06 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 t_cmd	*cmdlast(t_cmd *lst)
 {
@@ -44,7 +44,7 @@ char	*get_cmd_str(t_token *token)
 	}
 	while (token)
 	{
-		if (token->content)
+		if (token->content && token->type != END)
 		{
 			tmp = ft_strjoin(str, token->content);
 			free(str);
@@ -87,6 +87,7 @@ void	print_cmd(t_cmd *cmd)
 	{
 		printf("Command %d :\n\t Content %s\n\tToken size : %d\n\n",
 			i++, cmd->cmd, tokensize(cmd->token));
+		print_token(cmd->token);
 		cmd = cmd->next;
 	}
 }

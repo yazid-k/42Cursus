@@ -6,34 +6,11 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:48:20 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/02 16:58:40 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/03/15 15:35:38 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-
-t_type	get_type(char *s)
-{
-	if (ft_strlen(s) == 1)
-	{
-		if (!ft_strncmp(s, ">", 1))
-			return (GREAT);
-		if (!ft_strncmp(s, "<", 1))
-			return (LESS);
-		if (!ft_strncmp(s, "|", 1))
-			return (PIPE);
-	}
-	else if (ft_strlen(s) == 2)
-	{
-		if (!ft_strncmp(s, ">>", 2))
-			return (D_GREAT);
-		if (!ft_strncmp(s, "<<", 2))
-			return (D_LESS);
-		if (!ft_strncmp(s, "||", 2))
-			return (D_PIPE);
-	}
-	return (ARG);
-}
+#include "../../minishell.h"
 
 int	type_is_sep(t_type type)
 {

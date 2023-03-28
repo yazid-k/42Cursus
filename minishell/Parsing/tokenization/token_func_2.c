@@ -6,11 +6,11 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:37:29 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/02/27 16:34:12 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/03/28 19:03:36 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 t_token	*tokenlast(t_token *lst)
 {
@@ -41,17 +41,13 @@ void	print_token(t_token	*token)
 	}
 }
 
-int	get_token_size(char *s)
+int	get_token_size(char *s, int i)
 {
-	static int	i = 0;
 	int			start;
 	int			sep;
 
-	if (i > (int)ft_strlen(s))
-	{
-		i = 0;
-		return (0);
-	}
+	if (!s || i > (int)ft_strlen(s))
+		return (-1);
 	start = i;
 	sep = sep_size(s, &i);
 	if (sep)
