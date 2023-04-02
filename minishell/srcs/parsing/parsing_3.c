@@ -6,11 +6,11 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 18:26:21 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/25 15:17:56 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/01 18:38:55 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int	parse(t_cmd *cmd)
 {

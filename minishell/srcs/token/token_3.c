@@ -1,24 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_func_4.c                                     :+:      :+:    :+:   */
+/*   token_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 16:48:20 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/15 15:35:38 by ekadiri          ###   ########.fr       */
+/*   Created: 2023/03/29 16:46:31 by ekadiri           #+#    #+#             */
+/*   Updated: 2023/04/01 18:34:19 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-int	type_is_sep(t_type type)
-{
-	if (type == PIPE || type == D_PIPE || type == D_GREAT
-		|| type == D_LESS || type == GREAT || type == LESS)
-		return (1);
-	return (0);
-}
 
 void	give_types(t_token *t)
 {
@@ -44,34 +36,4 @@ void	give_types(t_token *t)
 		}
 		t = t->next;
 	}
-}
-
-void	trim_tokens(t_token *token)
-{
-	char	*tmp;
-
-	while (token->next)
-	{
-		if (token->content)
-		{
-			tmp = ft_strtrim(token->content, " \t\r\n\v\f");
-			if (!tmp)
-				return (tokenclear(token));
-			free(token->content);
-			token->content = tmp;
-		}
-		token = token->next;
-	}
-}
-
-t_token	*init_tokens(char *s)
-{
-	t_token	*token;
-
-	token = create_all_tokens(s);
-	if (!token)
-		return (NULL);
-	trim_tokens(token);
-	give_types(token);
-	return (token);
 }

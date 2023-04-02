@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:49:46 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/28 19:14:19 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/01 17:56:54 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ void	cmdadd_back(t_cmd **lst, t_cmd *new)
 			l->next->prev = l;
 		}
 	}
-}
-
-void	cmdadd_front(t_cmd **lst, t_cmd *new)
-{
-	new->next = *lst;
-	*lst = new;
 }
 
 int	cmdsize(t_cmd *lst)
@@ -74,6 +68,7 @@ void	cmdclear(t_cmd *lst)
 		tmp = lst->next;
 		free(lst->cmd);
 		tokenclear(lst->token);
+		free_tab((void **)lst->cmd_arg);
 		free(lst);
 		lst = tmp;
 	}

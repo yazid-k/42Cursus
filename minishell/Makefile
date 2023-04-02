@@ -1,7 +1,12 @@
 LIBFT=libft/libft.a
-SRCS=main.c Parsing/tokenization/token_func_1.c Parsing/tokenization/token_func_2.c Parsing/tokenization/token_func_3.c Parsing/tokenization/token_func_4.c \
-	Parsing/tokenization/cmd_func_1.c Parsing/tokenization/cmd_func_2.c Parsing/tokenization/cmd_func_3.c Parsing/parsing_1.c Parsing/parsing_2.c Parsing/parsing_3.c\
-	Parsing/string_modif.c Parsing/expand/expand_1.c Parsing/expand/init_env.c
+SRCS=main.c \
+		srcs/expand/expand_1.c srcs/expand/expand_2.c srcs/expand/expand_3.c srcs/expand/env.c\
+		srcs/str/str_1.c srcs/str/str_2.c\
+		srcs/token/token_1.c srcs/token/token_2.c srcs/token/token_3.c\
+		srcs/cmd/cmd_1.c srcs/cmd/cmd_2.c srcs/cmd/cmd_3.c srcs/cmd/cmd_4.c\
+		srcs/parsing/parsing_1.c srcs/parsing/parsing_2.c srcs/parsing/parsing_3.c\
+
+
 CC=cc
 FLAGS=-Wall -Werror -Wextra
 NAME=minishell

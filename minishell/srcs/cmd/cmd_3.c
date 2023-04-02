@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:20:29 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/28 19:14:56 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/01 12:50:39 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,44 @@ t_token	*create_token_cmd(t_token *token, int i)
 	return (ret);
 }
 
+void	arr_func(t_cmd *cmd, int *i, char **arr)
+{
+	if (cmd->token->type == ARG)
+	{
+		arr[*i] = ft_strdup(cmd->token->content);
+		(*i)++;
+	}
+}
+
+char	**char_arr(t_cmd *cmd)
+{
+	int		i;
+	char	**arr;
+
+	i = 0;
+	while (cmd->token)
+	{
+		if (cmd->token->type == ARG)
+			i++;
+		if (!cmd->token->next)
+			break ;
+		cmd->token = cmd->token->next;
+	}
+	cmd->token = tokenfirst(cmd->token);
+	arr = malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	while (cmd->token)
+	{
+		arr_func(cmd, &i, arr);
+		if (!cmd->token->next)
+			break ;
+		cmd->token = cmd->token->next;
+	}
+	cmd->token = tokenfirst(cmd->token);
+	arr[i] = NULL;
+	return (arr);
+}
+
 t_cmd	*create_cmd(t_token *token, int i)
 {
 	t_token			*st;
@@ -60,6 +98,7 @@ t_cmd	*create_cmd(t_token *token, int i)
 	cmd = cmdnew(str, t);
 	if (!cmd)
 		return (NULL);
+	cmd->cmd_arg = char_arr(cmd);
 	return (cmd);
 }
 
@@ -84,5 +123,5 @@ t_cmd	*create_all_cmd(t_token *t)
 			return (cmd);
 		i += tokensize(to_add->token) + 1;
 	}
-	return (cmd);
+	return (give_fd(cmd), cmd);
 }

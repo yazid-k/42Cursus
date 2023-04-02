@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:37:29 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/28 19:03:36 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/03/29 20:41:12 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,48 @@ void	print_token(t_token	*token)
 	}
 }
 
-int	get_token_size(char *s, int i)
+t_type	get_type(char *s)
 {
-	int			start;
-	int			sep;
-
-	if (!s || i > (int)ft_strlen(s))
-		return (-1);
-	start = i;
-	sep = sep_size(s, &i);
-	if (sep)
-		return (sep);
-	while (s[i] && s[i] != '>' && s[i] != '<' && s[i] != '|')
+	if (ft_strlen(s) == 1)
 	{
-		skip_quotes(s, &i);
-		if (s[i] == '>' || s[i] == '<' || s[i] == '|')
-			return (i - start);
-		i++;
+		if (!ft_strncmp(s, ">", 1))
+			return (GREAT);
+		if (!ft_strncmp(s, "<", 1))
+			return (LESS);
+		if (!ft_strncmp(s, "|", 1))
+			return (PIPE);
 	}
-	return (i - start);
+	else if (ft_strlen(s) == 2)
+	{
+		if (!ft_strncmp(s, ">>", 2))
+			return (D_GREAT);
+		if (!ft_strncmp(s, "<<", 2))
+			return (D_LESS);
+		if (!ft_strncmp(s, "||", 2))
+			return (D_PIPE);
+	}
+	return (ARG);
+}
+
+t_token	*init_tokens(char *s)
+{
+	t_token	*token;
+	char	**arr;
+	char	*str;
+	int		i;
+
+	arr = ft_split(s, 31);
+	if (!arr)
+		return (NULL);
+	i = -1;
+	token = tokennew(NULL, START);
+	while (arr[++i])
+	{
+		str = remove_quotes(arr[i]);
+		tokenadd_back(&token, tokennew(str, get_type(str)));
+	}
+	tokenadd_back(&token, tokennew(NULL, END));
+	give_types(token);
+	free_tab((void **)arr);
+	return (token);
 }

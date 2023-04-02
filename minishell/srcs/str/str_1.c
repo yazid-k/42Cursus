@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   string_modif.c                                     :+:      :+:    :+:   */
+/*   str_1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:26:31 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/28 17:57:30 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/01 18:20:12 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 char	*remove_quotes(char *str)
 {
@@ -45,12 +45,25 @@ int	skip_and_copy(char *str, char *ret, int *i, int *j)
 
 	if (str[*i] && (str[*i] == 34 || str[*i] == 39))
 	{
-		c = str[(*i)++];
+		c = str[(*i)];
+		ret[(*j)++] = str[(*i)++];
 		while (str[*i] && str[*i] != c)
 			ret[(*j)++] = str[(*i)++];
 		return (1);
 	}
 	return (0);
+}
+
+void	skip_spaces(char *str, int *i, int *j)
+{
+	if (str[*i] && str[*i] == 32)
+	{
+		while (str[*i] && str[*i] != 32)
+		{
+			i++;
+			j++;
+		}
+	}
 }
 
 char	*remove_spaces(char *s)
@@ -66,35 +79,41 @@ char	*remove_spaces(char *s)
 	j = 0;
 	while (s[i])
 	{
-		if (!skip_and_copy(s, ret, &i, &j))
+		if (s[i] == 32)
 		{
-			if (s[i] == '|')
-			{
-				ret[j++] = s[i++];
-				while (s[i] && (s[i] == 32 || (s[i] >= 9 && s[i] <= 13)))
-					i++;
-			}
-			else
+			ret[j++] = 31;
+			i++;
+		}
+		else
+		{
+			skip_and_copy(s, ret, &i, &j);
+			if (s[i] && s[i] != 32)
 				ret[j++] = s[i++];
 		}
 	}
-		ret[j] = 0;
+	ret[j] = 0;
 	return (ret);
 }
 
-char	*transform_string(char *str)
+int	spaces_to_add(char *s)
 {
-	char	*ret;
-	char	*tmp;
+	int	i;
+	int	count;
 
-	if (!str)
-		return (NULL);
-	tmp = remove_spaces(str);
-	if (!tmp || !ft_strlen(tmp))
-		return (NULL);
-	ret = remove_quotes(tmp);
-	free(tmp);
-	if (!ret || !ft_strlen(ret))
-		return (NULL);
-	return (ret);
+	i = 0;
+	count = 0;
+	while (s[i])
+	{
+		if (s[i] == '|' || s[i] == '>' || s[i] == '<')
+		{
+			count += 2;
+			i++;
+		}
+		else
+		{
+			if (!skip_quotes(s, &i))
+				i++;
+		}
+	}
+	return (count);
 }

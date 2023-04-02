@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:11:32 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/26 15:06:06 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/01 12:50:45 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	print_cmd(t_cmd *cmd)
 	{
 		printf("Command %d :\n\t Content %s\n\tToken size : %d\n\n",
 			i++, cmd->cmd, tokensize(cmd->token));
-		print_token(cmd->token);
+		printf("in %d out %d\n", cmd->fd_in, cmd->fd_out);
 		cmd = cmd->next;
 	}
 }

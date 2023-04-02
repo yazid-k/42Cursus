@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:34:08 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/28 19:13:42 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/01 21:47:33 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef enum e_type{
 typedef struct s_token
 {
 	char			*content;
-	char			**cmd_arg;
 	t_type			type;
 	struct s_token	*next;
 	struct s_token	*prev;
@@ -61,8 +60,9 @@ typedef struct s_token
 typedef struct s_cmd
 {
 	char			*cmd;
-	int				fd_in; // Dernier A_LESS A_DLESS
-	int				fd_out; //Dernier A_DGREAT A_GREAT
+	char			**cmd_arg;
+	int				fd_in;
+	int				fd_out;
 	t_token			*token;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
@@ -74,89 +74,94 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_exp
+{
+	char			*var;
+	int				index;
+	struct s_exp	*next;
+}	t_exp;
+
 //LIBFT
-double		ft_atof(char *str);
-int			ft_atoi(const char *str);
-void		*ft_calloc(size_t nmemb, size_t size);
 int			ft_isalnum(int c);
-int			ft_isalpha(int c);
-int			ft_isascii(int c);
-int			ft_isdigit(int c);
-int			ft_isprint(int c);
-char		*ft_itoa(int n);
-void		*ft_memchr(const void *s, int c, size_t n);
-int			ft_memcmp(const void *s1, const void *s2, size_t n);
-void		*ft_memcpy(void *dst, const void *src, size_t n);
-void		*ft_memmove(void *dst, const void *src, size_t len);
-void		*ft_memset(void *b, int c, size_t len);
-char		**ft_split(char const *s, char c);
-char		*ft_strchr(const char *s, int c);
-char		*ft_strdup(const char *s1);
-char		*ft_strjoin(char const *s1, char const *s2);
-size_t		ft_strlcat(char *dst, const char *src, size_t dstsize);
-size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 size_t		ft_strlen(const char *s);
 int			ft_strncmp(char const *s1, char const *s2, size_t n);
-char		*ft_strnstr(char const *str, char const *to_find, size_t len);
-char		*ft_strrchr(const char *s, int c);
-char		*ft_strtrim(char const *s, char const *set);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
+char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strdup(const char *s1);
+char		**ft_split(char const *s, char c);
+char		*get_next_line(int fd);
+size_t		ft_strlcat(char *dst, const char *src, size_t dstsize);
 
-/*TOKENIZATION*/
+//EXPAND
+void		lst_manager(t_env **env_lst, char *env_str);
+void		free_lst(t_env **env_lst);
+t_env		*ft_init_env(char **env);
+t_exp		*expnew(char *content, int index);
+t_exp		*explast(t_exp *exp);
+void		expclear(t_exp *exp);
+void		expadd_back(t_exp **lst, t_exp *new);
+char		*get_var(char *str, t_env *env);
+int			get_var_len(char *str, t_env *env);
+int			env_char(char c);
+int			memory_needed(char *str, t_env *env, t_exp *exp);
+t_exp		*init_expand(char *s);
+void		print_expand(t_exp *exp);
+char		*expand(char *s, t_env *env);
+
+//STR
+char		*remove_quotes(char *str);
+int			skip_and_copy(char *str, char *ret, int *i, int *j);
+void		skip_spaces(char *str, int *i, int *j);
+char		*remove_spaces(char *s);
+int			spaces_to_add(char *s);
+int			space_func(char *s, char *ret, int *i, int *j);
+char		*add_space(char *s);
+char		*new_str(char *str, t_env *env);
+
+//TOKEN
 void		tokenadd_back(t_token **lst, t_token *new);
-void		tokenadd_front(t_token **lst, t_token *new);
+int			tokensize(t_token *lst);
+t_token		*tokennew(char *content, t_type type);
 void		tokenclear(t_token *lst);
 t_token		*tokenlast(t_token *lst);
-t_token		*tokennew(char *content, t_type type);
-int			tokensize(t_token *lst);
 t_token		*tokenfirst(t_token *lst);
 void		print_token(t_token	*token);
-int			get_token_size(char *s, int i);
-int			sep_size(char *s, int *i);
-int			get_token_count(char *s);
-t_token		*create_token(char *s, int start);
-t_token		*create_all_tokens(char *s);
 t_type		get_type(char *s);
-int			type_is_sep(t_type type);
-void		give_types(t_token *t);
-void		trim_tokens(t_token *token);
 t_token		*init_tokens(char *s);
+int			is_sep(t_type type);
+void		give_types(t_token *t);
+int			type_is_sep(t_type type);
+
+//CMD
 void		cmdadd_back(t_cmd **lst, t_cmd *new);
-void		cmdadd_front(t_cmd **lst, t_cmd *new);
 int			cmdsize(t_cmd *lst);
 t_cmd		*cmdnew(char *content, t_token *token);
 void		cmdclear(t_cmd *lst);
 t_cmd		*cmdlast(t_cmd *lst);
 t_cmd		*cmdfirst(t_cmd *lst);
 char		*get_cmd_str(t_token *token);
-t_token		*sub_token(t_token *token, int start, int size);;
+t_token		*sub_token(t_token *token, int start, int size);
 void		print_cmd(t_cmd *cmd);
-t_token		*create_token_cmd(t_token *t, int i);
+t_token		*create_token_cmd(t_token *token, int i);
+void		arr_func(t_cmd *cmd, int *i, char **arr);
+char		**char_arr(t_cmd *cmd);
 t_cmd		*create_cmd(t_token *token, int i);
 t_cmd		*create_all_cmd(t_token *t);
+int			output(t_cmd *cmd);
+int			input(t_cmd *cmd);
+int			give_fd(t_cmd *cmd);
 
-//Parsing
+//PARSING
 void		free_tab(void **tab);
-void		skip_quotes(char *s, int *i);
+int			skip_quotes(char const *s, int *i);
 int			is_cmd(char *cmd);
 int			closed_quotes(char *s);
+int			max(int a, int b);
 void		print_error(char *err);
-int			token_is_redir(t_token *token);
-int			err_redir(t_token *token);
 int			parse_pipes(t_cmd *cmd);
 int			parse_redirections(t_cmd *cmd);
-int			empty_cmd(t_cmd *cmd);
+int			token_is_redir(t_token *token);
+int			err_redir(t_token *token);
 int			parse(t_cmd *cmd);
-
-//Expand
-t_env		*ft_init_env(char **env);
-void		free_lst(t_env **env_lst);
-char		*get_var(char *str, t_env *env);
-int			count_expands(char *s);
-
-//String modif
-char		*remove_quotes(char *str);
-char		*remove_spaces(char *str);
-char		*transform_string(char *str);
 
 #endif

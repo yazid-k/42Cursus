@@ -6,18 +6,11 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:27:18 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/25 15:15:27 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/01 18:39:00 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-
-int	max(int a, int b)
-{
-	if (a < b)
-		return (b);
-	return (a);
-}
+#include "../../minishell.h"
 
 void	print_error(char *err)
 {

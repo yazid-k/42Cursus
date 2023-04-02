@@ -6,11 +6,57 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 17:30:41 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/28 19:01:20 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/01 22:55:25 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+t_exp	*expnew(char *content, int index)
+{
+	t_exp	*exp;
+
+	exp = malloc(sizeof(t_exp));
+	if (!exp)
+		return (NULL);
+	exp->index = index;
+	exp->var = content;
+	exp->next = NULL;
+	return (exp);
+}
+
+t_exp	*explast(t_exp *exp)
+{
+	if (!exp || !exp->next)
+		return (exp);
+	exp = exp->next;
+	return (explast(exp));
+}
+
+void	expclear(t_exp *exp)
+{
+	t_exp	*tmp;
+
+	while (exp)
+	{
+		tmp = exp->next;
+		free(exp->var);
+		free(exp);
+		exp = tmp;
+	}
+}
+
+void	expadd_back(t_exp **lst, t_exp *new)
+{
+	t_exp	*l;
+
+	if (*lst)
+	{
+		l = explast(*lst);
+		if (l)
+			l->next = new;
+	}
+}
 
 char	*get_var(char *str, t_env *env)
 {
@@ -20,6 +66,8 @@ char	*get_var(char *str, t_env *env)
 
 	if (!str || !env)
 		return (NULL);
+	if (!ft_strncmp(str, "?", ft_strlen(str) + 2))
+		return (ft_strdup("?"));
 	i = -1;
 	s = malloc(ft_strlen(str) + 2);
 	if (!s)
@@ -38,30 +86,4 @@ char	*get_var(char *str, t_env *env)
 		env = env->next;
 	}
 	return (free(s), NULL);
-}
-
-int	count_expands(char *s)
-{
-	int	count;
-	int	i;
-
-	count = 0;
-	i = -1;
-	while (s[++i])
-	{
-		if (s[i] == 39)
-		{
-			i++;
-			while (s[i] && s[i] != 39)
-				i++;
-		}
-		else if (s[i] == '$')
-		{
-			count++;
-			i++;
-			while (s[i] && s[i] != '$')
-				i++;
-		}
-	}
-	return (count);
 }

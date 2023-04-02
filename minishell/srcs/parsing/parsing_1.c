@@ -6,11 +6,11 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:21:41 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/25 17:37:23 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/01 18:37:59 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 void	free_tab(void **tab)
 {
@@ -22,7 +22,7 @@ void	free_tab(void **tab)
 	free(tab);
 }
 
-void	skip_quotes(char *s, int *i)
+int	skip_quotes(char const *s, int *i)
 {
 	char	c;
 
@@ -31,7 +31,9 @@ void	skip_quotes(char *s, int *i)
 		c = s[(*i)++];
 		while (s[*i] && s[*i] != c)
 			(*i)++;
+		return (1);
 	}
+	return (0);
 }
 
 int	is_cmd(char *cmd)
@@ -50,7 +52,6 @@ int	is_cmd(char *cmd)
 	while (env[++i])
 	{
 		n_cmd = ft_strjoin(env[i], tmp);
-		printf("%s\n", n_cmd);
 		if (!stat(n_cmd, &s))
 		{
 			if (S_ISREG(s.st_mode))
@@ -85,4 +86,11 @@ int	closed_quotes(char *s)
 		}
 	}
 	return (closed);
+}
+
+int	max(int a, int b)
+{
+	if (a < b)
+		return (b);
+	return (a);
 }

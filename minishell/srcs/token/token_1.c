@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_func_1.c                                     :+:      :+:    :+:   */
+/*   token_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:35:43 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/11 14:17:42 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/01 18:34:25 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ void	tokenadd_back(t_token **lst, t_token *new)
 			l->next->prev = l;
 		}
 	}
-}
-
-void	tokenadd_front(t_token **lst, t_token *new)
-{
-	new->next = *lst;
-	*lst = new;
 }
 
 int	tokensize(t_token *lst)
@@ -75,4 +69,12 @@ void	tokenclear(t_token *lst)
 		free(lst);
 		lst = tmp;
 	}
+}
+
+int	type_is_sep(t_type type)
+{
+	if (type == PIPE || type == D_PIPE || type == D_GREAT
+		|| type == D_LESS || type == GREAT || type == LESS)
+		return (1);
+	return (0);
 }
