@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:34:08 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/01 21:47:33 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/04 19:30:17 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 //Includes
 # include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <sys/wait.h>
@@ -31,6 +31,17 @@
 # include <sys/ioctl.h>
 # include <termios.h>
 # include <aio.h>
+# include <limits.h>
+
+# define ADD 1
+# define ERR_INFILE "Infile"
+# define ERR_HEREDOC "heredoc"
+# define ERR_OUTFILE "Outfile"
+# define ERR_INPUT "Invalid number of arguments.\n"
+# define ERR_PIPE "Pipe Failed"
+# define ERR_FORK "fork failed\n"
+
+extern int	g_exit_code;
 
 typedef enum e_type{
 	NONE,
@@ -64,6 +75,10 @@ typedef struct s_cmd
 	int				fd_in;
 	int				fd_out;
 	t_token			*token;
+	int 			status;
+	pid_t   		pid;
+	pid_t			pid_one;
+	char			*cmd_path;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
@@ -81,6 +96,16 @@ typedef struct s_exp
 	struct s_exp	*next;
 }	t_exp;
 
+typedef struct s_data
+{
+	char	**env_cpy;
+	t_env	*env_lst;
+	int		**pfd;
+	int		nbr_cmd;
+	int		nbr_pipe;
+	int		exit_status;
+} t_data;
+
 //LIBFT
 int			ft_isalnum(int c);
 size_t		ft_strlen(const char *s);
@@ -91,6 +116,13 @@ char		*ft_strdup(const char *s1);
 char		**ft_split(char const *s, char c);
 char		*get_next_line(int fd);
 size_t		ft_strlcat(char *dst, const char *src, size_t dstsize);
+int			ft_putstr_fd(char const *s, int fd);
+int			ft_putendl_fd(char const *s, int fd);
+char		*ft_strnstr(char const *str, char const *to_find, size_t len);
+int			ft_strcmp(char *s1, char *s2);
+int			ft_isdigit(int c);
+char		*ft_strchr(const char *s, int c);
+char		*ft_itoa(int n);
 
 //EXPAND
 void		lst_manager(t_env **env_lst, char *env_str);
@@ -163,5 +195,62 @@ int			parse_redirections(t_cmd *cmd);
 int			token_is_redir(t_token *token);
 int			err_redir(t_token *token);
 int			parse(t_cmd *cmd);
+
+//EXEC
+int		exec_cmd(t_cmd *cmd_exec, t_data *data);
+int 	exec_pipe(t_cmd *cmd_exec, t_data *data);
+void	open_pipes(t_data *data);
+void	ft_close_and_wait(t_data *data, t_cmd *tmp, int i, int index);
+void		exec_one_builtin(t_cmd *cmd_exec, t_data *data, int *fd);
+int 	exec_one_cmd(t_cmd *cmd_exec, t_data *data);
+int 	search_and_execve(t_cmd *cmd_exec, t_data *data);
+int  	execve_path(t_cmd *cmd_exec, t_data *data);
+char	*get_cmd(char *cmd, char **envp);
+char	**ft_get_path(char  **env);
+void	err_msg(char *cmd, char *msg);
+int		msg(char *err);
+void	msg_error(char *err);
+//void	msg_error1(char *err);
+void	dup_fds_one_cmd(t_cmd *cmd_exec);
+int		child(t_cmd *cmd_exec,t_data *data);
+void	free_exeve(t_data *data, t_cmd *cmd_exec);
+void	dup_fds(t_data *data, t_cmd *cmd_exec, int i);
+void	close_fd(t_data *data, t_cmd *cmd_exec);
+void	ft_close(t_data *data, t_cmd *cmd_exec);
+void	ft_close_fd(t_cmd *cmd_exec);
+char	**pass_env_list_to_tab(t_env *env_lst);
+int		ft_free_pipes(t_data *data, int n);
+void	free_pfd(t_data *data);
+void	ft_free(char **str);
+//int		verif(t_cmd *cmd_exec);
+
+//BUILTINS
+int		is_builtin(char **cmd);
+int		ft_built(t_data *mini, char **cmd, t_cmd *cmd_exec);
+int		ft_echo(char **cmd, int len);
+int		ft_export_var(t_env *env_lst, char *str);
+int		ft_check_input(char *str);
+int		export_msg(char *str);
+void	ft_update_var(t_env *env_lst, char *str, int i_equal);
+int 	ft_is_new_var(t_env *env_lst, char *str, int i_equal);
+int		var_name_len(char *str);
+int		ft_export(t_cmd *cmd_exec, t_env *env_lst, int len);
+void 	ft_print_export(t_env **env_lst);
+int		ft_is_equal(char *str);
+int		ft_cd(char **cmd, t_env *env_lst);
+void	ft_change_pwd(t_env *env_lst);
+void	ft_change_oldpwd(t_env *env_lst, char *path);
+int		ft_env(t_env *env_lst, int len);
+int		ft_print_env(t_env *env_lst);
+int		ft_pwd(void);
+int		ft_unset(t_cmd *cmd_exec, t_env *env_lst, int len);
+void 	clear_var(t_env *env_list, char *str);
+int		check_unset_input(char *str);
+int    	unset_msg(char *str);
+int		ft_exit(t_data *data, char **cmd, t_cmd *exec_cmd);
+
+//UTILS
+int		init_struct(t_data *data, char **env);
+void	exit_shell(t_data *data, t_cmd *cmd, int code);
 
 #endif

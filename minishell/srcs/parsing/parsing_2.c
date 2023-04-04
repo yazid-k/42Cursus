@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mvicedo <mvicedo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:27:18 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/01 18:39:00 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/02 12:50:02 by mvicedo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ int	token_is_redir(t_token *token)
 
 int	err_redir(t_token *token)
 {
-	int	i;
+	//int	i;
 
-	i = -1;
+	//i = -1;
 	if ((token->type == A_GREAT || token->type == A_DGREAT
 			|| token->type == A_LESS || token->type == A_DLESS)
 		&& ft_strlen(token->content))

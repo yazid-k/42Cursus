@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 17:46:58 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/01 22:54:17 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/04 19:29:47 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	init_func(char *s, int *i, t_exp *exp)
 	(*i)++;
 	if (s[(*i)] && s[(*i)] == '?')
 	{
-		expadd_back(&exp, expnew(ft_strdup("?"), start));
+		expadd_back(&exp, expnew(ft_itoa(g_exit_code), start));
 		(*i)++;
 	}
 	else if (s[(*i)] && env_char(s[(*i)]))
@@ -73,7 +73,7 @@ void	init_func(char *s, int *i, t_exp *exp)
 t_exp	*init_expand(char *s)
 {
 	int			i;
-	int			size;
+	//int			size;
 	t_exp		*exp;
 	t_exp		*ptr;
 
@@ -82,7 +82,7 @@ t_exp	*init_expand(char *s)
 	exp = expnew(NULL, -1);
 	if (!exp)
 		return (NULL);
-	size = 0;
+	//size = 0;
 	i = 0;
 	while (s[i])
 	{

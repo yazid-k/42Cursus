@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvicedo <mvicedo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 11:05:44 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/02 17:45:53 by mvicedo          ###   ########.fr       */
+/*   Created: 2023/04/02 16:58:49 by mvicedo           #+#    #+#             */
+/*   Updated: 2023/04/02 16:59:20 by mvicedo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../minishell.h"
 
-int	ft_strncmp(char const *s1, char const *s2, size_t n)
+void	ft_free(char **str)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
-	if (n == 0)
-		return (0);
-	while ((s1[i] || s2[i]) && i < n)
+	while (str[i])
 	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
+		free(str[i]);
 		i++;
 	}
-	return (0);
+	free (str);
 }

@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   util_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvicedo <mvicedo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 11:05:44 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/02 17:45:53 by mvicedo          ###   ########.fr       */
+/*   Created: 2023/04/02 15:43:55 by mvicedo           #+#    #+#             */
+/*   Updated: 2023/04/04 15:33:30 by mvicedo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../minishell.h"
 
-int	ft_strncmp(char const *s1, char const *s2, size_t n)
+// void	msg_error1(char *err)
+// {
+// 	perror(err);
+// }
+
+void	msg_error(char *err)
 {
-	unsigned int	i;
+	perror(err);
+	exit (1);
+}
 
-	i = 0;
-	if (n == 0)
-		return (0);
-	while ((s1[i] || s2[i]) && i < n)
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-	}
-	return (0);
+int	msg(char *err)
+{
+	write(2, err, ft_strlen(err));
+	return (1);
+}
+
+void	err_msg(char *cmd, char *msg)
+{
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(msg, 2);
 }

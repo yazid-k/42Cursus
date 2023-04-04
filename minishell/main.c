@@ -6,16 +6,13 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:34:30 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/01 22:51:55 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/04 19:31:01 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec(t_cmd *cmd)
-{
-	(void)cmd;
-}
+int	g_exit_code = 0;
 
 void	free_all(t_cmd *cmd, t_token *token)
 {
@@ -23,7 +20,7 @@ void	free_all(t_cmd *cmd, t_token *token)
 	cmdclear(cmd);
 }
 
-int	minishell(char *str, t_env *env)
+int	minishell(char *str, t_env *env, t_data *data)
 {
 	t_token	*t;
 	t_cmd	*cmd;
@@ -38,16 +35,19 @@ int	minishell(char *str, t_env *env)
 	if (!parse(cmd) || !give_fd(cmd))
 		return (free_all(cmd, t), 1);
 	print_cmd(cmd);
-	exec(cmd);
+	g_exit_code = exec_cmd(cmd, data);
 	return (free_all(cmd, t), 0);
 }
 
 int	main(int ac, char **av, char **env)
 {
 	char	*str;
-	t_env	*e;
+	//t_env	*e;
+	t_data	data;
 
-	e = ft_init_env(env);
+	//e = ft_init_env(env);
+	if (init_struct(&data, env) == 0)
+		return(1);
 	(void)ac;
 	(void)av;
 	while (1)
@@ -56,11 +56,11 @@ int	main(int ac, char **av, char **env)
 		add_history(str);
 		if (!str)
 			break ;
-		if (!ft_strncmp("exit ", str, 5))
-			return (free(str), free_lst(&e), 0);
+		// if (!ft_strncmp("exit ", str, 5))
+		// 	return (free(str), free_lst(&data.env_lst), 0);
 		if (!*str)
 			continue ;
-		if (minishell(str, e))
+		if (minishell(str, data.env_lst, &data))
 			continue ;
 	}
 }

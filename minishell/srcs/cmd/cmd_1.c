@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_func_1.c                                       :+:      :+:    :+:   */
+/*   cmd_1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mvicedo <mvicedo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:49:46 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/01 17:56:54 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:56:50 by mvicedo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	cmdclear(t_cmd *lst)
 		free(lst->cmd);
 		tokenclear(lst->token);
 		free_tab((void **)lst->cmd_arg);
+		if (lst->cmd_path)
+			free(lst->cmd_path);
 		free(lst);
 		lst = tmp;
 	}

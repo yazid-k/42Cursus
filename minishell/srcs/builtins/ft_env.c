@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvicedo <mvicedo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 11:05:44 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/02 17:45:53 by mvicedo          ###   ########.fr       */
+/*   Created: 2023/02/21 15:32:47 by mvicedo           #+#    #+#             */
+/*   Updated: 2023/04/02 17:04:40 by mvicedo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../minishell.h"
 
-int	ft_strncmp(char const *s1, char const *s2, size_t n)
+int	ft_print_env(t_env *env_lst)
 {
-	unsigned int	i;
+	t_env	*temp;
 
-	i = 0;
-	if (n == 0)
-		return (0);
-	while ((s1[i] || s2[i]) && i < n)
+	temp = env_lst;
+	while (temp)
 	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
+		printf("%s\n", temp->env_str);
+		temp = temp->next;
 	}
+	return (0);
+}
+
+int	ft_env(t_env *env_lst, int len)
+{
+	if (len > 1)
+		printf("not supported\n");
+	else if (len == 1)
+		ft_print_env(env_lst);
 	return (0);
 }

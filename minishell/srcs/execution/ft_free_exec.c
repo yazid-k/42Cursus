@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_free_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvicedo <mvicedo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 11:05:44 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/02 17:45:53 by mvicedo          ###   ########.fr       */
+/*   Created: 2023/04/02 15:43:26 by mvicedo           #+#    #+#             */
+/*   Updated: 2023/04/02 15:43:28 by mvicedo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 
-int	ft_strncmp(char const *s1, char const *s2, size_t n)
+#include "../../minishell.h"
+
+void	free_pfd(t_data *data)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
-	if (n == 0)
-		return (0);
-	while ((s1[i] || s2[i]) && i < n)
+	while (i < data->nbr_cmd)
 	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
+		free(data -> pfd[i]);
 		i++;
+	}
+	free(data -> pfd);
+}
+
+int	ft_free_pipes(t_data *data, int n)
+{
+	int	i;
+
+	i = -1;
+	if (data -> pfd)
+	{
+		while (data -> pfd[++i] && i < n)
+			free_pfd(data);
+		free_pfd(data);
 	}
 	return (0);
 }
+

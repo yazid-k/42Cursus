@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_func_3.c                                       :+:      :+:    :+:   */
+/*   cmd_3.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mvicedo <mvicedo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:20:29 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/01 12:50:39 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/04 16:57:56 by mvicedo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ t_cmd	*create_cmd(t_token *token, int i)
 	if (!cmd)
 		return (NULL);
 	cmd->cmd_arg = char_arr(cmd);
+	cmd->cmd_path = NULL;
 	return (cmd);
 }
 
