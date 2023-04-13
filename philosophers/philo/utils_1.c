@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:34:33 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/02/19 20:36:39 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/13 11:12:30 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,38 +52,13 @@ int	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-t_fork	init_fork(int id)
-{
-	t_fork			fork;
-
-	fork.id = id;
-	fork.available = 1;
-	pthread_mutex_init(&fork.mutex, NULL);
-	return (fork);
-}
-
-t_philo	init_philo(int id, char **av)
+t_philo	init_philo(int id, t_rules *rules)
 {
 	t_philo		philo;
 
-	philo.id = id;
-	philo.l_fork = init_fork(id + 1).id;
-	philo.r_fork = init_fork(id).id;
-	philo.right_pid = id - 1;
-	philo.left_pid = id + 1;
-	if (id == ft_atoi(av[1]) && id != 1)
-	{
-			philo.l_fork = init_fork(1).id;
-			philo.left_pid = 1;
-	}
-	else if (ft_atoi(av[1]) == 1)
-	{
-		philo.left_pid = 0;
-		philo.right_pid = 0;
-		philo.l_fork = init_fork(0).id;
-	}
-	else if (id == 1 && ft_atoi(av[1]) != 1)
-		philo.right_pid = ft_atoi(av[1]);
+	philo.id = id + 1;
+	philo.l_fork = &rules->fork[id];
+	philo.r_fork = &rules->fork[(id + 1) % rules->n];
 	philo.t_eat = 0;
 	philo.thread = 0;
 	philo.last_meal = get_timestamp();
@@ -102,17 +77,19 @@ t_rules	*init_all(int ac, char **av)
 	rules->death = ft_atoi(av[2]);
 	rules->eat = ft_atoi(av[3]);
 	rules->sleep = ft_atoi(av[4]);
+	rules->end = 0;
+	pthread_mutex_init(&rules->monitor, NULL);
 	pthread_mutex_init(&rules->print, NULL);
 	if (ac == 6)
 		rules->n_eat = ft_atoi(av[5]);
 	else
-		rules->n_eat = 0;
+		rules->n_eat = -1;
 	i = -1;
-	while (++i < ft_atoi(av[1]))
+	while (++i < rules->n)
 	{
-		rules->philo[i] = init_philo(i + 1, av);
+		pthread_mutex_init(&rules->fork[i], NULL);
+		rules->philo[i] = init_philo(i, rules);
 		rules->philo[i].rules = rules;
-		rules->fork[i] = init_fork(i + 1);
 	}
 	return (rules);
 }

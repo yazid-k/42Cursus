@@ -6,11 +6,37 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:08:42 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/09 03:01:57 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/12 20:04:03 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	check_death(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->rules->monitor);
+	if (philo->rules->end)
+	{
+		pthread_mutex_unlock(&philo->rules->monitor);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->rules->monitor);
+	return (0);
+}
+
+int	max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
+
+int	min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
 
 void	print_action(t_philo philo, int action)
 {
@@ -34,18 +60,7 @@ void	free_all(t_rules *rules)
 
 	i = -1;
 	while (++i < rules->n)
-	{
-
-		if (pthread_join(rules->philo[i].thread, NULL))
-		{
-			printf("Error in thread join\n");
-			return ;
-		}
-		if (!rules->fork[i].available)
-			pthread_mutex_unlock(&rules->fork[i].mutex);
-		pthread_mutex_destroy(&rules->fork[i].mutex);
-		pthread_detach(rules->philo[i].thread);
-	}
+		pthread_mutex_destroy(&rules->fork[i]);
 	pthread_mutex_destroy(&rules->print);
 	free(rules);
 }

@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:34:30 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/04 19:31:01 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/05 10:17:01 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	minishell(char *str, t_env *env, t_data *data)
 	t_cmd	*cmd;
 	char	*s;
 
+	printf("%d\n", g_exit_code);
 	if (!closed_quotes(str))
 		return (printf("bash : quote error\n"), 0);
 	s = new_str(str, env);
