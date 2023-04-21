@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_3.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvicedo <mvicedo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:20:29 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/04 16:57:56 by mvicedo          ###   ########.fr       */
+/*   Updated: 2023/04/07 22:15:29 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,5 @@ t_cmd	*create_all_cmd(t_token *t)
 			return (cmd);
 		i += tokensize(to_add->token) + 1;
 	}
-	return (give_fd(cmd), cmd);
+	return (cmd);
 }

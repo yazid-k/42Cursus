@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mvicedo <mvicedo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:26:31 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/01 18:20:12 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/17 20:01:08 by mvicedo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	skip_and_copy(char *str, char *ret, int *i, int *j)
 		ret[(*j)++] = str[(*i)++];
 		while (str[*i] && str[*i] != c)
 			ret[(*j)++] = str[(*i)++];
+		if (str[*i])
+			ret[(*j)++] = str[(*i)++];
 		return (1);
 	}
 	return (0);
@@ -56,9 +58,9 @@ int	skip_and_copy(char *str, char *ret, int *i, int *j)
 
 void	skip_spaces(char *str, int *i, int *j)
 {
-	if (str[*i] && str[*i] == 32)
+	if (str[*i] && is_space(str[*i]))
 	{
-		while (str[*i] && str[*i] != 32)
+		while (str[*i] && is_space(str[*i]))
 		{
 			i++;
 			j++;
@@ -79,15 +81,14 @@ char	*remove_spaces(char *s)
 	j = 0;
 	while (s[i])
 	{
-		if (s[i] == 32)
+		if (is_space(s[i]))
 		{
 			ret[j++] = 31;
 			i++;
 		}
 		else
 		{
-			skip_and_copy(s, ret, &i, &j);
-			if (s[i] && s[i] != 32)
+			if (!skip_and_copy(s, ret, &i, &j) && s[i] && !is_space(s[i]))
 				ret[j++] = s[i++];
 		}
 	}

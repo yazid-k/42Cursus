@@ -1,42 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_exec.c                                     :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvicedo <mvicedo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/02 15:43:26 by mvicedo           #+#    #+#             */
-/*   Updated: 2023/04/02 15:43:28 by mvicedo          ###   ########.fr       */
+/*   Created: 2023/04/09 02:16:28 by mvicedo           #+#    #+#             */
+/*   Updated: 2023/04/12 16:29:54 by mvicedo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../minishell.h"
 
-void	free_pfd(t_data *data)
+void	antislash(int sig)
 {
-	int	i;
-
-	i = 0;
-	while (i < data->nbr_cmd)
-	{
-		free(data -> pfd[i]);
-		i++;
-	}
-	free(data -> pfd);
+	if (sig == SIGQUIT)
+		exit(131);
+	if (sig == SIGINT)
+		exit(130);
 }
 
-int	ft_free_pipes(t_data *data, int n)
+void	ctrlc2(int sig)
 {
-	int	i;
-
-	i = -1;
-	if (data -> pfd)
+	if (sig == SIGINT)
 	{
-		while (data -> pfd[++i] && i < n)
-			free_pfd(data);
-		free_pfd(data);
+		g_exit_code = 130;
+		printf("\b\b\b\b");
+		g_exit_code = 130;
 	}
-	return (0);
 }
 
+void	ctrlc(int sig)
+{
+	if (sig == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		g_exit_code = 130;
+	}
+}

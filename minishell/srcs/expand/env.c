@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_env.c                                         :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mvicedo <mvicedo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 12:02:26 by mvicedo           #+#    #+#             */
-/*   Updated: 2023/03/26 17:32:02 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/17 19:00:45 by mvicedo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	lst_manager(t_env **env_lst, char *env_str)
 	node = malloc(sizeof(t_env));
 	if (!node)
 		return ;
-	node->env_str = strdup(env_str);
+	node->env_str = ft_strdup(env_str);
+	if (!node->env_str)
+		return ;
 	node->next = NULL;
 	if (*env_lst == NULL)
 		*env_lst = node;

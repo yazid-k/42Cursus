@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 17:46:58 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/05 10:21:56 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/20 23:30:57 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,17 @@ int	memory_needed(char *str, t_env *env, t_exp *exp)
 
 void	init_func(char *s, int *i, t_exp *exp)
 {
-	int	start;
+	int		start;
 
 	start = (*i);
 	(*i)++;
 	if (s[(*i)] && s[(*i)] == '?')
 	{
-		expadd_back(&exp, expnew(ft_itoa(g_exit_code), start));
+		expadd_back(&exp, expnew(ft_strdup("?"), start));
 		(*i)++;
 	}
+	else if (s[*i] == 34 || s[*i] == 39)
+		expadd_back(&exp, expnew(ft_strdup(""), start));
 	else if (s[(*i)] && env_char(s[(*i)]))
 	{
 		while (s[(*i)] && env_char(s[(*i)]))
@@ -73,26 +75,19 @@ void	init_func(char *s, int *i, t_exp *exp)
 t_exp	*init_expand(char *s)
 {
 	int			i;
-	//int			size;
 	t_exp		*exp;
 	t_exp		*ptr;
 
-	if (!s)
-		return (NULL);
 	exp = expnew(NULL, -1);
-	if (!exp)
+	if (!s || !exp)
 		return (NULL);
-	//size = 0;
 	i = 0;
 	while (s[i])
 	{
+		if (s[i] && s[i] == 39)
+			skip_quotes(s, &i);
 		while (s[i] && s[i] != '$')
-		{
-			if (s[i] && s[i] == 39)
-				skip_quotes(s, &i);
-			else
-				i++;
-		}
+			expand_func_3(s, &i);
 		if (s[i] && s[i] == '$')
 			init_func(s, &i, exp);
 	}

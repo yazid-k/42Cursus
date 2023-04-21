@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_func_2.c                                     :+:      :+:    :+:   */
+/*   token_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:37:29 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/03/29 20:41:12 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/08 02:58:14 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,19 @@ t_token	*init_tokens(char *s)
 {
 	t_token	*token;
 	char	**arr;
-	char	*str;
 	int		i;
 
 	arr = ft_split(s, 31);
+	i = -1;
 	if (!arr)
 		return (NULL);
 	i = -1;
 	token = tokennew(NULL, START);
 	while (arr[++i])
-	{
-		str = remove_quotes(arr[i]);
-		tokenadd_back(&token, tokennew(str, get_type(str)));
-	}
+		tokenadd_back(&token, tokennew(ft_strdup(arr[i]), 0));
 	tokenadd_back(&token, tokennew(NULL, END));
 	give_types(token);
+	quote(token);
 	free_tab((void **)arr);
 	return (token);
 }

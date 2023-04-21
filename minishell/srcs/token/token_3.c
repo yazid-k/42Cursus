@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:46:31 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/01 18:34:19 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/08 02:59:41 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,21 @@ void	give_types(t_token *t)
 		}
 		t = t->next;
 	}
+}
+
+void	quote(t_token *t)
+{
+	char	*tmp;
+
+	while (t->next)
+	{
+		if (t->content)
+		{
+			tmp = remove_quotes(t->content);
+			free(t->content);
+			t->content = tmp;
+		}
+		t = t->next;
+	}
+	t = tokenfirst(t);
 }

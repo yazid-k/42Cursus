@@ -6,7 +6,7 @@
 /*   By: mvicedo <mvicedo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 14:27:18 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/02 12:50:02 by mvicedo          ###   ########.fr       */
+/*   Updated: 2023/04/12 16:45:12 by mvicedo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	print_error(char *err)
 {
-	printf("bash: syntax error near unexpected token `%s'\n", err);
+	g_exit_code = 2;
+	printf("syntax error near unexpected token `%s'\n", err);
 }
 
 int	parse_pipes(t_cmd *cmd)
@@ -76,13 +77,9 @@ int	token_is_redir(t_token *token)
 
 int	err_redir(t_token *token)
 {
-	//int	i;
-
-	//i = -1;
 	if ((token->type == A_GREAT || token->type == A_DGREAT
 			|| token->type == A_LESS || token->type == A_DLESS)
 		&& ft_strlen(token->content))
 		return (1);
-	return (0);
 	return (0);
 }

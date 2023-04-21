@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mvicedo <mvicedo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:21:41 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/01 18:37:59 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/09 03:07:41 by mvicedo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_tab(void **tab)
 	int	i;
 
 	i = -1;
-	while (tab[++i])
+	while (tab && tab[++i])
 		free(tab[i]);
 	free(tab);
 }

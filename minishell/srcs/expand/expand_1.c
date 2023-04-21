@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 17:30:41 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/01 22:55:25 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/15 18:41:01 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,9 @@ char	*get_var(char *str, t_env *env)
 	if (!str || !env)
 		return (NULL);
 	if (!ft_strncmp(str, "?", ft_strlen(str) + 2))
-		return (ft_strdup("?"));
+		return (ft_itoa(g_exit_code % 256));
 	i = -1;
 	s = malloc(ft_strlen(str) + 2);
-	if (!s)
-		return (NULL);
 	while (str[++i])
 		s[i] = str[i];
 	s[i] = '=';

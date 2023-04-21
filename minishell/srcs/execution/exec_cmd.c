@@ -3,73 +3,91 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mvicedo <mvicedo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:28:03 by mvicedo           #+#    #+#             */
-/*   Updated: 2023/04/04 19:27:46 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/19 17:30:09 by mvicedo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	dup_fds_one_cmd(t_cmd *cmd_exec)
+//void	execve_error(t_cmd *cmd_exec, int boolean);
+
+char	**ft_get_path(char **env)
 {
-	if (cmd_exec->fd_in > 2)
-		dup2(cmd_exec->fd_in, 0);
-	if (cmd_exec->fd_out > 2)
-		dup2(cmd_exec->fd_out, 1);
+	char	**paths;
+	int		i;
+
+	i = 0;
+	if (!env)
+		return (NULL);
+	while (env[i] && !ft_strnstr(env[i], "PATH=", 5))
+		i++;
+	if (!env[i])
+		return (NULL);
+	paths = ft_split(env[i] + 5, ':');
+	return (paths);
 }
 
-int 	execve_path(t_cmd *cmd_exec, t_data *data)
+char	*get_cmd(char *cmd, char **envp)
 {
-	if (get_cmd(cmd_exec->cmd_arg[0], data->env_cpy))
+	char	**paths;
+	char	*path;
+	char	*slash;
+	int		i;
+
+	paths = ft_get_path(envp);
+	if (!paths)
+		return (NULL);
+	i = -1;
+	while (paths[++i])
 	{
-		execve(get_cmd(cmd_exec->cmd_arg[0], data->env_cpy),
-			cmd_exec->cmd_arg, data->env_cpy);
+		slash = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(slash, cmd);
+		free(slash);
+		if (access(path, F_OK | X_OK) != -1)
+		{
+			free_tab((void **)paths);
+			return (path);
+		}
+		free(path);
 	}
-	else
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd_exec->cmd_arg[0], 2);
-		ft_putendl_fd(": command not found", 2);
-		ft_free(cmd_exec->cmd_arg);
-		g_exit_code = 127;
-	}
+	free_tab((void **)paths);
+	return (NULL);
+}
+
+int	execve_path(t_cmd *cmd_exec, t_data *data)
+{
+	char	*path;
+
+	path = get_cmd(cmd_exec->cmd_arg[0], data->env_cpy);
+	if (path)
+		execve(path, cmd_exec->cmd_arg, data->env_cpy);
+	execve_error(cmd_exec, 1);
+	free(path);
 	return (g_exit_code);
 }
 
-int 	search_and_execve(t_cmd *cmd_exec, t_data *data)
+int	search_and_execve(t_cmd *cmd_exec, t_data *data)
 {
-	int check_access;
-
-	check_access = access((cmd_exec->cmd_arg[0]), X_OK);
-	if (check_access == 0)
+	if (cmd_exec->cmd_arg[0])
 	{
-		execve(cmd_exec->cmd_arg[0], cmd_exec->cmd_arg, data->env_cpy);
-		//exit (127);
-	}
-	else if (check_access == -1)
+		if (ft_strchr(cmd_exec->cmd_arg[0], '/') != NULL)
+		{
+			verif(cmd_exec, data);
+			return (g_exit_code);
+		}
 		g_exit_code = execve_path(cmd_exec, data);
-	else
-		free_exeve(data,cmd_exec);
+	}
 	return (g_exit_code);
 }
 
-int exec_one_cmd(t_cmd *cmd_exec, t_data *data)
+int	execute_child(t_cmd *cmd_exec, t_data *data)
 {
-	cmd_exec->pid_one = fork();
-	if (cmd_exec->pid_one == -1)
-		return (write(2, "Error Fork\n", 12), 1);
-	if (cmd_exec->pid_one == 0)
-	{
-		dup_fds_one_cmd(cmd_exec);
-		if (cmd_exec->cmd_arg[0])
-			g_exit_code = search_and_execve(cmd_exec, data);
-	}
+	if (is_builtin(cmd_exec->cmd_arg))
+		g_exit_code = ft_built(data, cmd_exec->cmd_arg, cmd_exec);
 	else
-	{
-		waitpid(cmd_exec->pid_one, 0, 0);
-		ft_close_fd(cmd_exec);
-	}
+		search_and_execve(cmd_exec, data);
 	return (g_exit_code);
 }

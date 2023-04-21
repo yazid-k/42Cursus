@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:34:08 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/04/04 19:30:17 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/04/20 23:25:18 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <sys/stat.h>
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <signal.h>
@@ -75,8 +74,8 @@ typedef struct s_cmd
 	int				fd_in;
 	int				fd_out;
 	t_token			*token;
-	int 			status;
-	pid_t   		pid;
+	int				status;
+	pid_t			pid;
 	pid_t			pid_one;
 	char			*cmd_path;
 	struct s_cmd	*next;
@@ -96,15 +95,33 @@ typedef struct s_exp
 	struct s_exp	*next;
 }	t_exp;
 
+typedef struct s_here
+{
+	char			*delim;
+	int				pipe[2];
+	struct s_here	*next;
+}	t_here;
+
 typedef struct s_data
 {
 	char	**env_cpy;
+	t_cmd	*cmd;
+	t_token	*t;
 	t_env	*env_lst;
-	int		**pfd;
+	t_here	*here;
+	int		nbr_here;
+	int		pfd[2];
+	int		prev_pipe;
 	int		nbr_cmd;
 	int		nbr_pipe;
 	int		exit_status;
-} t_data;
+	int		fd;
+	int		fd2;
+	int		fd_out;
+	int		fd_in;
+}	t_data;
+
+void		free_all(t_cmd *cmd, t_token *token);
 
 //LIBFT
 int			ft_isalnum(int c);
@@ -123,6 +140,10 @@ int			ft_strcmp(char *s1, char *s2);
 int			ft_isdigit(int c);
 char		*ft_strchr(const char *s, int c);
 char		*ft_itoa(int n);
+int			ft_putchar_fd(char c, int fd);
+void		*ft_calloc(size_t nmemb, size_t size);
+int			ft_printf(const char *s, ...);
+void		ft_bzero(void *const s, size_t const size);
 
 //EXPAND
 void		lst_manager(t_env **env_lst, char *env_str);
@@ -139,6 +160,7 @@ int			memory_needed(char *str, t_env *env, t_exp *exp);
 t_exp		*init_expand(char *s);
 void		print_expand(t_exp *exp);
 char		*expand(char *s, t_env *env);
+void		expand_func_3(char *s, int *i);
 
 //STR
 char		*remove_quotes(char *str);
@@ -149,6 +171,7 @@ int			spaces_to_add(char *s);
 int			space_func(char *s, char *ret, int *i, int *j);
 char		*add_space(char *s);
 char		*new_str(char *str, t_env *env);
+int			is_space(char c);
 
 //TOKEN
 void		tokenadd_back(t_token **lst, t_token *new);
@@ -163,6 +186,7 @@ t_token		*init_tokens(char *s);
 int			is_sep(t_type type);
 void		give_types(t_token *t);
 int			type_is_sep(t_type type);
+void		quote(t_token *t);
 
 //CMD
 void		cmdadd_back(t_cmd **lst, t_cmd *new);
@@ -196,61 +220,83 @@ int			token_is_redir(t_token *token);
 int			err_redir(t_token *token);
 int			parse(t_cmd *cmd);
 
+//HEREDOC
+t_here		*herenew(void);
+void		handle_heredoc(t_cmd *cmd, t_data *data);
+t_here		*herelast(t_here *here);
+void		hereclear(t_here *here);
+void		hereadd_back(t_here **lst, t_here *new);
+t_here		*init_here(int n);
+
+int			ft_count_hd(t_cmd *cmd);
+void		get_delims_str(t_cmd *cmd, t_data *data);
+void		delims_continue(t_cmd *cmd, t_data *data, int *index);
+
 //EXEC
-int		exec_cmd(t_cmd *cmd_exec, t_data *data);
-int 	exec_pipe(t_cmd *cmd_exec, t_data *data);
-void	open_pipes(t_data *data);
-void	ft_close_and_wait(t_data *data, t_cmd *tmp, int i, int index);
-void		exec_one_builtin(t_cmd *cmd_exec, t_data *data, int *fd);
-int 	exec_one_cmd(t_cmd *cmd_exec, t_data *data);
-int 	search_and_execve(t_cmd *cmd_exec, t_data *data);
-int  	execve_path(t_cmd *cmd_exec, t_data *data);
-char	*get_cmd(char *cmd, char **envp);
-char	**ft_get_path(char  **env);
-void	err_msg(char *cmd, char *msg);
-int		msg(char *err);
-void	msg_error(char *err);
-//void	msg_error1(char *err);
-void	dup_fds_one_cmd(t_cmd *cmd_exec);
-int		child(t_cmd *cmd_exec,t_data *data);
-void	free_exeve(t_data *data, t_cmd *cmd_exec);
-void	dup_fds(t_data *data, t_cmd *cmd_exec, int i);
-void	close_fd(t_data *data, t_cmd *cmd_exec);
-void	ft_close(t_data *data, t_cmd *cmd_exec);
-void	ft_close_fd(t_cmd *cmd_exec);
-char	**pass_env_list_to_tab(t_env *env_lst);
-int		ft_free_pipes(t_data *data, int n);
-void	free_pfd(t_data *data);
-void	ft_free(char **str);
-//int		verif(t_cmd *cmd_exec);
+void		exit_free(t_data *data, t_cmd *cmd, int ret);
+int			get_format_code(char *arg, int *flag);
+void		dupnclose(int fd, int fd2);
+int			exec_cmd(t_cmd *cmd_exec, t_data *data);
+int			exec_pipe(t_cmd *cmd_exec, t_data *data);
+void		ft_close_and_wait(t_data *data, t_cmd *tmp, int i);
+void		exec_one_builtin(t_cmd *cmd_exec, t_data *data);
+int			exec_one_cmd(t_cmd *cmd_exec, t_data *data);
+int			search_and_execve(t_cmd *cmd_exec, t_data *data);
+int			execve_path(t_cmd *cmd_exec, t_data *data);
+char		*get_cmd(char *cmd, char **envp);
+char		**ft_get_path(char **env);
+void		execve_error(t_cmd *cmd_exec, int boolean);
+int			execute_child(t_cmd *cmd_exec, t_data *data);
+void		free_exeve(t_data *data, t_cmd *cmd_exec);
+void		dup_fds(t_data *data, t_cmd *cmd_exec, int i);
+void		close_fd(t_data *data, t_cmd *cmd_exec);
+void		ft_close(t_data *data, t_cmd *cmd_exec);
+void		ft_close_fd(t_cmd *cmd_exec);
+char		**pass_env_list_to_tab(t_env *env_lst);
+int			ft_free_pipes(t_data *data, int n);
+int			verif(t_cmd *cmd_exec, t_data *data);
+void		*ft_free(void **ptr);
+void		free_exec(t_data *data, t_cmd *cmd);
+int			get_result(t_data *data, t_cmd *cmd_exec, int result);
+void		redir_fd(int *fd, t_cmd *tmp, t_data *data);
+void		redir_fd_bt(int *fd, t_cmd *tmp, t_data *data);
+void		error_fd(t_token *token, t_cmd *cmd, t_data *data);
+int			error_fd_bt(t_token *token, t_cmd *cmd, t_data *data);
+int			openfiles_bt(t_cmd *cmd, t_data *data);
+void		openfiles(t_cmd *cmd, t_data *data);
+int			heredoc_pipe(t_here *here, t_data *data, char *str);
 
 //BUILTINS
-int		is_builtin(char **cmd);
-int		ft_built(t_data *mini, char **cmd, t_cmd *cmd_exec);
-int		ft_echo(char **cmd, int len);
-int		ft_export_var(t_env *env_lst, char *str);
-int		ft_check_input(char *str);
-int		export_msg(char *str);
-void	ft_update_var(t_env *env_lst, char *str, int i_equal);
-int 	ft_is_new_var(t_env *env_lst, char *str, int i_equal);
-int		var_name_len(char *str);
-int		ft_export(t_cmd *cmd_exec, t_env *env_lst, int len);
-void 	ft_print_export(t_env **env_lst);
-int		ft_is_equal(char *str);
-int		ft_cd(char **cmd, t_env *env_lst);
-void	ft_change_pwd(t_env *env_lst);
-void	ft_change_oldpwd(t_env *env_lst, char *path);
-int		ft_env(t_env *env_lst, int len);
-int		ft_print_env(t_env *env_lst);
-int		ft_pwd(void);
-int		ft_unset(t_cmd *cmd_exec, t_env *env_lst, int len);
-void 	clear_var(t_env *env_list, char *str);
-int		check_unset_input(char *str);
-int    	unset_msg(char *str);
-int		ft_exit(t_data *data, char **cmd, t_cmd *exec_cmd);
+int			is_builtin(char **cmd);
+int			ft_built(t_data *mini, char **cmd, t_cmd *cmd_exec);
+int			ft_echo(char **cmd, int len);
+int			ft_export_var(t_env *env_lst, char *str);
+int			ft_check_input(char *str);
+int			export_msg(char *str);
+void		ft_update_var(t_env *env_lst, char *str, int i_equal);
+int			ft_is_new_var(t_env *env_lst, char *str, int i_equal);
+int			var_name_len(char *str);
+int			ft_export(t_cmd *cmd_exec, t_env *env_lst, int len);
+void		ft_print_export(t_env **env_lst);
+int			ft_is_equal(char *str);
+int			ft_cd(char **cmd, t_env *env_lst);
+void		ft_change_pwd(t_env *env_lst);
+void		ft_change_oldpwd(t_env *env_lst, char *path);
+int			ft_env(t_env *env_lst, int len);
+int			ft_print_env(t_env *env_lst);
+int			ft_pwd(void);
+int			ft_unset(t_cmd *cmd_exec, t_env **env_lst, int len);
+void		clear_var(t_env **env_list, char *str);
+int			check_unset_input(char *str);
+int			unset_msg(char *str);
+int			ft_exit(t_data *data, char **cmd, t_cmd *exec_cmd);
 
 //UTILS
-int		init_struct(t_data *data, char **env);
-void	exit_shell(t_data *data, t_cmd *cmd, int code);
+void		init_struct(t_data *data, char **env);
+void		exit_shell(t_data *data, t_cmd *cmd, int code);
+void		antislash(int sig);
+void		ctrlc(int sig);
+void		ctrlc2(int sig);
+t_data		*starton(void);
 
 #endif

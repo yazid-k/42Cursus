@@ -3,58 +3,82 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvicedo <mvicedo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:04:11 by mvicedo           #+#    #+#             */
-/*   Updated: 2023/04/04 17:21:35 by mvicedo          ###   ########.fr       */
+/*   Updated: 2023/04/20 23:24:28 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int exec_pipe(t_cmd *cmd_exec, t_data *data)
+void	ft_closefile(t_cmd *tmp)
 {
-	int 	i;
-	int 	index;
-	t_cmd	*tmp;
-
-	i = 0;
-	index = 0;
-	tmp = cmd_exec;
-	open_pipes(data); 
-	while (cmd_exec != NULL)
+	while (tmp)
 	{
-		cmd_exec->pid = fork();
-		if (cmd_exec->pid == -1)
-			return (write(2, "Error Fork\n", 12), 1);
-		if (cmd_exec->pid == 0)
-		{
-			dup_fds(data, cmd_exec, index);
-			ft_close(data, tmp);
-			g_exit_code = child(cmd_exec, data);
-		}
-		index++;
-		cmd_exec = cmd_exec->next;
+		if (tmp->fd_out > 0)
+			close(tmp->fd_out);
+		if (tmp->fd_in > 0)
+			close(tmp->fd_in);
+		tmp = tmp->next;
 	}
-	ft_close_and_wait(data, tmp, i, index);
-	return (g_exit_code);
 }
 
-void	open_pipes(t_data *data)
+void	child_pid(t_cmd *cmd_exec, t_data *data, int *index)
 {
-	int i;
-	i = -1;
-	data->pfd = (int **)malloc(sizeof(int *) * (data->nbr_cmd + 1));
-	if (!data->pfd)
-		msg_error(ERR_PIPE);
-	data->pfd[data->nbr_cmd] = 0;
-	while (++i < data->nbr_cmd)
+	signal(SIGINT, &ctrlc2);
+	signal(SIGQUIT, &antislash);
+	data->env_cpy = pass_env_list_to_tab(data->env_lst);
+	dup_fds(data, cmd_exec, *index);
+	g_exit_code = execute_child(cmd_exec, data);
+	free_exec(data, cmd_exec);
+	ft_free((void **)&data->here);
+	exit(g_exit_code);
+}
+
+void	parent_pid(t_cmd *cmd_exec, t_data *data)
+{
+	(void)cmd_exec;
+	close(data->pfd[1]);
+	if (data->prev_pipe != -1)
+		close(data->prev_pipe);
+	data->prev_pipe = data->pfd[0];
+	signal(SIGQUIT, SIG_IGN);
+}
+
+int	pipe_func(t_data *data, t_cmd *cmd_exec, int *i)
+{
+	pipe(data->pfd);
+	cmd_exec->pid = fork();
+	if (cmd_exec->pid == -1)
+		return (write(2, "Error Fork\n", 12));
+	if (cmd_exec->pid == 0)
+		child_pid(cmd_exec, data, i);
+	else
+		parent_pid(cmd_exec, data);
+	(*i)++;
+	return (0);
+}
+
+int	exec_pipe(t_cmd *cmd_exec, t_data *data)
+{
+	int		i;
+	t_cmd	*tmp;
+	t_cmd	*tmpfile;
+
+	i = 0;
+	tmp = cmd_exec;
+	tmpfile = cmd_exec;
+	data->prev_pipe = -1;
+	while (cmd_exec != NULL)
 	{
-		data->pfd[i] = (int *)malloc(sizeof(int) * (2));
-		if ((!data->pfd[i]) || pipe(data->pfd[i]))
-		{
-			ft_free_pipes(data, i);
-			msg_error(ERR_PIPE);
-		}
+		if (pipe_func(data, cmd_exec, &i))
+			return (1);
+		cmd_exec = cmd_exec->next;
 	}
+	ft_closefile(tmpfile);
+	ft_close_and_wait(data, tmp, i);
+	if (data->nbr_cmd)
+		close(data->pfd[0]);
+	return (g_exit_code);
 }
