@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   param_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/22 13:31:04 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/25 15:41:48 by ekadiri          ###   ########.fr       */
+/*   Created: 2023/05/25 15:46:49 by ekadiri           #+#    #+#             */
+/*   Updated: 2023/05/25 15:50:14 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-int	parse_arg(int ac, char **av)
+int	is_fov(char *param)
 {
-	int	len;
-	int	fd;
+	if (!str_is_int(param))
+		return (printf("Error in FOV format %s\n", param), 0);
+	if (ft_atoi(param) <= 0 || ft_atoi(param) >= 180)
+		return (printf("FOV out of range\n"), 0);
+	return (1);
+}
 
-	if (ac != 2)
-		return (printf("Arg number error\n"));
-	len = ft_strlen(av[1]);
-	if (av[1][len -1] != 't' || av[1][len -2] != 'r' || av[1][len -3] != '.')
-		return (printf("File name error\n"));
-	fd = open(av[1], O_RDONLY);
-	if (fd < 0)
-		return (printf("File not existant\n"));
-	return (0);
+int	is_measure(char *param)
+{
+	if (!str_is_float(param))
+		return (printf("Error in measure parameter %s\n", param), 0);
+	if (ft_atof(param) <= 0.0)
+		return (printf("Measure out of range %s\n", param), 0);
+	return (1);
 }

@@ -1,6 +1,6 @@
 LIBFT=libs/libft/libft.a
 MLX=libs/MinilibX/libmlx.a
-SRCS=$(addprefix srcs/, main.c $(addprefix parsing/, parsing.c))
+SRCS=$(addprefix srcs/, main.c $(addprefix parsing/, parsing.c param_1.c param_2.c) $(addprefix utils/, utils_1.c))
 OBJS=${SRCS:.c=.o}
 CC=cc
 FLAGS=-Wall -Werror -Wextra -c
@@ -12,7 +12,7 @@ all : ${NAME}
 	${CC} ${FLAGS} $< -o $@
 
 ${NAME} : ${LIBFT} ${OBJS} ${MLX}
-	${CC} -o ${NAME} ${OBJS} ${LIBFT} -lmlx -L./MinilibX -framework OpenGL -framework AppKit
+	${CC} -o ${NAME} ${OBJS} ${LIBFT} -lmlx -L./libs/MinilibX -framework OpenGL -framework AppKit
 
 ${LIBFT} :
 	make -C libs/libft

@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:14:03 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/25 12:08:32 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/05/25 15:47:44 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-t_data	*init_struct()
+t_data	*init_struct(void)
 {
 	t_data		*data;
 

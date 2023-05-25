@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/25 12:07:17 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/05/25 15:52:35 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,56 @@
 # include <stdlib.h>
 # include <math.h>
 
+typedef enum e_type
+{
+	A_LIGHT,
+	CAMERA,
+	LIGHT,
+	SPHERE,
+	PLANE,
+	SQUARE,
+	CYLINDER,
+	TRIANGLE,
+	CONE
+}	t_type;
+
+typedef struct s_elem
+{
+	char			**param;
+	struct	s_elem	*next;
+}	t_elem;
+
 typedef struct s_data
 {
-	void		*mlx;
-	void		*win;
-	void		*img;
-	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-}				t_data;
+	void	*mlx;
+	void	*win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_data;
 
+//Utils
+void	free_arr(void **arr);
+void	print_arr(char **arr);
+int		str_is_float(char *str);
+int		str_is_int(char *str);
+int		max(int a, int b);
 
 //MLX
-t_data	*init_struct();
+t_data	*init_struct(void);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 //Parsing
-int		parse(int ac, char **av);
-
-
-
+int		parse_arg(int ac, char **av);
+	//Parameters
+int		is_light_ratio(char *param);
+int		is_coord(char *param);
+int		is_name(char *param);
+int		is_rgb(char *param);
+int		is_vector(char *param);
+int		is_fov(char *param);
+int		is_measure(char *param);
 
 #endif
