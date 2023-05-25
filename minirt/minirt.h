@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/25 15:52:35 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/05/25 16:11:29 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@ typedef enum e_type
 	CONE
 }	t_type;
 
-typedef struct s_elem
-{
-	char			**param;
-	struct	s_elem	*next;
-}	t_elem;
-
 typedef struct s_data
 {
 	void	*mlx;
@@ -54,11 +48,15 @@ typedef struct s_data
 }	t_data;
 
 //Utils
+	//1
 void	free_arr(void **arr);
 void	print_arr(char **arr);
 int		str_is_float(char *str);
 int		str_is_int(char *str);
 int		max(int a, int b);
+	//2
+int	arr_size(void **arr)
+
 
 //MLX
 t_data	*init_struct(void);
