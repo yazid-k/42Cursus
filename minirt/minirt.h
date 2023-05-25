@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/25 16:11:29 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/05/25 17:17:11 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ typedef struct s_data
 
 //Utils
 	//1
-void	free_arr(void **arr);
+void	free_arr(char **arr);
 void	print_arr(char **arr);
 int		str_is_float(char *str);
 int		str_is_int(char *str);
 int		max(int a, int b);
 	//2
-int	arr_size(void **arr)
+int		arr_size(char **arr);
 
 
 //MLX
@@ -63,7 +63,9 @@ t_data	*init_struct(void);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 //Parsing
-int		parse_arg(int ac, char **av);
+int		parse(int ac, char **av);
+int		parse_arr(char **arr);
+int		parse_elem(int fd);
 	//Parameters
 int		is_light_ratio(char *param);
 int		is_coord(char *param);
@@ -72,5 +74,13 @@ int		is_rgb(char *param);
 int		is_vector(char *param);
 int		is_fov(char *param);
 int		is_measure(char *param);
+	//Elements
+int	parse_ambient_light(char **arr);
+int	parse_light(char **arr);
+int	parse_camera(char **arr);
+int	parse_sphere(char **arr);
+int	parse_cylinder(char **arr);
+int	parse_plane(char **arr);
+int	parse_cone(char **arr);
 
 #endif

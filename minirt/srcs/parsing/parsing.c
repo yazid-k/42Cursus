@@ -6,24 +6,76 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:31:04 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/25 15:41:48 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/05/25 17:16:04 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-int	parse_arg(int ac, char **av)
+int	parse(int ac, char **av)
 {
 	int	len;
 	int	fd;
 
 	if (ac != 2)
-		return (printf("Arg number error\n"));
+		return (printf("Arg number error\n"), 0);
 	len = ft_strlen(av[1]);
 	if (av[1][len -1] != 't' || av[1][len -2] != 'r' || av[1][len -3] != '.')
-		return (printf("File name error\n"));
+		return (printf("File name error\n"), 0);
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
-		return (printf("File not existant\n"));
+		return (printf("File not existant\n"), 0);
+	return (parse_elem(fd));
+}
+
+int	parse_arr(char **arr)
+{
+	int	size;
+
+	size = ft_strlen(arr[0]);
+	if (!is_name(arr[0]))
+		return (0);
+	if (!ft_strncmp(arr[0], "A", max(size, 1)))
+		return (parse_ambient_light(arr));
+	if (!ft_strncmp(arr[0], "C", max(size, 1)))
+		return (parse_camera(arr));
+	if (!ft_strncmp(arr[0], "L", max(size, 1)))
+		return (parse_light(arr));
+	if (!ft_strncmp(arr[0], "sp", max(size, 2)))
+		return (parse_sphere(arr));
+	if (!ft_strncmp(arr[0], "cy", max(size, 2)))
+		return (parse_cylinder(arr));
+	if (!ft_strncmp(arr[0], "pl", max(size, 2)))
+		return (parse_plane(arr));
+	if (!ft_strncmp(arr[0], "co", max(size, 2)))
+		return (parse_cone(arr));
 	return (0);
+}
+
+int	parse_elem(int fd)
+{
+	char	*s;
+	char	**arr;
+
+	s = get_next_line(fd);
+	if (!s)
+		return (1);
+	while (s)
+	{
+		while (s[0] == '\n')
+		{
+			free(s);
+			s = get_next_line(fd);
+			if (!s)
+				return (1);
+		}
+		s[ft_strlen(s) - 1] = 0;
+		arr = ft_split(s, ' ');
+		if (!parse_arr(arr))
+			return (free_arr(arr), free(s), 0);
+		free_arr(arr);
+		free(s);
+		s = get_next_line(fd);
+	}
+	return (1);
 }

@@ -6,20 +6,20 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:11:33 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/25 15:42:56 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/05/25 17:18:02 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-void	free_arr(void **arr)
+void	free_arr(char **tab)
 {
-	while (*arr)
-	{
-		free(*arr);
-		arr++;
-	}
-	free(arr);
+	int	i;
+
+	i = -1;
+	while (tab[++i])
+		free(tab[i]);
+	free(tab);
 }
 
 void	print_arr(char **arr)

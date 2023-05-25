@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:00:52 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/25 15:49:55 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/05/25 17:17:51 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ int	is_coord(char *param)
 	while (arr[++i])
 		;
 	if (i != 3)
-		return (printf("Error in coord parameter %s\n", param), 0);
+		return (free_arr(arr),
+			printf("Error in coord parameter %s\n", param), 0);
 	i = -1;
 	while (arr[++i])
 	{
 		if (!str_is_float(arr[i]))
-			return (printf("Error in coord parameter %s\n", param), 0);
+			return (free_arr(arr),
+				printf("Error in coord parameter %s\n", param), 0);
 	}
-	return (printf("Is coord\n"), 1);
+	return (free_arr(arr), 1);
 }
 
 int	is_light_ratio(char *param)
@@ -60,7 +62,7 @@ int	is_name(char *param)
 		&& ft_strncmp(param, "pl", max(size, 2))
 		&& ft_strncmp(param, "co", max(size, 2)))
 		return (printf("Invalid element name %s\n", param), 0);
-	return (printf("Is name\n"), 1);
+	return (1);
 }
 
 int	is_rgb(char *param)
@@ -77,16 +79,19 @@ int	is_rgb(char *param)
 	while (arr[++i])
 		;
 	if (i != 3)
-		return (printf("Error in RGB parameter %s\n", param), 0);
+		return (free_arr(arr),
+			printf("Error in RGB parameter %s\n", param), 0);
 	i = -1;
 	while (arr[++i])
 	{
 		if (!str_is_int(arr[i]))
-			return (printf("Error in RGB paramter %s\n", param), 0);
+			return (free_arr(arr),
+				printf("Error in RGB paramter %s\n", param), 0);
 		if (ft_atoi(arr[i]) > 255)
-			return (printf("RGB out of range %s\n", param), 0);
+			return (free_arr(arr),
+				printf("RGB out of range %s\n", param), 0);
 	}
-	return (1);
+	return (free_arr(arr), 1);
 }
 
 int	is_vector(char *param)
@@ -103,14 +108,17 @@ int	is_vector(char *param)
 	while (arr[++i])
 		;
 	if (i != 3)
-		return (printf("Error in vector parameter %s\n", param), 0);
+		return (free_arr(arr),
+			printf("Error in vector parameter %s\n", param), 0);
 	i = -1;
 	while (arr[++i])
 	{
 		if (!str_is_float(arr[i]))
-			return (printf("Error in vector paramter %s\n", param), 0);
+			return (free_arr(arr),
+				printf("Error in vector paramter %s\n", param), 0);
 		if (ft_atof(arr[i]) < -1.0 || ft_atof(arr[i]) > 1.0)
-			return (printf("Vector out of range %s\n", param));
+			return (free_arr(arr),
+				printf("Vector out of range %s\n", param));
 	}
-	return (1);
+	return (free_arr(arr), 1);
 }

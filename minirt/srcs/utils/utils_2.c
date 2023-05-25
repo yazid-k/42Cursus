@@ -6,13 +6,13 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:57:57 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/25 15:58:41 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/05/25 16:51:42 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-int	arr_size(void **arr)
+int	arr_size(char **arr)
 {
 	int	i;
 
