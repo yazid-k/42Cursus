@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/25 17:17:11 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/05/26 12:46:12 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int		str_is_int(char *str);
 int		max(int a, int b);
 	//2
 int		arr_size(char **arr);
+int		create_rgb(int r, int g, int b);
 
 
 //MLX

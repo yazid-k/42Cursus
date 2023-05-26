@@ -1,6 +1,7 @@
 LIBFT=libs/libft/libft.a
 MLX=libs/MinilibX/libmlx.a
-SRCS=$(addprefix srcs/, main.c $(addprefix parsing/, parsing.c param_1.c param_2.c elem_1.c elem_2.c) $(addprefix utils/, utils_1.c utils_2.c))
+SRCS=$(addprefix srcs/, main.c $(addprefix parsing/, parsing.c param_1.c param_2.c elem_1.c elem_2.c) $(addprefix utils/, utils_1.c utils_2.c)\
+		$(addprefix mlx/, mlx.c))
 OBJS=${SRCS:.c=.o}
 CC=cc
 FLAGS=-Wall -Werror -Wextra -c
