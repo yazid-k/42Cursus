@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:31:04 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/25 17:16:04 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/05/26 12:48:06 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	parse_elem(int fd)
 
 	s = get_next_line(fd);
 	if (!s)
-		return (1);
+		return (close(fd), 1);
 	while (s)
 	{
 		while (s[0] == '\n')
@@ -67,15 +67,15 @@ int	parse_elem(int fd)
 			free(s);
 			s = get_next_line(fd);
 			if (!s)
-				return (1);
+				return (close(fd), 1);
 		}
 		s[ft_strlen(s) - 1] = 0;
 		arr = ft_split(s, ' ');
 		if (!parse_arr(arr))
-			return (free_arr(arr), free(s), 0);
+			return (close(fd), free_arr(arr), free(s), 0);
 		free_arr(arr);
 		free(s);
 		s = get_next_line(fd);
 	}
-	return (1);
+	return (close(fd), 1);
 }
