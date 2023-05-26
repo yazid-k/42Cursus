@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:57:57 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/25 16:51:42 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/05/26 12:39:04 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,3 +21,11 @@ int	arr_size(char **arr)
 		;
 	return (i);
 }
+
+int	create_rgb(int r, int g, int b)
+{
+	if (r > 255 || r < 0 || g < 0 || g > 255 || b < 0 || b > 255)
+		return (-1);
+	return (b + r * (int)pow(16, 4) + g * (int)pow(16, 2));
+}
+
