@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 15:52:41 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/02/04 19:00:12 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/08 12:44:22 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	clear_tab(char **tab)
 	free(tab);
 }
 
-double	ft_atof(char *str)
+float	ft_atof(char *str)
 {
 	float	res;
 	char	**tab;
@@ -49,9 +49,9 @@ double	ft_atof(char *str)
 	if (i > 1)
 	{
 		if (tab[0][0] == '-')
-			res -= (double)ft_atoi(tab[1]) / ft_power(10., ft_strlen(tab[1]));
+			res -= (float)ft_atoi(tab[1]) / ft_power(10., ft_strlen(tab[1]));
 		else
-			res += (double)ft_atoi(tab[1]) / ft_power(10., ft_strlen(tab[1]));
+			res += (float)ft_atoi(tab[1]) / ft_power(10., ft_strlen(tab[1]));
 	}
 	clear_tab(tab);
 	return (res);

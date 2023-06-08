@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/08 11:18:13 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/08 12:43:11 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,21 @@ typedef enum e_type
 
 typedef struct s_coords
 {
-	double	x;
-	double	y;
-	double	z;
+	float	x;
+	float	y;
+	float	z;
 }	t_coords;
 
 typedef struct s_elem
 {
 	t_type				type;
-	double				light;
+	float				light;
 	int					rgb;
 	t_coords			coord;
 	t_coords			vector;
 	int					fov;
-	double				diameter;
-	double				height;
+	float				diameter;
+	float				height;
 	struct s_elem		*next;
 }	t_elem;
 
@@ -114,6 +114,7 @@ void	elemadd_back(t_elem **lst, t_elem *new);
 t_elem	*elemlast(t_elem *lst);
 t_elem	*elemnew(void);
 int		elemsize(t_elem *lst);
+
 	//Struct elem
 t_elem	*get_sphere(char **arr);
 t_elem	*get_plane(char **arr);
@@ -129,4 +130,6 @@ t_elem	*get_elem_from_arr(char **arr);
 t_elem	*init_elem(char *file);
 void	print_elem(t_elem *elem);
 
+//Render
+void	render(t_data *data);
 #endif
