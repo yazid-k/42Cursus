@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 09:38:50 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/08 11:15:47 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/08 13:30:59 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	get_rgb_from_string(char *s)
 	return (free_arr(arr), ret);
 }
 
-t_coords	get_cooords_from_string(char *s)
+t_coords	get_coords_from_string(char *s)
 {
 	t_coords	ret;
 	char		**arr;
@@ -58,8 +58,8 @@ t_elem	*get_camera(char **arr)
 	if (!ret)
 		return (NULL);
 	ret->type = CAMERA;
-	ret->coord = get_cooords_from_string(arr[1]);
-	ret->vector = get_cooords_from_string(arr[2]);
+	ret->coord = get_coords_from_string(arr[1]);
+	ret->vector = get_coords_from_string(arr[2]);
 	ret->fov = ft_atoi(arr[3]);
 	return (ret);
 }
@@ -72,7 +72,7 @@ t_elem	*get_light(char **arr)
 	if (!ret)
 		return (NULL);
 	ret->type = LIGHT;
-	ret->coord = get_cooords_from_string(arr[1]);
+	ret->coord = get_coords_from_string(arr[1]);
 	ret->light = ft_atof(arr[2]);
 	ret->rgb = get_rgb_from_string(arr[3]);
 	return (ret);

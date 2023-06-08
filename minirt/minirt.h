@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/08 12:43:11 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/08 13:30:59 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ t_elem	*get_cone(char **arr);
 t_elem	*get_ambient_light(char **arr);
 t_elem	*get_light(char **arr);
 t_elem	*get_camera(char **arr);
-t_coords	get_cooords_from_string(char *s);
+t_coords	get_coords_from_string(char *s);
 int		get_rgb_from_string(char *s);
 t_elem	*get_elem_from_arr(char **arr);
 t_elem	*init_elem(char *file);

@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 09:13:30 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/08 10:56:17 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/08 13:30:59 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_elem	*get_sphere(char **arr)
 	if (!ret)
 		return (NULL);
 	ret->type = SPHERE;
-	ret->coord = get_cooords_from_string(arr[1]);
+	ret->coord = get_coords_from_string(arr[1]);
 	ret->diameter = ft_atof(arr[2]);
 	ret->rgb = get_rgb_from_string(arr[3]);
 	return (ret);
@@ -34,8 +34,8 @@ t_elem	*get_plane(char **arr)
 	if (!ret)
 		return (NULL);
 	ret->type = PLANE;
-	ret->coord = get_cooords_from_string(arr[1]);
-	ret->vector = get_cooords_from_string(arr[2]);
+	ret->coord = get_coords_from_string(arr[1]);
+	ret->vector = get_coords_from_string(arr[2]);
 	ret->rgb = get_rgb_from_string(arr[3]);
 	return (ret);
 }
@@ -48,8 +48,8 @@ t_elem	*get_cylinder(char **arr)
 	if (!ret)
 		return (NULL);
 	ret->type = CYLINDER;
-	ret->coord = get_cooords_from_string(arr[1]);
-	ret->vector = get_cooords_from_string(arr[2]);
+	ret->coord = get_coords_from_string(arr[1]);
+	ret->vector = get_coords_from_string(arr[2]);
 	ret->diameter = ft_atof(arr[3]);
 	ret->height = ft_atof(arr[4]);
 	ret->rgb = get_rgb_from_string(arr[5]);
@@ -64,8 +64,8 @@ t_elem	*get_cone(char **arr)
 	if (!ret)
 		return (NULL);
 	ret->type = CONE;
-	ret->coord = get_cooords_from_string(arr[1]);
-	ret->vector = get_cooords_from_string(arr[2]);
+	ret->coord = get_coords_from_string(arr[1]);
+	ret->vector = get_coords_from_string(arr[2]);
 	ret->diameter = ft_atof(arr[3]);
 	ret->height = ft_atof(arr[4]);
 	ret->rgb = get_rgb_from_string(arr[5]);
