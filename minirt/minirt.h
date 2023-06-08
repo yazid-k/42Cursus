@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/08 13:30:59 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/08 13:43:03 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,20 @@ typedef enum e_type
 }	t_type;
 
 
-typedef struct s_coords
+typedef struct s_coord
 {
 	float	x;
 	float	y;
 	float	z;
-}	t_coords;
+}	t_coord;
 
 typedef struct s_elem
 {
 	t_type				type;
 	float				light;
 	int					rgb;
-	t_coords			coord;
-	t_coords			vector;
+	t_coord			coord;
+	t_coord			vector;
 	int					fov;
 	float				diameter;
 	float				height;
@@ -78,7 +78,9 @@ int		str_is_int(char *str);
 int		max(int a, int b);
 	//2
 int		arr_size(char **arr);
-int		create_rgb(int r, int g, int b);
+int		rgb(int r, int g, int b);
+t_coord	coord(float x, float y, float z);
+void		print_coord(t_coord c);
 
 
 //MLX
@@ -124,7 +126,7 @@ t_elem	*get_cone(char **arr);
 t_elem	*get_ambient_light(char **arr);
 t_elem	*get_light(char **arr);
 t_elem	*get_camera(char **arr);
-t_coords	get_coords_from_string(char *s);
+t_coord	get_coord_from_string(char *s);
 int		get_rgb_from_string(char *s);
 t_elem	*get_elem_from_arr(char **arr);
 t_elem	*init_elem(char *file);
@@ -132,4 +134,8 @@ void	print_elem(t_elem *elem);
 
 //Render
 void	render(t_data *data);
+
+//Math
+float	distance(t_coord v1, t_coord v2);
+
 #endif

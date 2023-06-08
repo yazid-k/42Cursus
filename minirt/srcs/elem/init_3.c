@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:56:33 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/08 13:30:18 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/08 13:42:21 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_elem(t_elem *elem)
 {
 	while (elem)
 	{
-		printf("Type %d Light %f RGB %d Coords %f %f %f Vector %f %f %f fov %d Diameter %f Height %f\n",elem->type, elem->light, elem->rgb, elem->coord.x, elem->coord.y, elem->coord.z, elem->vector.x, elem->vector.y, elem->coord.z, elem->fov, elem->diameter, elem->height);
+		printf("Type %d Light %f RGB %d t_coord %f %f %f Vector %f %f %f fov %d Diameter %f Height %f\n",elem->type, elem->light, elem->rgb, elem->coord.x, elem->coord.y, elem->coord.z, elem->vector.x, elem->vector.y, elem->coord.z, elem->fov, elem->diameter, elem->height);
 		elem = elem->next;
 	}
 }

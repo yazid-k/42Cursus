@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:52 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/08 13:25:01 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/08 13:44:39 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	square(t_data *data)
 	for (size_t i = 250; i < 750; i++)
 	{
 		for (size_t j = 250; j < 750; j++)
-			my_mlx_pixel_put(data, i, j, create_rgb(i % 255, j % 255, 0));
+			my_mlx_pixel_put(data, i, j, rgb(i % 255, j % 255, 0));
 	}
 }
 
@@ -31,5 +31,6 @@ int	main(int ac, char **av)
 	elem = init_elem(av[1]);
 	print_elem(elem);
 	elemclear(&elem);
+	printf("%f\n", distance(coord(100., 100., 100.), coord(0., 0., 0.)));
 	return (0);
 }

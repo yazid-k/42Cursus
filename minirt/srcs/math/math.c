@@ -6,13 +6,13 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 12:26:41 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/08 13:06:20 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/08 13:42:21 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-float	distance(t_coords v1, t_coords v2)
+float	distance(t_coord v1, t_coord v2)
 {
 	return (sqrt(pow(v1.x - v2.x, 2.) + pow(v1.y - v2.y, 2.)+ pow(v1.z - v2.z, 2.)));
 }
