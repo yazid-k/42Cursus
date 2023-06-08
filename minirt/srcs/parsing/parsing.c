@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:31:04 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/26 12:48:06 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/08 11:04:05 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,46 @@ int	parse(int ac, char **av)
 	return (parse_elem(fd));
 }
 
+int	parse_unique_elem(char **arr)
+{
+	int			size;
+	static int	a = 0;
+	static int	c = 0;
+	static int	l = 0;
+
+	size = ft_strlen(arr[0]);
+	if (!ft_strncmp(arr[0], "A", max(size, 1)))
+	{
+		if (++a > 1)
+			return (printf("Ambient light declared more than once\n"), 0);
+		return (parse_ambient_light(arr));
+	}
+	if (!ft_strncmp(arr[0], "C", max(size, 1)))
+	{
+		if (++c > 1)
+			return (printf("Camera declared more than once\n"), 0);
+		return (parse_camera(arr));
+	}
+	if (!ft_strncmp(arr[0], "L", max(size, 1)))
+	{
+		if (++l > 1)
+			return (printf("Light declared more than once\n"), 0);
+		return (parse_light(arr));
+	}
+	return (0);
+}
+
 int	parse_arr(char **arr)
 {
-	int	size;
+	int			size;
 
 	size = ft_strlen(arr[0]);
 	if (!is_name(arr[0]))
 		return (0);
-	if (!ft_strncmp(arr[0], "A", max(size, 1)))
-		return (parse_ambient_light(arr));
-	if (!ft_strncmp(arr[0], "C", max(size, 1)))
-		return (parse_camera(arr));
-	if (!ft_strncmp(arr[0], "L", max(size, 1)))
-		return (parse_light(arr));
+	if (!ft_strncmp(arr[0], "L", max(size, 1))
+		|| !ft_strncmp(arr[0], "C", max(size, 1))
+		|| !ft_strncmp(arr[0], "A", max(size, 1)))
+		return (parse_unique_elem(arr));
 	if (!ft_strncmp(arr[0], "sp", max(size, 2)))
 		return (parse_sphere(arr));
 	if (!ft_strncmp(arr[0], "cy", max(size, 2)))

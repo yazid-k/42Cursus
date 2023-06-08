@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:57:57 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/26 12:39:04 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/08 10:58:55 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,3 @@ int	create_rgb(int r, int g, int b)
 		return (-1);
 	return (b + r * (int)pow(16, 4) + g * (int)pow(16, 2));
 }
-
