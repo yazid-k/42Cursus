@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/08 13:43:03 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/26 16:04:33 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ typedef struct s_coord
 	float	y;
 	float	z;
 }	t_coord;
+
+typedef struct s_ray
+{
+	t_coord	origin;
+	t_coord	direction;
+}	t_ray;
 
 typedef struct s_elem
 {
@@ -81,7 +87,6 @@ int		arr_size(char **arr);
 int		rgb(int r, int g, int b);
 t_coord	coord(float x, float y, float z);
 void		print_coord(t_coord c);
-
 
 //MLX
 t_data	*init_struct(char *file);
@@ -137,5 +142,8 @@ void	render(t_data *data);
 
 //Math
 float	distance(t_coord v1, t_coord v2);
+t_coord	norm(t_coord v);
+t_coord	vec_add(t_coord v1, t_coord v2);
+t_coord	vec_sub(t_coord v1, t_coord v2);
 
 #endif

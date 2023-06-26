@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:14:03 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/08 11:23:12 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/26 16:01:59 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_data	*init_struct(char *file)
 	if (!data)
 		return (NULL);
 	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, 1000, 1000, "minirt");
-	data->img = mlx_new_image(data->mlx, 1000, 1000);
+	data->win = mlx_new_window(data->mlx, 700 * 16 / 9, 700, "minirt");
+	data->img = mlx_new_image(data->mlx, 700 * 16 / 9, 700);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
 			&data->line_length, &data->endian);
 	data->elem = init_elem(file);
