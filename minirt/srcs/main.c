@@ -6,24 +6,11 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:52 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/29 22:00:06 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/29 23:41:42 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
-
-void square(t_data *data)
-{
-	for (size_t i = 250; i < 750; i++)
-	{
-		for (size_t j = 250; j < 750; j++)
-		{
-			my_mlx_pixel_put(data, i, j, 0x00FF0000);
-		}
-
-	}
-
-}
 
 int	main(int ac, char **av)
 {

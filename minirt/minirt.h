@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/29 20:20:42 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/29 23:01:58 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_elem	*get_u_elem_by_type(t_data *data, t_type type);
 t_elem	*get_elem_by_type(t_data *data, t_type type);
 t_ray	ray(t_coord origin, t_coord direction);
 void	print_ray(t_ray r);
-
+double	min(double a, double b);
 //MLX
 t_data	*init_struct(char *file);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -152,5 +152,11 @@ t_coord	norm(t_coord v);
 t_coord	vec_add(t_coord v1, t_coord v2);
 t_coord	vec_sub(t_coord v1, t_coord v2);
 double	vec_dot(t_coord v1, t_coord v2);
+//Hit
+double		hit_sphere(t_ray ray, t_elem *sphere);
+double		hit_plane(t_ray ray, t_elem *plane);
+double		hit_cylinder(t_ray ray, t_elem *cylinder);
+double		hit_cone(t_ray ray, t_elem *cone);
+double		hit(t_ray r, t_elem *elem);
 
 #endif
