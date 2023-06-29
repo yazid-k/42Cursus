@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:52 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/26 16:01:31 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/29 22:00:06 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int ac, char **av)
 	if (!parse(ac, av))
 		return (1);
 	data = init_struct(av[1]);
-	square(data);
+	render(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	mlx_loop(data->mlx);
 	clear_all(data);

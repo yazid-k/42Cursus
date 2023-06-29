@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/26 16:04:33 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/29 20:20:42 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_data
 	int				bits_per_pixel;
 	int				line_length;
 	int				endian;
+	t_coord			cam;
 	t_elem			*elem;
 }	t_data;
 
@@ -87,6 +88,11 @@ int		arr_size(char **arr);
 int		rgb(int r, int g, int b);
 t_coord	coord(float x, float y, float z);
 void		print_coord(t_coord c);
+t_elem	*get_u_elem_by_type(t_data *data, t_type type);
+	//3
+t_elem	*get_elem_by_type(t_data *data, t_type type);
+t_ray	ray(t_coord origin, t_coord direction);
+void	print_ray(t_ray r);
 
 //MLX
 t_data	*init_struct(char *file);
@@ -145,5 +151,6 @@ float	distance(t_coord v1, t_coord v2);
 t_coord	norm(t_coord v);
 t_coord	vec_add(t_coord v1, t_coord v2);
 t_coord	vec_sub(t_coord v1, t_coord v2);
+double	vec_dot(t_coord v1, t_coord v2);
 
 #endif
