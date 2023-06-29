@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:31:04 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/08 11:04:05 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/29 23:49:49 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ int	parse_arr(char **arr)
 		return (parse_cylinder(arr));
 	if (!ft_strncmp(arr[0], "pl", max(size, 2)))
 		return (parse_plane(arr));
-	if (!ft_strncmp(arr[0], "co", max(size, 2)))
-		return (parse_cone(arr));
 	return (0);
 }
 

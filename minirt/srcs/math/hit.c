@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 22:34:07 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/29 23:41:21 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/29 23:50:57 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ double	hit_plane(t_ray r, t_elem *plane)
 	return (-1.);
 }
 
-/* double	hit_cylinder(t_ray r, t_elem *cylinder)
+double	hit_cylinder(t_ray r, t_elem *cylinder)
 {
 	t_coord	oc;
 	double	a;
@@ -50,33 +50,8 @@ double	hit_plane(t_ray r, t_elem *plane)
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0)
 		return (-1.);
-
 	return (1);
 }
-
-double	hit_cone(t_ray r, t_elem *cone)
-{
-	t_coord	oc;
-	double	a;
-	double	b;
-	double	c;
-	double	discriminant;
-
-	oc = vec_sub(r.origin, cone->coord);
-	a = vec_dot(r.direction, r.direction)
-		- (1 + pow(tan(cone->diameter / 2.), 2.))
-		* pow(vec_dot(r.direction, cone->vector), 2.);
-	b = 2. * (vec_dot(r.direction, oc)
-			- (1 + pow(tan(cone->diameter / 2.), 2.))
-			* vec_dot(r.direction, cone->vector)
-			* vec_dot(oc, cone->vector));
-	c = vec_dot(oc, oc) - (1 + pow(tan(cone->diameter / 2.), 2.))
-		* pow(vec_dot(oc, cone->vector), 2.);
-	discriminant = b * b - 4 * a * c;
-	if (discriminant < 0)
-		return (-1.);
-	return (1);
-} */
 
 double	hit_sphere(t_ray r, t_elem *sphere)
 {

@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/29 23:01:58 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/29 23:49:54 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef enum e_type
 	SQUARE,
 	CYLINDER,
 	TRIANGLE,
-	CONE
 }	t_type;
 
 
@@ -118,7 +117,6 @@ int		parse_camera(char **arr);
 int		parse_sphere(char **arr);
 int		parse_cylinder(char **arr);
 int		parse_plane(char **arr);
-int		parse_cone(char **arr);
 
 //Elem
 	//List
@@ -133,7 +131,6 @@ t_elem	*get_sphere(char **arr);
 t_elem	*get_plane(char **arr);
 t_elem	*get_cylinder(char **arr);
 t_elem	*get_plane(char **arr);
-t_elem	*get_cone(char **arr);
 t_elem	*get_ambient_light(char **arr);
 t_elem	*get_light(char **arr);
 t_elem	*get_camera(char **arr);
@@ -156,7 +153,6 @@ double	vec_dot(t_coord v1, t_coord v2);
 double		hit_sphere(t_ray ray, t_elem *sphere);
 double		hit_plane(t_ray ray, t_elem *plane);
 double		hit_cylinder(t_ray ray, t_elem *cylinder);
-double		hit_cone(t_ray ray, t_elem *cone);
 double		hit(t_ray r, t_elem *elem);
 
 #endif

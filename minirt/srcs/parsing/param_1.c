@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:00:52 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/25 17:17:51 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/29 23:51:33 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ int	is_name(char *param)
 		&& ft_strncmp(param, "L", max(size, 1))
 		&& ft_strncmp(param, "sp", max(size, 2))
 		&& ft_strncmp(param, "cy", max(size, 2))
-		&& ft_strncmp(param, "pl", max(size, 2))
-		&& ft_strncmp(param, "co", max(size, 2)))
+		&& ft_strncmp(param, "pl", max(size, 2)))
 		return (printf("Invalid element name %s\n", param), 0);
 	return (1);
 }
