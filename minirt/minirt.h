@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/29 23:49:54 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/30 13:24:18 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ double	min(double a, double b);
 //MLX
 t_data	*init_struct(char *file);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	clear_all(t_data *data);
+int	close_win(t_data **data);
+int	keyhook(int keycode, t_data **data);
 
 //Parsing
 int		parse(int ac, char **av);

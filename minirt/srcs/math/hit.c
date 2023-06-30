@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 22:34:07 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/29 23:50:57 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/30 00:08:55 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ double	hit_cylinder(t_ray r, t_elem *cylinder)
 	double	a;
 	double	b;
 	double	c;
-	double	discriminant;
+	double	t;
 
 	oc = vec_sub(r.origin, cylinder->coord);
 	a = vec_dot(r.direction, r.direction)
@@ -47,10 +47,13 @@ double	hit_cylinder(t_ray r, t_elem *cylinder)
 			* vec_dot(oc, cylinder->vector));
 	c = vec_dot(oc, oc) - pow(vec_dot(oc, cylinder->vector), 2.)
 		- pow(cylinder->diameter / 2., 2.);
-	discriminant = b * b - 4 * a * c;
-	if (discriminant < 0)
+	if (b * b - 4 * a * c < 0)
 		return (-1.);
-	return (1);
+	t = min((-b + sqrt(b * b - 4 * a * c)) / (2. * a),
+			(-b - sqrt(b * b - 4 * a * c)) / (2. * a));
+	return (distance(r.origin, coord(r.origin .x + t * r.direction.x,
+				r.origin.y + t * r.direction.y,
+				r.origin.z + t * r.direction.z)));
 }
 
 double	hit_sphere(t_ray r, t_elem *sphere)
@@ -69,8 +72,9 @@ double	hit_sphere(t_ray r, t_elem *sphere)
 		return (-1.);
 	t = min((-b + sqrt(b * b - 4 * a * c)) / (2. * a),
 			(-b - sqrt(b * b - 4 * a * c)) / (2. * a));
-	return (distance(r.origin, coord(r.direction.x * t,
-				r.direction.y * t, r.direction.z * t)));
+	return (distance(r.origin, coord(r.origin.x + t * r.direction.x,
+				r.origin.y + t * r.direction.y,
+				r.origin.z + t * r.direction.z)));
 }
 
 double	hit(t_ray r, t_elem *elem)
@@ -79,5 +83,7 @@ double	hit(t_ray r, t_elem *elem)
 		return (hit_plane(r, elem));
 	else if (elem->type == SPHERE)
 		return (hit_sphere(r, elem));
+	else if (elem->type == CYLINDER)
+		return (hit_cylinder(r, elem));
 	return (0.);
 }

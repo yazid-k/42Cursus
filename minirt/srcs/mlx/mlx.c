@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:14:03 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/29 21:53:25 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/06/30 13:27:18 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,15 @@ t_data	*init_struct(char *file)
 	return (data);
 }
 
-void	clear_all(t_data *data)
+int	close_win(t_data **data)
 {
-	elemclear(&data->elem);
-	mlx_destroy_image(data->mlx, data->img);
-	mlx_destroy_window(data->mlx, data->win);
-	free(data->mlx);
-	free(data);
+	mlx_destroy_window((*data)->mlx, (*data)->win);
+	exit(0);
+}
+
+int	keyhook(int keycode, t_data **data)
+{
+	if (keycode == 53)
+		close_win(data);
+	return (0);
 }
