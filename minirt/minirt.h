@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/30 13:24:18 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/19 01:48:52 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ typedef enum e_type
 	LIGHT,
 	SPHERE,
 	PLANE,
-	SQUARE,
 	CYLINDER,
-	TRIANGLE,
 }	t_type;
 
 
@@ -87,9 +85,8 @@ int		arr_size(char **arr);
 int		rgb(int r, int g, int b);
 t_coord	coord(float x, float y, float z);
 void		print_coord(t_coord c);
-t_elem	*get_u_elem_by_type(t_data *data, t_type type);
-	//3
 t_elem	*get_elem_by_type(t_data *data, t_type type);
+	//3
 t_ray	ray(t_coord origin, t_coord direction);
 void	print_ray(t_ray r);
 double	min(double a, double b);
@@ -151,9 +148,8 @@ t_coord	vec_add(t_coord v1, t_coord v2);
 t_coord	vec_sub(t_coord v1, t_coord v2);
 double	vec_dot(t_coord v1, t_coord v2);
 //Hit
-double		hit_sphere(t_ray ray, t_elem *sphere);
-double		hit_plane(t_ray ray, t_elem *plane);
-double		hit_cylinder(t_ray ray, t_elem *cylinder);
-double		hit(t_ray r, t_elem *elem);
+t_coord		hit_sphere(t_ray ray, t_elem *sphere);
+t_coord		hit_plane(t_ray ray, t_elem *plane);
+t_coord		hit(t_ray r, t_elem *elem);
 
 #endif

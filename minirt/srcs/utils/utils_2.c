@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:57:57 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/29 22:01:00 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/19 01:16:18 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_coord(t_coord c)
 	printf("x : %f y : %f z : %f\n", c.x, c.y, c.z);
 }
 
-t_elem	*get_u_elem_by_type(t_data *data, t_type type)
+t_elem	*get_elem_by_type(t_data *data, t_type type)
 {
 	t_elem	*tmp;
 

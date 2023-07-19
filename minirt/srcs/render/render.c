@@ -6,11 +6,37 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:29:46 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/29 23:42:13 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/19 02:12:36 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
+
+int	shadow_test(t_coord point, t_data *data)
+{
+	t_ray	r;
+	t_elem	*light;
+	t_elem	*elem;
+
+	light = get_elem_by_type(data, LIGHT);
+	if (!light)
+		return (1);
+	elem = data->elem;
+	r = ray(point, vec_sub(light->coord, point));
+	r.origin.x += r.direction.x * 0.1;
+	r.origin.y += r.direction.y * 0.1;
+	r.origin.z += r.direction.z * 0.1;
+	while (elem)
+	{
+		if (elem->type == 3 || elem->type == 4)
+		{
+			if (hit(r, elem).x != NAN)
+				return (1);
+		}
+		elem = elem->next;
+	}
+	return (1);
+}
 
 int	ray_color(t_ray r, t_data *data)
 {
@@ -23,12 +49,12 @@ int	ray_color(t_ray r, t_data *data)
 	dst = INFINITY;
 	while (elem)
 	{
-		if (elem->type > 2)
+		if (elem->type == 3 || elem->type == 4)
 		{
-			if (hit(r, elem) > 0. && hit(r, elem) < dst)
+			if (hit(r, elem).x != NAN && distance(r.origin, hit(r, elem)) < dst)
 			{
-				dst = distance(r.origin, elem->coord);
-				color = elem->rgb;
+				dst = distance(r.origin, hit(r, elem));
+				color = elem->rgb * shadow_test(hit(r, elem), data);
 			}
 		}
 		elem = elem->next;
@@ -45,7 +71,7 @@ void	render(t_data *data)
 	double	x, y;
 	t_ray	r;
 
-	camera = get_u_elem_by_type(data, CAMERA);
+	camera = get_elem_by_type(data, CAMERA);
 	viewport_width = 2. * tan((camera->fov / 2.) * M_PI / 180.);
 	viewport_height = viewport_width * (9. / 16.);
 	origin = coord(0, 0, 0);
@@ -59,8 +85,6 @@ void	render(t_data *data)
 			r = ray(origin, vec_add(bottom_left, coord(x * viewport_width, y * viewport_height, 0)));
 			if (ray_color(r, data) != 0)
 				my_mlx_pixel_put(data, i, 700 - j, ray_color(r, data));
-			else
-				my_mlx_pixel_put(data, i, 700 - j, rgb(0, 0, (int)(255. * fabs(r.direction.y))));
 		}
 	}
 }
