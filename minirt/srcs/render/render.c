@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:29:46 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/19 02:12:36 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/19 02:58:58 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ int	shadow_test(t_coord point, t_data *data)
 		return (1);
 	elem = data->elem;
 	r = ray(point, vec_sub(light->coord, point));
-	r.origin.x += r.direction.x * 0.1;
-	r.origin.y += r.direction.y * 0.1;
-	r.origin.z += r.direction.z * 0.1;
+	r.origin.x += 0.001 * r.direction.x;
+	r.origin.y += 0.001 * r.direction.y;
+	r.origin.z += 0.001 * r.direction.z;
 	while (elem)
 	{
-		if (elem->type == 3 || elem->type == 4)
+		if ((elem->type == 3 || elem->type == 4))
 		{
-			if (hit(r, elem).x != NAN)
-				return (1);
+			if (isnan(hit(r, elem).x) == 0)
+				return (0);
 		}
 		elem = elem->next;
 	}
@@ -51,7 +51,7 @@ int	ray_color(t_ray r, t_data *data)
 	{
 		if (elem->type == 3 || elem->type == 4)
 		{
-			if (hit(r, elem).x != NAN && distance(r.origin, hit(r, elem)) < dst)
+			if (!isnan(hit(r, elem).x) && distance(r.origin, hit(r, elem)) < dst)
 			{
 				dst = distance(r.origin, hit(r, elem));
 				color = elem->rgb * shadow_test(hit(r, elem), data);
