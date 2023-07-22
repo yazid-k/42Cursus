@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:29:46 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/22 20:45:37 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/22 21:19:28 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	cast_ray(t_data *data, int i, int j, double viewport[2])
 	k[0] = (double)i / (700 * 16 / 9);
 	k[1] = (double)j / 700;
 	direction = coord(bl.x + k[0] * viewport[0], bl.y + k[1] * viewport[1], 1.);
-	direction = matrix_mult(camera_matrix(camera), direction);
+	direction = matrix_mult(data->mat, direction);
 	direction = vec_sub(direction, camera->coord);
 	r = ray(camera->coord, norm(direction));
 	if (ray_color(r, data))

@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/22 20:29:23 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/22 20:54:21 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ typedef struct s_elem
 	struct s_elem		*next;
 }	t_elem;
 
+typedef struct s_matrix
+{
+	float	m[4][4];
+}	t_matrix;
+
 typedef struct s_data
 {
 	void			*mlx;
@@ -70,12 +75,8 @@ typedef struct s_data
 	int				endian;
 	t_coord			cam;
 	t_elem			*elem;
+	t_matrix		mat;
 }	t_data;
-
-typedef struct s_matrix
-{
-	float	m[4][4];
-}	t_matrix;
 
 //Utils
 	//1
