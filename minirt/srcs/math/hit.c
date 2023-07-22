@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 22:34:07 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/22 17:43:16 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/22 20:35:59 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ t_coord	hit_sphere(t_ray r, t_elem *sphere)
 	c = vec_dot(oc, oc) - sphere->diameter * sphere->diameter;
 	if (b * b - 4 * a * c < 0)
 		return (coord(NAN, NAN, NAN));
-	t = min((-b + sqrt(b * b - 4 * a * c)) / (2. * a),
-			(-b - sqrt(b * b - 4 * a * c)) / (2. * a));
+	t = positive_min((-b + sqrt(b * b - 4 * a * c)) / (2 * a),
+			(-b - sqrt(b * b - 4 * a * c)) / (2 * a));
+	if (isnan(t))
+		return (coord(NAN, NAN, NAN));
 	return (coord(r.origin.x + t * r.direction.x,
 			r.origin.y + t * r.direction.y,
 			r.origin.z + t * r.direction.z));
