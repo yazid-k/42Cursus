@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 22:34:07 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/19 01:54:04 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/22 17:43:16 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ t_coord	hit_plane(t_ray r, t_elem *plane)
 		t = vec_dot(oc, plane->vector) / denom;
 		if (t >= 0)
 			return (coord(r.origin.x + t * r.direction.x,
-						r.origin.y + t * r.direction.y,
-						r.origin.z + t * r.direction.z));
+					r.origin.y + t * r.direction.y,
+					r.origin.z + t * r.direction.z));
 	}
 	return (coord(NAN, NAN, NAN));
 }
@@ -48,8 +48,8 @@ t_coord	hit_sphere(t_ray r, t_elem *sphere)
 	t = min((-b + sqrt(b * b - 4 * a * c)) / (2. * a),
 			(-b - sqrt(b * b - 4 * a * c)) / (2. * a));
 	return (coord(r.origin.x + t * r.direction.x,
-				r.origin.y + t * r.direction.y,
-				r.origin.z + t * r.direction.z));
+			r.origin.y + t * r.direction.y,
+			r.origin.z + t * r.direction.z));
 }
 
 t_coord	hit(t_ray r, t_elem *elem)

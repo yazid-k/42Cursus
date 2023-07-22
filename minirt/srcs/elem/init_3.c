@@ -6,19 +6,22 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:56:33 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/08 13:42:21 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/22 17:41:47 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-void	print_elem(t_elem *elem)
+int	skip_lines(char **s, int fd)
 {
-	while (elem)
+	while (*s[0] == '\n')
 	{
-		printf("Type %d Light %f RGB %d t_coord %f %f %f Vector %f %f %f fov %d Diameter %f Height %f\n",elem->type, elem->light, elem->rgb, elem->coord.x, elem->coord.y, elem->coord.z, elem->vector.x, elem->vector.y, elem->coord.z, elem->fov, elem->diameter, elem->height);
-		elem = elem->next;
+		free(*s);
+		*s = get_next_line(fd);
+		if (!(*s))
+			return (close(fd), 0);
 	}
+	return (1);
 }
 
 t_elem	*init_elem(char *file)
@@ -29,21 +32,14 @@ t_elem	*init_elem(char *file)
 	t_elem	*elem;
 
 	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
 	s = get_next_line(fd);
 	if (!s)
 		return (close(fd), NULL);
 	elem = NULL;
 	while (s)
 	{
-		while (s[0] == '\n')
-		{
-			free(s);
-			s = get_next_line(fd);
-			if (!s)
-				return (close(fd), elem);
-		}
+		if (!skip_lines(&s, fd))
+			return (elem);
 		s[ft_strlen(s) - 1] = 0;
 		arr = ft_split(s, ' ');
 		if (!elem)

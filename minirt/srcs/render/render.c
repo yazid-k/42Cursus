@@ -6,37 +6,11 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:29:46 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/19 02:58:58 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/22 17:44:27 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
-
-int	shadow_test(t_coord point, t_data *data)
-{
-	t_ray	r;
-	t_elem	*light;
-	t_elem	*elem;
-
-	light = get_elem_by_type(data, LIGHT);
-	if (!light)
-		return (1);
-	elem = data->elem;
-	r = ray(point, vec_sub(light->coord, point));
-	r.origin.x += 0.001 * r.direction.x;
-	r.origin.y += 0.001 * r.direction.y;
-	r.origin.z += 0.001 * r.direction.z;
-	while (elem)
-	{
-		if ((elem->type == 3 || elem->type == 4))
-		{
-			if (isnan(hit(r, elem).x) == 0)
-				return (0);
-		}
-		elem = elem->next;
-	}
-	return (1);
-}
 
 int	ray_color(t_ray r, t_data *data)
 {
@@ -51,10 +25,11 @@ int	ray_color(t_ray r, t_data *data)
 	{
 		if (elem->type == 3 || elem->type == 4)
 		{
-			if (!isnan(hit(r, elem).x) && distance(r.origin, hit(r, elem)) < dst)
+			if (!isnan(hit(r, elem).x)
+				&& distance(r.origin, hit(r, elem)) < dst)
 			{
 				dst = distance(r.origin, hit(r, elem));
-				color = elem->rgb * shadow_test(hit(r, elem), data);
+				color = elem->rgb;
 			}
 		}
 		elem = elem->next;
@@ -65,24 +40,23 @@ int	ray_color(t_ray r, t_data *data)
 void	render(t_data *data)
 {
 	t_elem	*camera;
-	double	viewport_width;
-	double	viewport_height;
-	t_coord	bottom_left, origin;
-	double	x, y;
+	double	viewport[2];
+	t_coord	bottom_left;
+	double	k[2];
 	t_ray	r;
 
 	camera = get_elem_by_type(data, CAMERA);
-	viewport_width = 2. * tan((camera->fov / 2.) * M_PI / 180.);
-	viewport_height = viewport_width * (9. / 16.);
-	origin = coord(0, 0, 0);
-	bottom_left = coord(-viewport_width / 2., -viewport_height / 2., -1.);
+	viewport[0] = 2. * tan((camera->fov / 2.) * M_PI / 180.);
+	viewport[1] = viewport[0] * (9. / 16.);
+	bottom_left = coord(-viewport[0] / 2., -viewport[1] / 2., -1.);
 	for (int i = 0; i < 700 * 16 / 9; i++)
 	{
 		for (int j = 0; j < 700; j++)
 		{
-			x = (double)i / (700 * 16 / 9);
-			y = (double)j / 700;
-			r = ray(origin, vec_add(bottom_left, coord(x * viewport_width, y * viewport_height, 0)));
+			k[0] = (double)i / (700 * 16 / 9);
+			k[1] = (double)j / 700;
+			r = ray(camera->coord, vec_add(bottom_left,
+						coord(k[0] * viewport[0], k[1] * viewport[1], 0)));
 			if (ray_color(r, data) != 0)
 				my_mlx_pixel_put(data, i, 700 - j, ray_color(r, data));
 		}
