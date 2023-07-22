@@ -6,11 +6,37 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:29:46 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/22 21:19:28 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/22 21:33:34 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
+
+int	shadow(t_coord h, t_data *data)
+{
+	t_ray	r;
+	t_elem	*light;
+	t_elem	*elem;
+
+	light = get_elem_by_type(data, LIGHT);
+	if (!light)
+		return (1);
+	elem = data->elem;
+	r = ray(h, vec_sub(light->coord, h));
+	r.origin.x += 0.001 * r.direction.x;
+	r.origin.y += 0.001 * r.direction.y;
+	r.origin.z += 0.001 * r.direction.z;
+	while (elem)
+	{
+		if ((elem->type == 3 || elem->type == 4))
+		{
+			if (isnan(hit(r, elem).x) == 0)
+				return (0);
+		}
+		elem = elem->next;
+	}
+	return (1);
+}
 
 int	ray_color(t_ray r, t_data *data)
 {
@@ -29,7 +55,7 @@ int	ray_color(t_ray r, t_data *data)
 				&& distance(r.origin, hit(r, elem)) < dst)
 			{
 				dst = distance(r.origin, hit(r, elem));
-				color = elem->rgb;
+				color = elem->rgb * shadow(hit(r, elem), data);
 			}
 		}
 		elem = elem->next;
