@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:52 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/30 13:27:54 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/22 21:41:43 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	main(int ac, char **av)
 {
 	t_data	*data;
 
-	av[1] = "scenes/scene1.rt";
 	if (!parse(ac, av))
 		return (1);
 	data = init_struct(av[1]);
