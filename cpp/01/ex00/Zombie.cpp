@@ -5,11 +5,14 @@ void	Zombie::announce(void)
 	std::cout << name << ": BraiiiiiiinnnzzzZ..." << std::endl;
 }
 
-Zombie *newZombie(std::string name)
+Zombie::Zombie(std::string name)
 {
-	Zombie	*z = new Zombie;
-	z->name = name;
-	return (z);
+	this->name = name;
+}
+
+Zombie::~Zombie()
+{
+	std::cout << name << " is dead" << std::endl;
 }
 
 void	randomChump( std::string name );
