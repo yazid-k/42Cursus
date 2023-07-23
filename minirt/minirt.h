@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/22 20:54:21 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/23 14:01:03 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ typedef struct s_data
 	int				bits_per_pixel;
 	int				line_length;
 	int				endian;
-	t_coord			cam;
 	t_elem			*elem;
 	t_matrix		mat;
+	t_elem			*cam;
 }	t_data;
 
 //Utils
