@@ -1,6 +1,6 @@
 SRCS=main.cpp
 OBJS=$(SRCS:.cpp=.o)
-NAME=zombie
+NAME=reference
 CPP=c++
 FLAGS=-Wall -Wextra -Werror -std=c++98
 all: $(NAME)
