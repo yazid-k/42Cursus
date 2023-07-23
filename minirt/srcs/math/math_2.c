@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:37:52 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/22 20:29:06 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/23 14:19:09 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,20 @@ t_coord	matrix_mult(t_matrix m, t_coord v)
 t_matrix	camera_matrix(t_elem *camera)
 {
 	t_matrix	ret;
-	t_coord		w;
 	t_coord		u;
 	t_coord		v;
 
-	w = norm(vec_sub(camera->vector, camera->coord));
-	u = norm(vec_cross(coord(0., 1., 0.), w));
-	v = vec_cross(w, u);
+	u = norm(vec_cross(coord(0., 1., 0.), camera->vector));
+	v = vec_cross(camera->vector, u);
 	ret.m[0][0] = u.x;
 	ret.m[0][1] = u.y;
 	ret.m[0][2] = u.z;
 	ret.m[1][0] = v.x;
 	ret.m[1][1] = v.y;
 	ret.m[1][2] = v.z;
-	ret.m[2][0] = w.x;
-	ret.m[2][1] = w.y;
-	ret.m[2][2] = w.z;
+	ret.m[2][0] = camera->vector.x;
+	ret.m[2][1] = camera->vector.y;
+	ret.m[2][2] = camera->vector.z;
 	ret.m[3][0] = camera->coord.x;
 	ret.m[3][1] = camera->coord.y;
 	ret.m[3][2] = camera->coord.z;
