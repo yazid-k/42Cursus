@@ -1,7 +1,7 @@
 NAME=phonebook
 SRCS=Contact.cpp PhoneBook.cpp main.cpp
 CPP=c++
-FLAGS=-std=c++98
+FLAGS=-std=c++98 -Wall -Wextra -Werror
 all: $(NAME)
 $(NAME): $(SRCS)
 	$(CPP) $(FLAGS) $(SRCS) -o $(NAME)

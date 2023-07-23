@@ -2,7 +2,7 @@
 #include "PhoneBook.hpp"
 #include <iostream>
 
-int main(int argc, char const *argv[])
+int main()
 {
 	std::string	input;
 	PhoneBook	pb;
