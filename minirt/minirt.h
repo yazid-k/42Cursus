@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/23 14:01:03 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/26 16:26:40 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int			str_is_int(char *str);
 int			max(int a, int b);
 	//2
 int			arr_size(char **arr);
-int			rgb(int r, int g, int b);
 t_coord		coord(float x, float y, float z);
 void		print_coord(t_coord c);
 t_elem		*get_elem_by_type(t_data *data, t_type type);
@@ -96,6 +95,11 @@ t_ray		ray(t_coord origin, t_coord direction);
 void		print_ray(t_ray r);
 double		min(double a, double b);
 t_matrix	matrix(t_coord a, t_coord b, t_coord c);
+	//Color
+int			rgb(int r, int g, int b);
+int			get_r(int color);
+int			get_g(int color);
+int			get_b(int color);
 
 //MLX
 t_data		*init_struct(char *file);
