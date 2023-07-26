@@ -6,13 +6,13 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:29:46 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/23 14:03:54 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/26 16:08:47 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-int	shadow(t_coord h, t_data *data)
+/* int	shadow(t_coord h, t_data *data)
 {
 	t_ray	r;
 	t_elem	*light;
@@ -36,7 +36,7 @@ int	shadow(t_coord h, t_data *data)
 		elem = elem->next;
 	}
 	return (1);
-}
+} */
 
 int	ray_color(t_ray r, t_data *data)
 {
@@ -55,7 +55,7 @@ int	ray_color(t_ray r, t_data *data)
 				&& distance(r.origin, hit(r, elem)) < dst)
 			{
 				dst = distance(r.origin, hit(r, elem));
-				color = elem->rgb * shadow(hit(r, elem), data);
+				color = elem->rgb; //* shadow(hit(r, elem), data)
 			}
 		}
 		elem = elem->next;
