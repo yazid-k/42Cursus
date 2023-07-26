@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:29:46 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/26 16:08:47 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/26 16:38:15 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,20 @@
 	return (1);
 } */
 
+int	ambient_color(int color, t_data *data)
+{
+	t_elem	*a_light;
+	int		ret[3];
+
+	a_light = get_elem_by_type(data, A_LIGHT);
+	if (!a_light)
+		return (color);
+	ret[0] = get_r(color) * a_light->light;
+	ret[1] = get_g(color) * a_light->light;
+	ret[2] = get_b(color) * a_light->light;
+	return (rgb(ret[0], ret[1], ret[2]));
+}
+
 int	ray_color(t_ray r, t_data *data)
 {
 	t_elem	*elem;
@@ -55,7 +69,7 @@ int	ray_color(t_ray r, t_data *data)
 				&& distance(r.origin, hit(r, elem)) < dst)
 			{
 				dst = distance(r.origin, hit(r, elem));
-				color = elem->rgb; //* shadow(hit(r, elem), data)
+				color = ambient_color(elem->rgb, data); //* shadow(hit(r, elem), data)
 			}
 		}
 		elem = elem->next;
