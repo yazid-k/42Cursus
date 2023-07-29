@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 17:42:08 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/29 20:30:25 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/29 23:45:44 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,13 @@ int	light(t_coord p, t_data *data, t_elem *elem)
 		return (0);
 	n = normal(p, elem);
 	ratio = fmax(0, vec_dot(n, norm(vec_sub(light->coord, p))));
+	if (elem->type == PLANE && !ratio)
+	{
+		n.x = -n.x;
+		n.y = -n.y;
+		n.z = -n.z;
+		ratio = fmax(0, vec_dot(n, norm(vec_sub(light->coord, p))));
+	}
 	return (rgb(get_r(elem->rgb) * ratio, get_g(elem->rgb) * ratio,
 			get_b(elem->rgb) * ratio));
 }
