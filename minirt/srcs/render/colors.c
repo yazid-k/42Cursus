@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 17:42:08 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/29 20:13:14 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/29 20:14:04 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ambient_color(int color, t_data *data)
 	return (rgb(ret[0], ret[1], ret[2]));
 }
 
-int	shading(t_coord p, t_data *data, t_elem *elem)
+int	light(t_coord p, t_data *data, t_elem *elem)
 {
 	t_elem	*light;
 	t_coord	n;

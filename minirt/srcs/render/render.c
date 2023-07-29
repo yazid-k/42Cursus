@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:29:46 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/29 17:46:10 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/29 20:14:24 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ray_color(t_ray r, t_data *data)
 				&& distance(r.origin, hit(r, elem)) < dst)
 			{
 				dst = distance(r.origin, hit(r, elem));
-				color = shading(hit(r, elem), data, elem);
+				color = light(hit(r, elem), data, elem);
 			}
 		}
 		elem = elem->next;

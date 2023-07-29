@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/29 17:39:23 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/29 20:14:24 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void		print_elem(t_elem *elem);
 
 //Render
 void		render(t_data *data);
-int			shading(t_coord p, t_data *data, t_elem *elem);
+int			light(t_coord p, t_data *data, t_elem *elem);
 
 //Math
 float		distance(t_coord v1, t_coord v2);
