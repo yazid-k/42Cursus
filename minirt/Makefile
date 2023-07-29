@@ -6,7 +6,7 @@ SRCS=$(addprefix srcs/, main.c\
 	$(addprefix mlx/, mlx.c)\
 	$(addprefix elem/, lst.c init_1.c init_2.c init_3.c)\
 	$(addprefix math/, math_1.c math_2.c hit.c normal.c)\
-	$(addprefix render/, render.c))
+	$(addprefix render/, render.c colors.c))
 
 OBJS=${SRCS:.c=.o}
 CC=cc
