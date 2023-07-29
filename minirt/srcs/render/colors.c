@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 17:42:08 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/29 20:14:04 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/29 20:30:25 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	shadow(t_coord h, t_data *data)
 	t_elem	*elem;
 
 	light = get_elem_by_type(data, LIGHT);
-	if (!light)
-		return (1);
 	elem = data->elem;
 	r = ray(h, vec_sub(light->coord, h));
 	r.origin.x += 0.001 * r.direction.x;
@@ -61,17 +59,10 @@ int	light(t_coord p, t_data *data, t_elem *elem)
 	light = get_elem_by_type(data, LIGHT);
 	if (!light)
 		return (ambient_color(elem->rgb, data));
-	//if (!shadow(p, data))
-	//	return (0);
+	if (!shadow(p, data))
+		return (0);
 	n = normal(p, elem);
 	ratio = fmax(0, vec_dot(n, norm(vec_sub(light->coord, p))));
-	if (elem->type == PLANE && !ratio)
-	{
-		n.x *= -1;
-		n.y *= -1;
-		n.z *= -1;
-		ratio = fmax(0, vec_dot(n, norm(vec_sub(light->coord, p))));
-	}
 	return (rgb(get_r(elem->rgb) * ratio, get_g(elem->rgb) * ratio,
 			get_b(elem->rgb) * ratio));
 }
