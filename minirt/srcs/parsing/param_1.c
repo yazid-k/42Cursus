@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:00:52 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/29 23:51:33 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/29 13:58:38 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	is_vector(char *param)
 				printf("Error in vector paramter %s\n", param), 0);
 		if (ft_atof(arr[i]) < -1.0 || ft_atof(arr[i]) > 1.0)
 			return (free_arr(arr),
-				printf("Vector out of range %s\n", param));
+				printf("Vector out of range %s\n", param), 0);
 	}
 	return (free_arr(arr), 1);
 }
