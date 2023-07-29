@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/26 16:26:40 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/07/29 13:26:20 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,5 +167,8 @@ double		positive_min(double a, double b);
 t_coord		hit_sphere(t_ray ray, t_elem *sphere);
 t_coord		hit_plane(t_ray ray, t_elem *plane);
 t_coord		hit(t_ray r, t_elem *elem);
+
+//Normal
+t_coord		normal(t_coord hit, t_elem *elem);
 
 #endif
