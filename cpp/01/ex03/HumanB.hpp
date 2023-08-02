@@ -1,5 +1,6 @@
 #include "Weapon.hpp"
-
+#ifndef HUMANB_HPP
+#define HUMANB_HPP
 class HumanB
 {
 private:
@@ -11,3 +12,4 @@ public:
 	HumanB(std::string n);
 	~HumanB();
 };
+#endif

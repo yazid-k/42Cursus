@@ -1,6 +1,6 @@
 SRCS=main.cpp Harl.cpp
 OBJS=$(SRCS:.cpp=.o)
-NAME=harl
+NAME=harlFilter
 CPP=c++
 FLAGS=-Wall -Wextra -Werror -std=c++98
 all: $(NAME)
