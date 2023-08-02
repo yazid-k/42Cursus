@@ -53,5 +53,7 @@ int main(int ac, char const *av[])
 		if (line != "")
 			write << std::endl;
 	}
-	return 0;
+	read.close();
+	write.close();
+	return (0);
 }
