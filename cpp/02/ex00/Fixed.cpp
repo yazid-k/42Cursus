@@ -6,10 +6,10 @@ int	Fixed::getRawBits() const
 	return (value);
 }
 
-void	Fixed::setRawBits(int bits)
+void	Fixed::setRawBits(int raw)
 {
 	std::cout << "setRawBits member function called" << std::endl;
-	value = bits;
+	value = raw;
 }
 
 int	Fixed::getBits()

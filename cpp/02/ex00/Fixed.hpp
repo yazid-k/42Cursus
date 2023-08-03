@@ -13,7 +13,7 @@ public:
 	Fixed	&operator = (const Fixed &toCopy);
 	~Fixed();
 	int		getRawBits() const;
-	void	setRawBits(int bits);
+	void	setRawBits(int const raw);
 	int		getBits();
 };
 
