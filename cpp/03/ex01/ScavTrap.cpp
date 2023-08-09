@@ -36,3 +36,16 @@ void	ScavTrap::guardGate(void)
 {
 	std::cout << "ScavTrap " << getName() << " is now in Gate keeper mode" << std::endl;
 }
+
+void	ScavTrap::attack(std::string target)
+{
+	if (isDead())
+	{
+		std::cout << "ScavTrap " << getName() << " cant't attack." << std::endl;
+		return ;
+	}
+	if (!hasEnergy())
+		return ;
+	setEp(getEp() - 1);
+	std::cout << "ScavTrap " << getName() << " attacks " << target << ", causing " << getAd() << " points of damage !" << std::endl;
+}
