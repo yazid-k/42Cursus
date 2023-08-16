@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/29 20:14:24 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/08/16 00:55:36 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,10 +159,11 @@ t_coord		norm(t_coord v);
 t_coord		vec_add(t_coord v1, t_coord v2);
 t_coord		vec_sub(t_coord v1, t_coord v2);
 double		vec_dot(t_coord v1, t_coord v2);
+t_coord		vec_scale(t_coord v, double scale);
 t_coord		vec_cross(t_coord v1, t_coord v2);
 t_coord		matrix_mult(t_matrix m, t_coord v);
 t_matrix	camera_matrix(t_elem *camera);
-double		positive_min(double a, double b);
+double		pos_min(double a, double b);
 
 //Hit
 t_coord		hit_sphere(t_ray ray, t_elem *sphere);

@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:29:46 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/29 20:14:24 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/08/15 19:31:59 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ray_color(t_ray r, t_data *data)
 	dst = INFINITY;
 	while (elem)
 	{
-		if (elem->type == 3 || elem->type == 4)
+		if (elem->type >= 3)
 		{
 			if (!isnan(hit(r, elem).x)
 				&& distance(r.origin, hit(r, elem)) < dst)

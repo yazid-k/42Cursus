@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:37:52 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/23 14:19:09 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/08/16 00:55:25 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,24 @@ t_coord	matrix_mult(t_matrix m, t_coord v)
 	return (ret);
 }
 
+t_coord	vec_scale(t_coord v, double scale)
+{
+	t_coord	ret;
+
+	ret.x = v.x * scale;
+	ret.y = v.y * scale;
+	ret.z = v.z * scale;
+	return (ret);
+}
+
 t_matrix	camera_matrix(t_elem *camera)
 {
 	t_matrix	ret;
 	t_coord		u;
 	t_coord		v;
 
+	if (!camera->vector.z)
+		camera->vector.z = 0.00000001;
 	u = norm(vec_cross(coord(0., 1., 0.), camera->vector));
 	v = vec_cross(camera->vector, u);
 	ret.m[0][0] = u.x;
@@ -52,7 +64,7 @@ t_matrix	camera_matrix(t_elem *camera)
 	return (ret);
 }
 
-double	positive_min(double a, double b)
+double	pos_min(double a, double b)
 {
 	if (a < 0 && b < 0)
 		return (NAN);
