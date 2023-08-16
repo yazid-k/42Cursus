@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/08/16 01:15:36 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/08/16 15:13:46 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_coord
 typedef struct s_ray
 {
 	t_coord	origin;
-	t_coord	direction;
+	t_coord	dir;
 }	t_ray;
 
 typedef struct s_elem
