@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 17:42:08 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/08/15 19:31:29 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/08/16 02:33:44 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ int	shadow(t_coord h, t_data *data)
 	light = get_elem_by_type(data, LIGHT);
 	elem = data->elem;
 	r = ray(h, vec_sub(light->coord, h));
-	r.origin.x += 0.001 * r.direction.x;
-	r.origin.y += 0.001 * r.direction.y;
-	r.origin.z += 0.001 * r.direction.z;
+	r.origin.x += 0.0001 * r.direction.x;
+	r.origin.y += 0.0001 * r.direction.y;
+	r.origin.z += 0.0001 * r.direction.z;
 	while (elem)
 	{
 		if (elem->type >= 3)
 		{
 			if (isnan(hit(r, elem).x) == 0)
-				return (1);
+				return (0);
 		}
 		elem = elem->next;
 	}
@@ -62,7 +62,7 @@ int	light(t_coord p, t_data *data, t_elem *elem)
 	if (!shadow(p, data))
 		return (0);
 	n = normal(p, elem);
-	ratio = fmax(0, vec_dot(n, norm(vec_sub(light->coord, p))));
+	ratio = fmax(0, vec_dot(n, norm(vec_sub(light->coord, p)))) * light->light;
 	if (elem->type == PLANE && !ratio)
 	{
 		n.x = -n.x;

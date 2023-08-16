@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 22:34:07 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/08/16 01:48:43 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/08/16 04:01:11 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ t_coord	hit_cylinder(t_ray r, t_elem *cy)
 	return (c[1]);
 }
 
-
 t_coord	hit(t_ray r, t_elem *elem)
 {
 	if (elem->type == PLANE)
@@ -103,7 +102,7 @@ t_coord	hit(t_ray r, t_elem *elem)
 	else if (elem->type == SPHERE)
 		return (hit_sphere(r, elem));
 	else if (elem->type == CYLINDER)
-		return (coord(NAN, NAN, NAN));
+		return (hit_cylinder(r, elem));
 	else if (elem->type == CIRCLE)
 		return (hit_circle(r, elem));
 	return (coord(NAN, NAN, NAN));
