@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 13:11:39 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/08/16 03:46:46 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/08/16 15:26:30 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ t_coord	normal_sphere(t_coord hit, t_elem *elem)
 	return (norm(vec_sub(hit, elem->coord)));
 }
 
-t_coord	normal_cylinder(t_coord hit, t_elem *elem)
+t_coord	normal_cylinder(t_coord hit, t_elem *cy)
 {
-	t_coord oc;
-	t_coord n;
+	t_coord	normal;
+	double	projection;
 
-	oc = vec_sub(hit, elem->coord);
-	n = vec_sub(oc, vec_scale(elem->vector, vec_dot(elem->vector, oc)));
-	return (norm(n));
+	normal = vec_sub(hit, cy->coord);
+	projection = vec_dot(normal, cy->vector);
+	normal = vec_sub(normal, vec_scale(cy->vector, projection));
+	return (norm(normal));
 }
 
 t_coord	normal(t_coord hit, t_elem *elem)

@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 22:34:07 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/08/16 04:01:11 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/08/16 15:24:50 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ t_coord	hit_plane(t_ray r, t_elem *plane)
 	double	t;
 	t_coord	oc;
 
-	denom = vec_dot(plane->vector, r.direction);
+	denom = vec_dot(plane->vector, r.dir);
 	if (denom)
 	{
 		oc = vec_sub(plane->coord, r.origin);
 		t = vec_dot(oc, plane->vector) / denom;
-		if (t >= 0)
-			return (coord(r.origin.x + t * r.direction.x,
-					r.origin.y + t * r.direction.y,
-					r.origin.z + t * r.direction.z));
+		if (t >= 1e-6)
+			return (coord(r.origin.x + t * r.dir.x,
+					r.origin.y + t * r.dir.y,
+					r.origin.z + t * r.dir.z));
 	}
 	return (coord(NAN, NAN, NAN));
 }
@@ -40,8 +40,8 @@ t_coord	hit_sphere(t_ray r, t_elem *sphere)
 	double	t;
 
 	oc = vec_sub(r.origin, sphere->coord);
-	a = vec_dot(r.direction, r.direction);
-	b = 2. * vec_dot(oc, r.direction);
+	a = vec_dot(r.dir, r.dir);
+	b = 2. * vec_dot(oc, r.dir);
 	c = vec_dot(oc, oc) - (sphere->diameter * sphere->diameter / 4);
 	if (b * b - 4 * a * c < 0)
 		return (coord(NAN, NAN, NAN));
@@ -49,9 +49,9 @@ t_coord	hit_sphere(t_ray r, t_elem *sphere)
 			(-b - sqrt(b * b - 4 * a * c)) / (2 * a));
 	if (isnan(t))
 		return (coord(NAN, NAN, NAN));
-	return (coord(r.origin.x + t * r.direction.x,
-			r.origin.y + t * r.direction.y,
-			r.origin.z + t * r.direction.z));
+	return (coord(r.origin.x + t * r.dir.x,
+			r.origin.y + t * r.dir.y,
+			r.origin.z + t * r.dir.z));
 }
 
 t_coord	hit_circle(t_ray r, t_elem *circle)
@@ -68,31 +68,31 @@ t_coord	hit_circle(t_ray r, t_elem *circle)
 
 t_coord	hit_cylinder(t_ray r, t_elem *cy)
 {
-	double	v[5];
-	t_coord	c[3];
+	t_coord	x;
+	double	p[5];
+	double	t;
+	t_coord	ip;
 
-	c[0] = vec_sub(r.origin, cy->coord);
-	v[0] = vec_dot(r.direction, r.direction)
-		- vec_dot(r.direction, cy->vector) * vec_dot(r.direction, cy->vector);
-	v[1] = 2 * (vec_dot(r.direction, c[0])
-			- vec_dot(r.direction, cy->vector) * vec_dot(c[0], cy->vector));
-	v[3] = vec_dot(c[0], c[0])
-		- vec_dot(c[0], cy->vector) * vec_dot(c[0], cy->vector)
-		- (cy->diameter * cy->diameter / 4);
-	if (v[1] * v[1] - 4 * v[0] * v[3] < 0)
+	p[0] = vec_dot(r.dir, r.dir) - pow(vec_dot(r.dir, cy->vector), 2.);
+	x = vec_sub(r.origin, cy->coord);
+	p[1] = vec_dot(x, x) - pow(vec_dot(x, cy->vector), 2.)
+		- (pow(cy->diameter / 2, 2.));
+	p[2] = 2 * (vec_dot(r.dir, x) - vec_dot(r.dir, cy->vector)
+			* vec_dot(x, cy->vector));
+	p[4] = p[2] * p[2] - 4 * p[0] * p[1];
+	if (p[4] < 0)
 		return (coord(NAN, NAN, NAN));
-	v[4] = pos_min((-v[1] + sqrt(v[1] * v[1] - 4 * v[0] * v[3])) / (2 * v[0]),
-			(-v[1] - sqrt(v[1] * v[1] - 4 * v[0] * v[3])) / (2 * v[0]));
-	if (isnan(v[4]))
+	t = fmin((-p[2] + sqrt(p[4])) / (2 * p[0]),
+			(-p[2] - sqrt(p[4])) / (2 * p[0]));
+	if (isnan(t))
 		return (coord(NAN, NAN, NAN));
-	c[1] = coord(r.origin.x + v[4] * r.direction.x,
-			r.origin.y + v[4] * r.direction.y,
-			r.origin.z + v[4] * r.direction.z);
-	c[2] = vec_sub(c[1], cy->coord);
-	v[4] = vec_dot(c[2], cy->vector);
-	if (v[4] < 0 || v[4] > cy->height)
+	ip = coord(r.origin.x + t * r.dir.x,
+			r.origin.y + t * r.dir.y,
+			r.origin.z + t * r.dir.z);
+	p[3] = vec_dot(vec_sub(ip, cy->coord), cy->vector);
+	if (p[3] < 0 || p[3] > cy->height)
 		return (coord(NAN, NAN, NAN));
-	return (c[1]);
+	return (ip);
 }
 
 t_coord	hit(t_ray r, t_elem *elem)

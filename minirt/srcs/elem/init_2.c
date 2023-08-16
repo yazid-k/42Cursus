@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 09:38:50 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/08 13:43:03 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/08/16 15:04:39 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_elem	*get_camera(char **arr)
 		return (NULL);
 	ret->type = CAMERA;
 	ret->coord = get_coord_from_string(arr[1]);
-	ret->vector = get_coord_from_string(arr[2]);
+	ret->vector = norm(get_coord_from_string(arr[2]));
 	ret->fov = ft_atoi(arr[3]);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 09:13:30 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/06/29 23:49:35 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/08/16 15:04:33 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_elem	*get_plane(char **arr)
 		return (NULL);
 	ret->type = PLANE;
 	ret->coord = get_coord_from_string(arr[1]);
-	ret->vector = get_coord_from_string(arr[2]);
+	ret->vector = norm(get_coord_from_string(arr[2]));
 	ret->rgb = get_rgb_from_string(arr[3]);
 	return (ret);
 }
@@ -49,7 +49,7 @@ t_elem	*get_cylinder(char **arr)
 		return (NULL);
 	ret->type = CYLINDER;
 	ret->coord = get_coord_from_string(arr[1]);
-	ret->vector = get_coord_from_string(arr[2]);
+	ret->vector = norm(get_coord_from_string(arr[2]));
 	ret->diameter = ft_atof(arr[3]);
 	ret->height = ft_atof(arr[4]);
 	ret->rgb = get_rgb_from_string(arr[5]);
