@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:56:33 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/22 17:41:47 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/08/16 01:39:57 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,33 @@ t_elem	*init_elem(char *file)
 		s = get_next_line(fd);
 	}
 	return (close(fd), elem);
+}
+
+t_elem	*get_circle_from_cy(t_elem *cy, int way)
+{
+	t_elem	*circle;
+
+	circle = elemnew();
+	circle->type = CIRCLE;
+	circle->rgb = cy->rgb;
+	circle->diameter = cy->diameter;
+	circle->vector = cy->vector;
+	circle->coord = vec_add(cy->coord, vec_scale(cy->vector, cy->height * way));
+	return (circle);
+}
+
+void	add_circles(t_elem *elem)
+{
+	t_elem	*tmp;
+
+	tmp = elem;
+	while (tmp)
+	{
+		if (tmp->type == CYLINDER)
+		{
+			elemadd_back(&elem, get_circle_from_cy(tmp, 1));
+			elemadd_back(&elem, get_circle_from_cy(tmp, 0));
+		}
+		tmp = tmp->next;
+	}
 }

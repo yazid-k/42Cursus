@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 13:11:39 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/08/15 19:34:40 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/08/16 01:44:06 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ t_coord	normal(t_coord hit, t_elem *elem)
 		return (normal_sphere(hit, elem));
 	else if (elem->type == CYLINDER)
 		return (normal_cylinder(hit, elem));
+	else if (elem->type == CIRCLE)
+		return (elem->vector);
 	return (coord(NAN, NAN, NAN));
 }

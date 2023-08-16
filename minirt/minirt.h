@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/08/16 00:55:36 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/08/16 01:15:36 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum e_type
 	SPHERE,
 	PLANE,
 	CYLINDER,
+	CIRCLE,
 }	t_type;
 
 typedef struct s_coord
@@ -148,6 +149,7 @@ int			get_rgb_from_string(char *s);
 t_elem		*get_elem_from_arr(char **arr);
 t_elem		*init_elem(char *file);
 void		print_elem(t_elem *elem);
+void		add_circles(t_elem *elem);
 
 //Render
 void		render(t_data *data);

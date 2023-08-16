@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:14:03 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/23 14:00:43 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/08/16 01:43:18 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_data	*init_struct(char *file)
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
 			&data->line_length, &data->endian);
 	data->elem = init_elem(file);
+	add_circles(data->elem);
 	data->mat = camera_matrix(get_elem_by_type(data, CAMERA));
 	data->cam = get_elem_by_type(data, CAMERA);
 	return (data);

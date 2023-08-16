@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 22:34:07 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/08/16 01:03:54 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/08/16 01:48:43 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,16 @@ t_coord	hit_sphere(t_ray r, t_elem *sphere)
 			r.origin.z + t * r.direction.z));
 }
 
-t_coord	hit_circle(t_ray r, t_elem *cy)
+t_coord	hit_circle(t_ray r, t_elem *circle)
 {
-	t_elem	circle[2];
+	t_coord	p_hit;
 
-	circle[0].coord = cy->coord;
-	circle[0].vector = cy->vector;
-	circle[0].diameter = cy->diameter;
-	circle[1].coord = vec_add(cy->coord, vec_scale(cy->vector, cy->height));
-	circle[1].vector = cy->vector;
-	circle[1].diameter = cy->diameter;
-	(void)r;
-	return (coord(NAN, NAN, NAN));
+	p_hit = hit_plane(r, circle);
+	if (isnan(p_hit.x))
+		return (coord(NAN, NAN, NAN));
+	if (distance(p_hit, circle->coord) > circle->diameter / 2)
+		return (coord(NAN, NAN, NAN));
+	return (p_hit);
 }
 
 t_coord	hit_cylinder(t_ray r, t_elem *cy)
@@ -105,6 +103,8 @@ t_coord	hit(t_ray r, t_elem *elem)
 	else if (elem->type == SPHERE)
 		return (hit_sphere(r, elem));
 	else if (elem->type == CYLINDER)
-		return (hit_cylinder(r, elem));
+		return (coord(NAN, NAN, NAN));
+	else if (elem->type == CIRCLE)
+		return (hit_circle(r, elem));
 	return (coord(NAN, NAN, NAN));
 }
