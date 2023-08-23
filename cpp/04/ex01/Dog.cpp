@@ -2,11 +2,13 @@
 
 Dog::Dog(void) : Animal("Dog")
 {
+	std::cout << "Dog default constructor" << std::endl;
 	brain = new Brain();
 }
 
 Dog	&Dog::operator = (const Dog &toCopy)
 {
+	std::cout << "Dog assignement operator" << std::endl;
 	(*this).Animal::operator=(toCopy);
 	setBrain(toCopy.getBrain());
 	return (*this);
@@ -14,6 +16,7 @@ Dog	&Dog::operator = (const Dog &toCopy)
 
 Dog::Dog(const Dog &toCopy)
 {
+	std::cout << "Dog copy constructor" << std::endl;
 	(*this) = toCopy;
 }
 

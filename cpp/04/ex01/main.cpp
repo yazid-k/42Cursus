@@ -12,5 +12,6 @@ int main(void)
 	}
 	for (size_t i = 0; i < 100; i++)
 		std::cout << A[i]->getType() << std::endl;
+	delete [] *A;
 	return (0);
 }

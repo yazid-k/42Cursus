@@ -2,11 +2,13 @@
 
 Cat::Cat(void) : Animal("Cat")
 {
+	std::cout << "Cat default constructor" << std::endl;
 	brain = new Brain();
 }
 
 Cat	&Cat::operator = (const Cat &toCopy)
 {
+	std::cout << "Cat assignement operator" << std::endl;
 	(*this).Animal::operator=(toCopy);
 	setBrain(toCopy.getBrain());
 	return (*this);
@@ -14,6 +16,7 @@ Cat	&Cat::operator = (const Cat &toCopy)
 
 Cat::Cat(const Cat &toCopy)
 {
+	std::cout << "Cat copy constructor" << std::endl;
 	(*this) = toCopy;
 }
 
@@ -31,5 +34,6 @@ Brain	*Cat::getBrain(void) const
 
 Cat::~Cat(void)
 {
+	std::cout << "Cat destructor" << std::endl;
 	delete (brain);
 }
