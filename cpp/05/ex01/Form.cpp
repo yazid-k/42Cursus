@@ -4,7 +4,7 @@ Form::Form(void) : name(""), sign(false), toSign(1), toExec(1)
 {
 }
 
-Form::Form(std::string n, bool s, int toS, int toE) : name(n), sign(s), toSign(toS), toExec(toS)
+Form::Form(std::string n, bool s, int toS, int toE) : name(n), sign(s), toSign(toS), toExec(toE)
 {
 	if (toS < 1 || toE < 1)
 		throw(Form::GradeTooHighException());
