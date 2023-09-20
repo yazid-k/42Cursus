@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:29:46 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/08/17 00:50:40 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/09/20 15:17:37 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ray_color(t_ray r, t_data *data)
 	t_elem	*elem;
 	double	dst;
 	int		color;
+	t_coord	h;
 
 	color = 0;
 	elem = data->elem;
@@ -25,11 +26,12 @@ int	ray_color(t_ray r, t_data *data)
 	{
 		if (elem->type >= 3)
 		{
-			if (!isnan(hit(r, elem).x)
-				&& distance(r.origin, hit(r, elem)) < dst)
+			h = hit(r, elem);
+			if (!isnan(h.x)
+				&& distance(r.origin, h) < dst)
 			{
-				dst = distance(r.origin, hit(r, elem));
-				color = light(hit(r, elem), data, elem);
+				dst = distance(r.origin, h);
+				color = light(h, data, elem);
 			}
 		}
 		elem = elem->next;
