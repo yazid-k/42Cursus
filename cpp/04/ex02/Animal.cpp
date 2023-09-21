@@ -2,31 +2,31 @@
 
 AAnimal::AAnimal(void)
 {
-	std::cout << "AAnimal default constructor" << std::endl;
+	std::cout << "AAnimal default constructor called" << std::endl;
 }
 
-AAnimal::AAnimal(std::string str)
+AAnimal::AAnimal(std::string name)
 {
-	std::cout << "AAnimal constructor" << std::endl;
-	type = str;
-}
-
-AAnimal::AAnimal(const AAnimal &toCopy)
-{
-	std::cout << "AAnimal copy constructor" << std::endl;
-	type = toCopy.type;
+	std::cout << "AAnimal constructor called" << std::endl;
+	type = name;
 }
 
 AAnimal	&AAnimal::operator = (const AAnimal &toCopy)
 {
-	std::cout << "AAnimal assignement operator" << std::endl;
+	std::cout << "AAnimal copy assignement operator called" << std::endl;
 	type = toCopy.type;
 	return (*this);
 }
 
-void	AAnimal::setType(std::string str)
+AAnimal::AAnimal(const AAnimal &toCopy)
 {
-	type = str;
+	std::cout << "AAnimal copy assignement constructor called" << std::endl;
+	(*this) = toCopy;
+}
+
+AAnimal::~AAnimal(void)
+{
+	std::cout << "AAnimal destructor called" << std::endl;
 }
 
 std::string	AAnimal::getType(void) const
@@ -34,15 +34,7 @@ std::string	AAnimal::getType(void) const
 	return (type);
 }
 
-void	AAnimal::makeSound(void) const
+void		AAnimal::makeSound(void) const
 {
-	if (type == "Dog")
-		std::cout << "Woof" << std::endl;
-	else if (type == "Cat")
-		std::cout << "Meow" << std::endl;
-}
-
-AAnimal::~AAnimal(void)
-{
-	std::cout << "AAnimal destructor" << std::endl;
+	std::cout << "AAnimal sound" << std::endl;
 }

@@ -7,7 +7,7 @@
 class Cat : public AAnimal
 {
 private:
-	Brain	*brain;
+	Brain	*br;
 public:
 	Cat(void);
 	Cat(const Cat &toCopy);
@@ -15,7 +15,7 @@ public:
 	~Cat(void);
 
 	Brain	*getBrain(void) const;
-	void	setBrain(Brain *br);
+	void	makeSound(void) const;
 };
 
 #endif

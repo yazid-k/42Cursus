@@ -6,12 +6,13 @@
 class Cat : public Animal
 {
 private:
-	/*attr*/
 public:
 	Cat(void);
 	Cat(const Cat &toCopy);
 	Cat	&operator = (const Cat &toCopy);
 	~Cat(void);
+
+	void	makeSound(void) const;
 };
 
 #endif

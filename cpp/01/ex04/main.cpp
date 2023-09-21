@@ -38,7 +38,7 @@ int main(int ac, char const *av[])
 	}
 	fileName.append(av[1]);
 	fileName.append(".replace");
-	write.open(fileName, std::ios::out);
+	write.open(fileName.c_str(), std::ios::out);
 	if (!write)
 	{
 		std::cout << "Error when creating file " << av[1] << std::endl;

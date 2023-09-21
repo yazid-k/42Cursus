@@ -11,5 +11,6 @@ int main()
 	std::cout << FT2.getHp() << std::endl;
 	FT2 = FT1;
 	std::cout << FT2.getHp() << std::endl;
+	FT1.highFivesGuys();
 	return 0;
 }

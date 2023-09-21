@@ -5,28 +5,28 @@ Animal::Animal(void)
 	std::cout << "Animal default constructor called" << std::endl;
 }
 
-Animal::Animal(std::string str)
+Animal::Animal(std::string name)
 {
 	std::cout << "Animal constructor called" << std::endl;
-	type = str;
-}
-
-Animal::Animal(const Animal &toCopy)
-{
-	std::cout << "Animal copy constructor called" << std::endl;
-	type = toCopy.type;
+	type = name;
 }
 
 Animal	&Animal::operator = (const Animal &toCopy)
 {
-	std::cout << "Animal assignement operator called" << std::endl;
+	std::cout << "Animal copy assignement operator called" << std::endl;
 	type = toCopy.type;
 	return (*this);
 }
 
-void	Animal::setType(std::string str)
+Animal::Animal(const Animal &toCopy)
 {
-	type = str;
+	std::cout << "Animal copy assignement constructor called" << std::endl;
+	(*this) = toCopy;
+}
+
+Animal::~Animal(void)
+{
+	std::cout << "Animal destructor called" << std::endl;
 }
 
 std::string	Animal::getType(void) const
@@ -34,15 +34,7 @@ std::string	Animal::getType(void) const
 	return (type);
 }
 
-void	Animal::makeSound(void) const
+void		Animal::makeSound(void) const
 {
-	if (type == "Dog")
-		std::cout << "Woof" << std::endl;
-	else if (type == "Cat")
-		std::cout << "Meow" << std::endl;
-}
-
-Animal::~Animal(void)
-{
-	std::cout << "Animal destructor called" << std::endl;
+	std::cout << "Animal sound" << std::endl;
 }

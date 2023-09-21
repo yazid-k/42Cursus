@@ -8,16 +8,13 @@ protected:
 	std::string	type;
 public:
 	AAnimal(void);
-	AAnimal(std::string str);
+	AAnimal(std::string name);
 	AAnimal(const AAnimal &toCopy);
 	AAnimal	&operator = (const AAnimal &toCopy);
 	virtual ~AAnimal(void) = 0;
 
-
-	void		setType(std::string str);
-	std::string	getType() const;
-
-	void		makeSound(void) const;
+	std::string		getType(void) const;
+	virtual void	makeSound(void) const;
 };
 
 #endif

@@ -7,7 +7,7 @@
 class Dog : public AAnimal
 {
 private:
-	Brain	*brain;
+	Brain	*br;
 public:
 	Dog(void);
 	Dog(const Dog &toCopy);
@@ -15,7 +15,7 @@ public:
 	~Dog(void);
 
 	Brain	*getBrain(void) const;
-	void	setBrain(Brain *br);
+	void	makeSound(void) const;
 };
 
 #endif

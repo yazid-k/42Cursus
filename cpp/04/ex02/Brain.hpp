@@ -12,8 +12,10 @@ public:
 	Brain	&operator = (const Brain &toCopy);
 	~Brain(void);
 
-	std::string	*getIdeas(void) const;
 	void		setIdeas(std::string *arr);
+	std::string	*getIdeas(void) const;
+	void		setIdea(std::string idea, int index);
+
 };
 
 #endif

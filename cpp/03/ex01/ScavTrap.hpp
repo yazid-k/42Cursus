@@ -6,7 +6,6 @@
 class ScavTrap : public ClapTrap
 {
 private:
-	/*attr*/
 public:
 	ScavTrap(void);
 	ScavTrap(std::string str);

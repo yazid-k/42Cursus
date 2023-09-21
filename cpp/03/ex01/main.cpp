@@ -11,5 +11,6 @@ int main()
 	std::cout << ct2.getHp() << std::endl;
 	ct2 = ct1;
 	std::cout << ct2.getHp() << std::endl;
+	ct1.guardGate();
 	return 0;
 }

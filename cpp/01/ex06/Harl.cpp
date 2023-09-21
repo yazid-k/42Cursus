@@ -29,7 +29,7 @@ void	Harl::warning(void)
 void	Harl::error(void)
 {
 	std::cout << "[ERROR]" << std::endl;
-	std::cout << "This is unacceptable! I want to speak to the manager now." << std::endl;
+	std::cout << "This is unacceptable! I want to speak to the manager now.";
 	std::cout << std::endl;
 }
 
@@ -42,8 +42,18 @@ void	Harl::complain(std::string level)
 	index = 0;
 	while (index < 4 && levels[index] != level)
 		index++;
-	if (index >= 4)
-		std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
-	while (index < 4)
-		(this->*f[index++])();
+	switch (index)
+	{
+		case 0 :
+			(this->*f[0])();
+		case 1 :
+			(this->*f[1])();
+		case 2 :
+			(this->*f[2])();
+		case 3 :
+			(this->*f[3])();
+			break ;
+		default :
+			std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+	}
 }

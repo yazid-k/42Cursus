@@ -17,15 +17,6 @@ ClapTrap::ClapTrap(std::string str)
 	name = str;
 }
 
-ClapTrap::ClapTrap(const ClapTrap &toCopy)
-{
-	ad = toCopy.ad;
-	hp = toCopy.hp;
-	ep = toCopy.ep;
-	name = toCopy.name;
-	std::cout << "Copy constructor called" << std::endl;
-}
-
 ClapTrap	&ClapTrap::operator = (const ClapTrap &toCopy)
 {
 	this->ad = toCopy.ad;
@@ -34,6 +25,12 @@ ClapTrap	&ClapTrap::operator = (const ClapTrap &toCopy)
 	this->name = toCopy.name;
 	std::cout << "Copy assignement operator called" << std::endl;
 	return (*this);
+}
+
+ClapTrap::ClapTrap(const ClapTrap &toCopy)
+{
+	*this = toCopy;
+	std::cout << "Copy constructor called" << std::endl;
 }
 
 ClapTrap::~ClapTrap()

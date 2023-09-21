@@ -3,15 +3,11 @@
 
 int main(void)
 {
-	AAnimal	*A[100];
+	//AAnimal *a = new AAnimal();
+	AAnimal	*a = new Dog();
+	Dog		*b = new Dog();
 
-	for (size_t i = 0; i < 50; i++)
-	{
-		A[i] = new Cat();
-		A[i + 50] = new Dog();
-	}
-	for (size_t i = 0; i < 100; i++)
-		std::cout << A[i]->getType() << std::endl;
-	delete [] *A;
+	delete (a);
+	delete (b);
 	return (0);
 }

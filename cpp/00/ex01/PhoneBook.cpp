@@ -68,11 +68,11 @@ void	PhoneBook::search()
 	}
 	std::cout << "Select contact index : ";
 	std::cin >> input;
-	while (input.length() != 1 || !isdigit(input[0]) || stoi(input) < 1 || stoi(input) > 8)
+	while (input.length() != 1 || !isdigit(input[0]) || atoi(input.c_str()) < 1 || atoi(input.c_str()) > 8)
 	{
 		std::cout << "Invalid index" << std::endl;
 		std::cout << "Select contact index : ";
 		std::cin >> input;
 	}
-	contacts[stoi(input) - 1].displayContact();
+	contacts[atoi(input.c_str()) - 1].displayContact();
 }

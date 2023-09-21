@@ -2,37 +2,36 @@
 
 Dog::Dog(void) : Animal("Dog")
 {
-	std::cout << "Dog default constructor" << std::endl;
-	brain = new Brain();
+	std::cout << "Dog default constructor called" << std::endl;
+	br = new Brain();
 }
 
 Dog	&Dog::operator = (const Dog &toCopy)
 {
-	std::cout << "Dog assignement operator" << std::endl;
+	std::cout << "Dog copy assignement operator called" << std::endl;
 	(*this).Animal::operator=(toCopy);
-	setBrain(toCopy.getBrain());
+	br = new Brain(*(toCopy.getBrain()));
 	return (*this);
 }
 
 Dog::Dog(const Dog &toCopy)
 {
-	std::cout << "Dog copy constructor" << std::endl;
+	std::cout << "Dog copy assignement constructor called" << std::endl;
 	(*this) = toCopy;
-}
-
-void	Dog::setBrain(Brain *br)
-{
-	delete (brain);
-	brain = br;
-}
-
-Brain	*Dog::getBrain(void) const
-{
-	return (brain);
 }
 
 Dog::~Dog(void)
 {
-	std::cout << "Dog destructor" << std::endl;
-	delete (brain);
+	delete(br);
+	std::cout << "Dog destructor called" << std::endl;
+}
+
+void	Dog::makeSound(void) const
+{
+	std::cout << "Woof" << std::endl;
+}
+
+Brain	*Dog::getBrain(void) const
+{
+	return (br);
 }
