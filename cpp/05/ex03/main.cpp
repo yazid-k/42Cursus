@@ -5,4 +5,9 @@
 
 int main(void)
 {
+	Intern someRandomIntern;
+	AForm* rrf;
+
+	rrf = someRandomIntern.makeForm("RobotomyRequestForm", "Bender");
+	delete (rrf);
 }
