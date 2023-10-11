@@ -1,24 +1,39 @@
-# 42Cursus
-42 Paris Projects\
-[![ekadiri's 42 stats](https://badge42.vercel.app/api/v2/clagntgqi00540gjyw2m1qo3y/stats?cursusId=21&coalitionId=48)](https://github.com/JaeSeoKim/badge42)
-
 # Rank 00 :
 
-libft : [![ekadiri's 42 Libft Score](https://badge42.vercel.app/api/v2/clagntgqi00540gjyw2m1qo3y/project/2868434)](https://github.com/JaeSeoKim/badge42)
+libft : 125
 
 # Rank 01 :
 
-get_next_line : [![ekadiri's 42 get_next_line Score](https://badge42.vercel.app/api/v2/clagntgqi00540gjyw2m1qo3y/project/2877695)](https://github.com/JaeSeoKim/badge42)\
-ft_printf : [![ekadiri's 42 ft_printf Score](https://badge42.vercel.app/api/v2/clagntgqi00540gjyw2m1qo3y/project/2877696)](https://github.com/JaeSeoKim/badge42)\
-born2beroot : [![ekadiri's 42 Born2beroot Score](https://badge42.vercel.app/api/v2/clagntgqi00540gjyw2m1qo3y/project/2877697)](https://github.com/JaeSeoKim/badge42)
+get_next_line : 125\
+ft_printf : 100\
+born2beroot : 100
 
 # Rank 02 :
 
-minitalk : [![ekadiri's 42 minitalk Score](https://badge42.vercel.app/api/v2/clagntgqi00540gjyw2m1qo3y/project/2898833)](https://github.com/JaeSeoKim/badge42)\
-push_swap : [![ekadiri's 42 push_swap Score](https://badge42.vercel.app/api/v2/clagntgqi00540gjyw2m1qo3y/project/2898834)](https://github.com/JaeSeoKim/badge42)\
-fract-ol : [![ekadiri's 42 fract-ol Score](https://badge42.vercel.app/api/v2/clagntgqi00540gjyw2m1qo3y/project/2898831)](https://github.com/JaeSeoKim/badge42)
+minitalk : 100\
+push_swap : 115\
+fract-ol : 121
 
 # Rank 03 :
 
-minishell : [![ekadiri's 42 minishell Score](https://badge42.vercel.app/api/v2/clagntgqi00540gjyw2m1qo3y/project/2965188)](https://github.com/JaeSeoKim/badge42)\
-philosophers : [![ekadiri's 42 Philosophers Score](https://badge42.vercel.app/api/v2/clagntgqi00540gjyw2m1qo3y/project/2965190)](https://github.com/JaeSeoKim/badge42)
+minishell : 101\
+philosophers : 100
+
+# Rank 04 :
+netpractice : 100\
+minirt : 100\
+cpp : \
+&nbsp;&nbsp;&nbsp;&nbsp;00 : 98\
+&nbsp;&nbsp;&nbsp;&nbsp;01 : 100\
+&nbsp;&nbsp;&nbsp;&nbsp;02 : 100\
+&nbsp;&nbsp;&nbsp;&nbsp;03 : 100\
+&nbsp;&nbsp;&nbsp;&nbsp;04 : 100
+# Rank 05 :
+webserv : \
+inception : \
+cpp : \
+&nbsp;&nbsp;&nbsp;&nbsp;05 : \
+&nbsp;&nbsp;&nbsp;&nbsp;06 : \
+&nbsp;&nbsp;&nbsp;&nbsp;07 : \
+&nbsp;&nbsp;&nbsp;&nbsp;08 : \
+&nbsp;&nbsp;&nbsp;&nbsp;09 : 
