@@ -28,7 +28,7 @@ void	ShrubberyCreationForm::doStuff(void) const
 {
 	std::ofstream	file;
 
-	file.open(target + "_shrubbery", std::ios::out);
+	file.open((target + "_shrubbery").c_str(), std::ios::out);
 	if (!file)
 	{
 		std::cout << "Error when opening file" << std::endl;

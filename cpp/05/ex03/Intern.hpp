@@ -13,6 +13,9 @@ public:
 	Intern	&operator = (const Intern &toCopy);
 	~Intern(void);
 
+	AForm	*ppf(std::string target);
+	AForm	*scf(std::string target);
+	AForm	*rrf(std::string target);
 	AForm	*makeForm(std::string form, std::string target);
 };
 
