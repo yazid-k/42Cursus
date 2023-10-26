@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 22:34:07 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/08/16 15:24:50 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/09/22 16:47:57 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@ t_coord	hit_plane(t_ray r, t_elem *plane)
 	{
 		oc = vec_sub(plane->coord, r.origin);
 		t = vec_dot(oc, plane->vector) / denom;
+		if (t >= 1e-6)
+			return (coord(r.origin.x + t * r.dir.x,
+					r.origin.y + t * r.dir.y,
+					r.origin.z + t * r.dir.z));
+	}
+	denom = vec_dot(vec_scale(plane->vector, -1), r.dir);
+	if (denom)
+	{
+		oc = vec_sub(plane->coord, r.origin);
+		t = vec_dot(oc, vec_scale(plane->vector, -1)) / denom;
 		if (t >= 1e-6)
 			return (coord(r.origin.x + t * r.dir.x,
 					r.origin.y + t * r.dir.y,

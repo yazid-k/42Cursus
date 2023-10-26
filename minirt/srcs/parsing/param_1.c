@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:00:52 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/29 13:58:38 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/09/22 16:24:04 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_coord(char *param)
 	i = -1;
 	while (arr[++i])
 	{
-		if (!str_is_float(arr[i]))
+		if (!str_is_double(arr[i]))
 			return (free_arr(arr),
 				printf("Error in coord parameter %s\n", param), 0);
 	}
@@ -40,7 +40,7 @@ int	is_coord(char *param)
 
 int	is_light_ratio(char *param)
 {
-	if (!str_is_float(param))
+	if (!str_is_double(param))
 		return (printf("Error in light ratio parameter %s\n", param), 0);
 	if (ft_atof(param) < -1.0 || ft_atof(param) > 1.0)
 		return (printf("Light ratio out of range %s\n", param), 0);
@@ -112,7 +112,7 @@ int	is_vector(char *param)
 	i = -1;
 	while (arr[++i])
 	{
-		if (!str_is_float(arr[i]))
+		if (!str_is_double(arr[i]))
 			return (free_arr(arr),
 				printf("Error in vector paramter %s\n", param), 0);
 		if (ft_atof(arr[i]) < -1.0 || ft_atof(arr[i]) > 1.0)

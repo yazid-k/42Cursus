@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:56:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/08/16 15:13:46 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/09/22 16:47:57 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINIRT_H
 
 # include "libs/libft/libft.h"
-# include "libs/MinilibX/elcapitan/mlx.h"
+# include "libs/minilibx-linux/mlx.h"
 # include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>
@@ -36,9 +36,9 @@ typedef enum e_type
 
 typedef struct s_coord
 {
-	float	x;
-	float	y;
-	float	z;
+	double	x;
+	double	y;
+	double	z;
 }	t_coord;
 
 typedef struct s_ray
@@ -50,19 +50,19 @@ typedef struct s_ray
 typedef struct s_elem
 {
 	t_type				type;
-	float				light;
+	double				light;
 	int					rgb;
 	t_coord				coord;
 	t_coord				vector;
 	int					fov;
-	float				diameter;
-	float				height;
+	double				diameter;
+	double				height;
 	struct s_elem		*next;
 }	t_elem;
 
 typedef struct s_matrix
 {
-	float	m[4][4];
+	double	m[4][4];
 }	t_matrix;
 
 typedef struct s_data
@@ -83,12 +83,12 @@ typedef struct s_data
 	//1
 void		free_arr(char **arr);
 void		print_arr(char **arr);
-int			str_is_float(char *str);
+int			str_is_double(char *str);
 int			str_is_int(char *str);
 int			max(int a, int b);
 	//2
 int			arr_size(char **arr);
-t_coord		coord(float x, float y, float z);
+t_coord		coord(double x, double y, double z);
 void		print_coord(t_coord c);
 t_elem		*get_elem_by_type(t_data *data, t_type type);
 	//3
@@ -156,7 +156,7 @@ void		render(t_data *data);
 int			light(t_coord p, t_data *data, t_elem *elem);
 
 //Math
-float		distance(t_coord v1, t_coord v2);
+double		distance(t_coord v1, t_coord v2);
 t_coord		norm(t_coord v);
 t_coord		vec_add(t_coord v1, t_coord v2);
 t_coord		vec_sub(t_coord v1, t_coord v2);

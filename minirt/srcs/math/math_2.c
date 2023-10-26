@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:37:52 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/08/16 00:55:25 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/09/22 16:47:57 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ t_matrix	camera_matrix(t_elem *camera)
 
 double	pos_min(double a, double b)
 {
-	if (a < 0 && b < 0)
+	if (a < 0. && b < 0.)
 		return (NAN);
-	else if (a < 0)
+	else if (a < 0.)
 		return (b);
-	else if (b < 0)
+	else if (b < 0.)
 		return (a);
 	else if (a < b)
 		return (a);

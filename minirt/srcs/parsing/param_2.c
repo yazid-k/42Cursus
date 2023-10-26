@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:46:49 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/25 15:50:14 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/09/22 16:24:04 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_fov(char *param)
 
 int	is_measure(char *param)
 {
-	if (!str_is_float(param))
+	if (!str_is_double(param))
 		return (printf("Error in measure parameter %s\n", param), 0);
 	if (ft_atof(param) <= 0.0)
 		return (printf("Measure out of range %s\n", param), 0);

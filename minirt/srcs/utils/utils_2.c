@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:57:57 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/07/26 16:25:48 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/09/22 16:47:57 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	arr_size(char **arr)
 	return (i);
 }
 
-t_coord	coord(float x, float y, float z)
+t_coord	coord(double x, double y, double z)
 {
 	t_coord	ret;
 

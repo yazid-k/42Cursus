@@ -6,7 +6,7 @@
 /*   By: ekadiri <ekadiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:11:33 by ekadiri           #+#    #+#             */
-/*   Updated: 2023/05/25 17:18:02 by ekadiri          ###   ########.fr       */
+/*   Updated: 2023/09/22 16:24:04 by ekadiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	print_arr(char **arr)
 	}
 }
 
-int	str_is_float(char *str)
+int	str_is_double(char *str)
 {
 	int	i;
 	int	count;
