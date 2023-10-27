@@ -1,0 +1,2 @@
+#docker build -t nginximg srcs/requirements/nginx
+#docker run -it --rm -d -p 443:443 --name nginxcontainer nginximg
