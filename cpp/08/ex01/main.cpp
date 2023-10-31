@@ -1,5 +1,5 @@
 #include "Span.hpp"
-
+#include <stdlib.h>
 int main()
 {
 	Span sp(20000);

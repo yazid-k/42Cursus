@@ -1,10 +1,14 @@
 #include "ScalarConverter.hpp"
 
-int	main(int ac, char **av)
+int	main(int argc, char **argv)
 {
-	if (ac != 2)
-		return (0);
-	ScalarConverter	sc = ScalarConverter(av[1]);
-	sc.convert();
+	if (argc != 2)
+	{
+		std::cout << "Usage: ./convert [value]" << std::endl;
+		return (1);
+	}
+	ScalarConverter	converter(argv[1]);
+	converter.setType();
+	converter.convert();
 	return (0);
 }

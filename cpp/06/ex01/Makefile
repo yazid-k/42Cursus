@@ -1,9 +1,9 @@
-NAME=iter
+NAME=serializer
 CPP=c++
 FLAGS=-Wall -Wextra -Werror -std=c++98
 OBJDIR = .obj
-SRCS=main.cpp
-HEADERS=Iter.h
+SRCS=main.cpp Serializer.cpp
+HEADERS=Serializer.hpp
 OBJS=$(addprefix $(OBJDIR)/, $(SRCS:.cpp=.o))
 all: $(NAME)
 $(NAME): $(OBJS) $(HEADERS)

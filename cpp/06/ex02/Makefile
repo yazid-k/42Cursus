@@ -1,9 +1,9 @@
-NAME=iter
+NAME=identify
 CPP=c++
 FLAGS=-Wall -Wextra -Werror -std=c++98
 OBJDIR = .obj
 SRCS=main.cpp
-HEADERS=Iter.h
+HEADERS=A.hpp B.hpp C.hpp Base.hpp
 OBJS=$(addprefix $(OBJDIR)/, $(SRCS:.cpp=.o))
 all: $(NAME)
 $(NAME): $(OBJS) $(HEADERS)

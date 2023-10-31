@@ -1,15 +1,18 @@
-SRCS=main.cpp
-OBJS=$(SRCS:.cpp=.o)
-NAME=iter
+NAME=array
 CPP=c++
 FLAGS=-Wall -Wextra -Werror -std=c++98
+OBJDIR = .obj
+SRCS=main.cpp
+HEADERS=Array.hpp
+OBJS=$(addprefix $(OBJDIR)/, $(SRCS:.cpp=.o))
 all: $(NAME)
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(HEADERS)
 	$(CPP) $(FLAGS) $(OBJS) -o $(NAME)
-%.o: %.cpp
-	$(CPP) $(FLAGS) -c $< -o $@
+$(OBJDIR)/%.o: %.cpp $(HEADERS)
+	mkdir -p $(dir $@)
+	$(CPP) $(FLAGS) $(OPTS) -c $< -o $@
 clean:
-	rm -f $(OBJS)
+	rm -rf $(OBJDIR)
 fclean: clean
 	rm -f $(NAME)
 re: fclean all

@@ -2,27 +2,18 @@
 
 template <typename T> void	iter(T *a, int l, void (*f)(T))
 {
-	if (!a)
-		return (NULL);
 	for (int i = 0; i < l; i++)
 		f(a[i]);
 }
 
-void	f1(int i)
+template <typename T> void	f(T t)
 {
-	std::cout << i << std::endl;
-}
-
-void	f2(char c)
-{
-	std::cout << c << std::endl;
+	std::cout << t << std::endl;
 }
 
 int main(void)
 {
-	int		testInt[7] = {0,1,2,3};
-	char	testStr[5] = "abcd";
-	iter(testInt, 5, &f1);
-	iter(testStr, 4, &f2);
+	int	test[4] = {0,1,2,3};
+	iter(test, 4, &f);
 	return 0;
 }

@@ -1,7 +1,6 @@
 #include "easyfind.h"
 #include <list>
 #include <vector>
-
 template <typename T>
 int	easyfind(T cont, int i)
 {
@@ -31,11 +30,13 @@ int main()
 
 	try
 	{
-		int result = easyfind(lst, 301);
-		std::cout << "Element found: " << result << std::endl;
+		int result = easyfind(lst, 10);
+		std::cout << "Element found in list : " << result << std::endl;
+		result = easyfind(vec, 2);
+		std::cout << "Element found in vector : " << result << std::endl;
 	}
-	 catch (const std::runtime_error& e)
-	 {
+	catch (const std::runtime_error& e)
+	{
 		std::cerr << "Error: " << e.what() << std::endl;
 	}
 	return (0);

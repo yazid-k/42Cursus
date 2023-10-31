@@ -2,7 +2,8 @@
 #define SPAN_HPP
 #include <iostream>
 #include <list>
-
+#include <cmath>
+#include <algorithm>
 class Span
 {
 private:
