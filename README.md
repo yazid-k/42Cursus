@@ -33,7 +33,7 @@ ft_irc : \
 inception : \
 cpp : \
 &nbsp;&nbsp;&nbsp;&nbsp;05 : 100\
-&nbsp;&nbsp;&nbsp;&nbsp;06 : \
-&nbsp;&nbsp;&nbsp;&nbsp;07 : \
-&nbsp;&nbsp;&nbsp;&nbsp;08 : \
+&nbsp;&nbsp;&nbsp;&nbsp;06 : 100\
+&nbsp;&nbsp;&nbsp;&nbsp;07 :\
+&nbsp;&nbsp;&nbsp;&nbsp;08 :\
 &nbsp;&nbsp;&nbsp;&nbsp;09 : 
