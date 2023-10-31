@@ -2,6 +2,8 @@
 
 template <typename T> void	iter(T *a, int l, void (*f)(T))
 {
+	if (!a)
+		return (NULL);
 	for (int i = 0; i < l; i++)
 		f(a[i]);
 }
