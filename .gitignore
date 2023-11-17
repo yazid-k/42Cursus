@@ -5,7 +5,8 @@
 
 ## Other
 .DS_STORE
-
+inception/data/*/*
+inception/srcs/.env
 
 
 ## Template from https://github.com/github/gitignore
@@ -61,4 +62,4 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-
+inception/srcs/.env
