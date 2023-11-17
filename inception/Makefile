@@ -1,21 +1,21 @@
-NAME=inception
+FILE=srcs/docker-compose.yml
 
-NGINX=nginx
-MARIADB=mariadb
-WORDPRESS=wordpress
+DATA=./data
 
-IMGDIR=srcs/requirements
+all : build
 
-$(NAME): $(NGINX) $(MARIADB) $(WORDPRESS)
+build :
+	mkdir -p $(DATA)/mariadb
+	mkdir -p $(DATA)/wordpress
+	docker-compose -f $(FILE) build
+	docker-compose -f $(FILE) up -d
 
-$(NGINX):
-	docker build -t $(NGINX)img $(IMGDIR)/$(NGINX)
-	docker run -it --rm -d -p 443:443 --name $(NGINX)container $(NGINX)img
+clean :
+	docker-compose -f $(FILE) down
 
-$(MARIADB):
-	docker build -t $(MARIADB)img $(IMGDIR)/$(MARIADB)
-	docker run -it --rm --name $(MARIADB)container $(MARIADB)img
+fclean : clean
+	rm -rf $(DATA)
+	docker system prune -af
 
-$(WORDPRESS):
-	docker build -t $(WORDPRESS)img $(IMGDIR)/$(WORDPRESS)
-	docker run -it --rm --name $(WORDPRESS)container $(WORDPRESS)img
+re : fclean build
+
