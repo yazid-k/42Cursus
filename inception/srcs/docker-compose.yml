@@ -57,7 +57,7 @@ services:
     restart: unless-stopped
     env_file: .env
     healthcheck:
-      test: 'curl -kfsSL https://localhost:443/status'
+      test: 'curl -kfsSL https://localhost:443/'
       interval: 5s
       timeout: 1s
       retries: 10
