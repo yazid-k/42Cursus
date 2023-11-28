@@ -34,4 +34,4 @@ fi
 
 mkdir -p /run/php
 
-php-fpm7.4 -F -R
+php-fpm7.4 --nodaemonize --configuration /etc/php.7.3/fpm/pool.d/www.conf
