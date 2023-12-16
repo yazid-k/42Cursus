@@ -29,11 +29,13 @@ cpp : \
 &nbsp;&nbsp;&nbsp;&nbsp;03 : 100\
 &nbsp;&nbsp;&nbsp;&nbsp;04 : 100
 # Rank 05 :
-ft_irc : \
+ft_irc : 115\
 inception : 100\
 cpp : \
 &nbsp;&nbsp;&nbsp;&nbsp;05 : 100\
 &nbsp;&nbsp;&nbsp;&nbsp;06 : 100\
 &nbsp;&nbsp;&nbsp;&nbsp;07 : 100\
 &nbsp;&nbsp;&nbsp;&nbsp;08 : 100\
-&nbsp;&nbsp;&nbsp;&nbsp;09 : 100 
+&nbsp;&nbsp;&nbsp;&nbsp;09 : 100
+# Rank 06 :
+ft_transcendence : 
