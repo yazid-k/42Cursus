@@ -38,4 +38,4 @@ cpp : \
 &nbsp;&nbsp;&nbsp;&nbsp;08 : 100\
 &nbsp;&nbsp;&nbsp;&nbsp;09 : 100
 # Rank 06 :
-ft_transcendence : 
+ft_transcendence : 110 
