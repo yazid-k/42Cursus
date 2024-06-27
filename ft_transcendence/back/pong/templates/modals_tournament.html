@@ -1,0 +1,81 @@
+{% comment %} MODALE POUR LE TOURNAMENT LOCAL {% endcomment %}
+<div class="modal fade" id="localTournament" tabindex="-1" aria-labelledby="tourModalLabel" aria-hidden="true">
+	<div class="modal-dialog tourModal" style="min-width: 700px;">
+		<div class="modal-content bg-dark-subtle shadow">
+			<div class="modal-header">
+				<h5 class="modal-title" id="tourModalLabel" data-translate="localtourn">Local tournament</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body d-flex justify-content-center align-items-center">
+				<div class="canvas" width="600" height="600">
+					<canvas id="CanvasTourLocal" width="600" height="600"></canvas>
+					<script>
+						var pongScript;
+						document.addEventListener('DOMContentLoaded', function() {
+							var canvasModal = document.getElementById('localTournament');
+
+							canvasModal.addEventListener('show.bs.modal', function () {
+								console.log('ONLINE');
+								pongScript = document.createElement('script');
+								pongScript.src = '../static/scripts/pongtournamentlocal.js';
+								pongScript.defer = true;
+								document.body.appendChild(pongScript);
+							});
+							canvasModal.addEventListener('hidden.bs.modal', function () {
+								if (pongScript) {
+									document.body.removeChild(pongScript);
+									pongScript = null;
+									// stopPongGame(); 
+								}
+							});
+						});
+					</script>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary btn-sm shadow-sm" data-bs-dismiss="modal" data-translate="close">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+{% comment %} MODALE POUR LE TOURNAMENT ONLINE {% endcomment %}
+<div class="modal fade" id="onlineTournament" tabindex="-1" aria-labelledby="tourModalLabel" aria-hidden="true">
+	<div class="modal-dialog tourModal" style="min-width: 700px;">
+		<div class="modal-content bg-dark-subtle shadow">
+			<div class="modal-header">
+				<h5 class="modal-title" id="tourModalLabel" data-translate="onlinetourn">Online tournament</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="canvas" width="600" height="600">
+					<canvas id="CanvasTourOnline" width="600" height="600">
+						<script>
+							var pongScript;
+							document.addEventListener('DOMContentLoaded', function() {
+								var canvasModal = document.getElementById('onlineTournament');
+
+								canvasModal.addEventListener('show.bs.modal', function () {
+									console.log('ONLINE TOURNAMENT');
+									pongScript = document.createElement('script');
+									pongScript.src = '../static/scripts/pongtournamentonline.js';
+									pongScript.defer = true;
+									document.body.appendChild(pongScript);
+								});
+								canvasModal.addEventListener('hidden.bs.modal', function () {
+									if (pongScript) {
+										document.body.removeChild(pongScript);
+										pongScript = null;
+										// stopPongGame(); 
+									}
+								});
+							});
+						</script>
+					</canvas>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary btn=sm shadow-sm" data-bs-dismiss="modal" data-translate="close">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

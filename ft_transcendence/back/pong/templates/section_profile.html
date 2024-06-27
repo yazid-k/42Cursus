@@ -1,0 +1,50 @@
+<section id="profile" class="mt-5 pt-5 pb-4 container mx-auto" style="max-width : 750px">
+    <div class="bg-light text-center border border-light border-opacity-25 bg-opacity-25 rounded shadow text-light">
+        <div class="d-flex justify-content-between col mb-2">
+            <div class="me-auto w-100 d-flex text-align-center justify-content-center">
+                <h2 class="text-light my-3 ms-5" data-translate="welcome">Welcome</h2>
+				<h2 id='usernameDisplay' class="text-light my-3 ms-2">{{ username }} !</h2>
+            </div>
+            <a class="btn btn-lg text-light ms-auto" role="button" title="Log out" href="{% url 'logout' %}">
+                <i class="bi-x-square"></i>
+            </a>
+        </div>
+        <div class="col mb-2 ">
+            <img id='avatarDisplay' class="rounded-circle shadow-lg" src="{{ avatar }}" alt="User avatar" style="width: 60px; height: 60px;">
+        </div>
+        <div class="col mb-2">
+            <a class="btn btn-sm text-light" href="#" data-bs-toggle="modal" data-bs-target="#profileModal" data-translate="edit">
+                edit profile
+                <i class="bi bi-pencil-fill ms-1"></i>
+            </a>
+        </div>
+    </div>
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content bg-dark-subtle shadow">
+				<div class="modal-header">
+					<h5 class="modal-title" id="profileModalLabel" data-translate="update">Update profile</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="updateProfileForm" action="update_profile" method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="mb-3">
+							<label for="username" class="form-label" data-translate="username">Username</label>
+							<input type="text" class="form-control text-secondary" id="username" name="username" value="{{ request.user.first_name }}">
+						</div>
+						<div class="mb-3">
+							<label for="profile_picture" class="form-label" data-translate="picture">Profile Picture</label>
+							<input type="file" class="form-control text-secondary" id="profile_picture" name="profile_picture">
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-sm btn-primary shadow-sm" data-translate="save">Save changes</button>
+							<button type="button" class="btn btn-sm btn-secondary shadow-sm" data-bs-dismiss="modal" data-translate="close">Close</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<script src="/static/scripts/update_profile.js"></script>

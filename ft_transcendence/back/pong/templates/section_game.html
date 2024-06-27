@@ -1,0 +1,119 @@
+<div class="col mb-3 mx-auto">
+    <div class="colSize p-3 bg-light border border-light border-opacity-25 bg-opacity-25 rounded shadow text-light">
+        <div class="d-flex text-align-center">
+            <h3 class="mb-4 ms-2" data-translate="game">Game</h3>
+            <h3 class="mb-4 ms-2"><i class="bi bi-joystick"></i></h3>
+        </div>
+        <div class="mb-3">
+            <div id="playDiv" style="height: 150px; display: flex; flex-direction: column; justify-content: center;" class="col-10 bg-white bg-opacity-25 p-1 rounded shadow-sm mx-auto">
+                <div class="mb-2 text-center">
+                    <p class="mb-2" data-translate="play">Play a:</p>
+                    <button id="playSingle" class="btn btn-dark btn-sm shadow-sm text-light col-8 mb-2" data-translate="match">Match</button>
+                    <button id="playTournament" class="btn btn-dark btn-sm shadow-sm text-light col-8" data-translate="tournament">Tournament</button>
+                </div>
+            </div>
+        </div>
+        <hr class="col-10 mt-0 mb-3 mx-auto">
+        <div id="stats-profile-{{ id }}">
+            <div style="height: 200px;" class="overflow-auto">
+                <div class="col-10 bg-white bg-opacity-25 p-3 mb-2 rounded shadow-sm mx-auto" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#winsModal">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <div class="progress" data-bs-toggle="tooltip" title="% of matches won">
+                                <div class="progress-bar bg-primary progressWon" role="progressbar" style="width: {{ stats.wp }}%" aria-valuenow="{{ stats.wp }}" aria-valuemin="0" aria-valuemax="100">{{ stats.wp }}%</div>
+                            </div>
+                        </div>
+                        <div class="col-7 d-flex align-items-center">
+                            <p class="m-0" data-translate="won">Win(s)</p>
+                            <p class="m-0 ms-1" id="won">({{ stats.won }})</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-10 bg-white bg-opacity-25 p-3 mb-2 rounded shadow-sm mx-auto" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#lossesModal">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <div class="progress" data-bs-toggle="tooltip" title="% of matches lost">
+                                <div class="progress-bar bg-danger progressLost" role="progressbar" style="width: {{ stats.lp }}%" aria-valuenow="{{ stats.lp }}" aria-valuemin="0" aria-valuemax="100">{{ stats.lp }}%</div>
+                            </div>
+                        </div>
+                        <div class="col-7 d-flex align-items-center">
+                            <p class="m-0" data-translate="lost">Defeat(s)</p>
+                            <p class="m-0 ms-1" id="lost">({{ stats.lost }})</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-10 bg-white bg-opacity-25 p-3 mb-2 rounded shadow-sm mx-auto">
+                    <div class="row align-items-center">
+                        <div class="col" >
+                            <div class="text-center d-flex align-items-center justify-content-center">
+                                <p class="m-0"><i class='bi bi-trophy-fill me-1'></i></p>
+                                <p class="m-0" data-translate="tourn"></i>Tournament(s) won</p>
+                                <p class="m-0 ms-1" id="tourn">({{ stats.tourn }})</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="lossesModal" tabindex="-1" aria-labelledby="lossesModalLabel" aria-hidden="true">
+    <div class="modal-dialog lossesModal" >
+        <div class="modal-content bg-dark-subtle shadow">
+            <div class="modal-header">
+                <h5 class="modal-title" id="lossesModalLabel">Lost matches history</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ms-5 overflow-auto" style="height: 200px;">
+                <div>
+                    <ul id="losses-history-{{ id }}" class="list-unstyled d-flex flex-column text-align-center">
+                        {% for match in stats.matches %}
+                            <li>
+                                {% if match.result == "Loss" %}
+                                    <p class="mb-1"><span class="bg-danger p-1 rounded-1 text-light shadow-sm px-2">loss</span>
+                                    vs <span class="bg-white bg-opacity-50 p-1 rounded-1 text-dark shadow-sm px-2">{{ match.opponent_name }}</span>
+                                    ({{ match.user_score }} - {{ match.opponent_score }})</p>
+                                    <p class="ms-3 fw-light text-dark text-opacity-75">played on {{ match.time }}</p>
+                                {%endif%}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm shadow-sm" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="winsModal" tabindex="-1" aria-labelledby="winsModalLabel" aria-hidden="true">
+    <div class="modal-dialog winsModal" >
+        <div class="modal-content bg-dark-subtle shadow">
+            <div class="modal-header">
+                <h5 class="modal-title" id="winsModalLabel">Won matches history</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ms-5 overflow-auto" style="height: 200px;">
+                <div>
+                    <ul id="wins-history-{{ id }}" class="list-unstyled">
+                        {% for match in matches %}
+                            <li>
+                                {% if match.result == "Win" %}
+                                    <p class="mb-1"><span class="bg-primary p-1 rounded-1 text-light shadow-sm px-2">win</span>
+                                    vs <span class="bg-white bg-opacity-50 p-1 rounded-1 text-dark shadow-sm px-2">{{ match.opponent_name }}</span>
+                                    ({{ match.user_score }} - {{ match.opponent_score }})</p>
+                                    <p class="ms-3 fw-light text-dark text-opacity-75">played on {{ match.time }}</p>
+                                {%endif%}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm shadow-sm" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'modals_match.html' %}
+{% include 'modals_tournament.html' %}
