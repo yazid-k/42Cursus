@@ -22,6 +22,7 @@ def building(s):
     print(f"{sum(1 for c in s if c.isspace())} spaces")
     print(f"{sum(1 for c in s if c.isdigit())} digits")
 
+
 def main():
     args = sys.argv[1:]
     try:
