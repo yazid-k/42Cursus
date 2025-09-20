@@ -1,11 +1,14 @@
 import sys
 
 def parse_equation(equation):
-    terms = equation.replace(" ", "").replace("-", "+-").split("=")
+    terms = equation.replace(" ", "").replace("--", "+").replace("-", "+-").split("=")
+    print(terms)
     left_terms = terms[0].split("+")
     right_terms = terms[1].split("+")
     right_terms = list(filter(None, right_terms))
     left_terms = list(filter(None, left_terms))
+    print(left_terms)
+    print(right_terms)
     coefficients = {0: 0, 1: 0, 2: 0}  # Supports up to 2nd degree polynomial equations.
     if (left_terms == right_terms):
         print("The equation is always true.")
